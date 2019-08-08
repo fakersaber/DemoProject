@@ -1,0 +1,9 @@
+syntax = "proto3";
+import "CreateObjectInfo.proto";
+
+message UpdateInfo {
+    int32 PlayerId = 1;
+    YVector2 Position = 2;
+    float Rotation = 3;
+}
+
