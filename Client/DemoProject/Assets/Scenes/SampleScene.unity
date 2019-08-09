@@ -277,6 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitPrefab: {fileID: 5572640139597223413, guid: fad4bb3cd8e3cb642bf6847721b55689,
     type: 3}
+  LocalPlayer: 1
 --- !u!4 &1868474202
 Transform:
   m_ObjectHideFlags: 0

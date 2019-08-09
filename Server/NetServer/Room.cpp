@@ -79,24 +79,32 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 					}
 				}
 
-				//开始同步数据
-				UpdateInfo ReciveData;
-				char Sendbuffer[1024];
-				uint32_t offset = 0;
-				while (RetVal != 0) {
-					int realsize = *reinterpret_cast<int*>(RevData + offset);
-					ReciveData.ParseFromArray(RevData + sizeof(int) + offset, realsize);
-					RetVal = RetVal - realsize - sizeof(int);
-					offset = offset + realsize + sizeof(int);
+				//开始同步数据，仅仅转发
 
-					ReciveData.SerializeToArray(Sendbuffer + sizeof(int) * 2, ReciveData.ByteSize());
-					Room::Encode(Protocal::MESSAGE_UPDATEDATA, ReciveData.ByteSize(), Sendbuffer);
-					for (auto client : UserList) {
-						if (client != UserTable[ReciveData.playerid()]) {
-							send(client, Sendbuffer, sizeof(int) * 2 + ReciveData.ByteSize(), 0);
-						}	
+				for (auto client : UserList) {
+					if (client != AllSocketSet.fd_array[i]) {
+						send(client, RevData, RetVal, 0);
 					}
 				}
+
+
+				//UpdateInfo ReciveData;
+				//char Sendbuffer[1024];
+				//uint32_t offset = 0;
+				//while (RetVal != 0) {
+				//	int realsize = *reinterpret_cast<int*>(RevData + offset);
+				//	ReciveData.ParseFromArray(RevData + sizeof(int) + offset, realsize);
+				//	RetVal = RetVal - realsize - sizeof(int);
+				//	offset = offset + realsize + sizeof(int);
+
+				//	ReciveData.SerializeToArray(Sendbuffer + sizeof(int) * 2, ReciveData.ByteSize());
+				//	Room::Encode(Protocal::MESSAGE_UPDATEDATA, ReciveData.ByteSize(), Sendbuffer);
+				//	for (auto client : UserList) {
+				//		if (client != UserTable[ReciveData.playerid()]) {
+				//			send(client, Sendbuffer, sizeof(int) * 2 + ReciveData.ByteSize(), 0);
+				//		}	
+				//	}
+				//}
 			}
 		}
 	}

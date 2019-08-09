@@ -35,7 +35,6 @@ public class AccrossThreadHelper : MonoSingleton<AccrossThreadHelper>
                     delegateList.Clear();
                 }
             }
-
             yield return new WaitForSeconds(0.01f);
         }
     }
