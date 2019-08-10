@@ -31,13 +31,10 @@ void Room::CreateObject(SOCKET socket,int index) {
 
 void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 
-	std::unordered_map<int, SOCKET> UserTable;
-
 	//通知客户端创建对象
 	int index = 1;
 	for (auto iter = UserList.begin(); iter != UserList.end(); ++iter,++index) {
 		CreateObject(*iter,index);
-		UserTable.insert(std::make_pair(index, *iter));
 	}
 
 
@@ -48,7 +45,7 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 	FD_ZERO(&AllSocketSet);
 	for (auto UserSock : UserList)
 		FD_SET(UserSock, &AllSocketSet);
-	char RevData[1024] = { 0 };
+	char RevData[4096] = { 0 };
 	int RetVal = 0;
 	while (true){
 		ReadFd = AllSocketSet;
@@ -61,8 +58,9 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 		for (uint32_t i = 0; i < AllSocketSet.fd_count; ++i) {
 			//有数据可读
 			if (FD_ISSET(AllSocketSet.fd_array[i], &ReadFd)) {
-				RetVal = recv(AllSocketSet.fd_array[i], RevData, 1024, 0);
-
+				RetVal = recv(AllSocketSet.fd_array[i], RevData, 4096, 0);
+				if (RetVal == 4096)
+					printf("Out!!!");
 				//连接异常
 				{
 					if (RetVal == SOCKET_ERROR || !RetVal) {
@@ -73,7 +71,7 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 						else {
 							auto err = WSAGetLastError();
 							if (err == WSAECONNRESET) { printf("Client is forced to close\n"); }
-							else { printf("unkown error\n"); }
+							else { printf("unkown error %d \n",err); }
 						}
 						continue;
 					}

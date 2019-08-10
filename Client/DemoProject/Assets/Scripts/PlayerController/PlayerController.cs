@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     private UpdateInfo UpdateClass;
     private YVector2 UpdateVec;
 
+    private bool isOK = true;
+
+    private int CurWaitFrame = 0;
+
     private void Awake()
     {
         PlayerRigidbody = GetComponent<Rigidbody2D>();
@@ -61,27 +65,39 @@ public class PlayerController : MonoBehaviour
             ReflectCurScale += ReflectLerpScaleDelta;
             PlayerRigidbody.MovePosition(Vector2.Lerp(ReflectStartPosition, ReflectEndPosition, ReflectCurScale));
             PlayerRigidbody.MoveRotation(Mathf.LerpAngle(ReflectStartRotation, ReflectEndRotation, ReflectCurScale));
-            //反弹后一定要使输入系数无效，可能存在未处理完的输入改变包，同样需要忽略
-            NetCurScale = 2f;
-            NetPositionScale = 2f;
+
+            if (ReflectCurScale > 1f)
+            {
+                isOK = true;
+                CurWaitFrame = 0;
+                NetCurScale = 2f;
+                NetPositionScale = 2f;
+            }
         }
 
         //同步移动插值
         else
         {
+            if (!isOK)
+            {
+                CurWaitFrame++;
+                if (CurWaitFrame < 3) return;
+                CurWaitFrame = 0;
+                isOK = true;
+                //return;
+            }
+
             if (NetCurScale <= 1f)
             {
                 NetCurScale += 0.2f;
                 PlayerRigidbody.MoveRotation(Mathf.LerpAngle(StartSynchronizerot, EndSynchronizerot, NetCurScale));
             }
-            if(NetPositionScale <= 1f)
+            if (NetPositionScale <= 1f)
             {
                 NetPositionScale += 0.5f;
                 PlayerRigidbody.MovePosition(Vector2.Lerp(StartSynchronizepos, EndSynchronizepos, NetPositionScale));
-            }   
+            }
         }
-
-
     }
 
 
@@ -89,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(NetClass.LocalPlayer == 1)
+        if (NetClass.LocalPlayer == 1)
         {
             Vector2 VelocityDir = new Vector2(0f, 0f);
             for (int i = 0; i < collision.contactCount; ++i)
@@ -107,10 +123,12 @@ public class PlayerController : MonoBehaviour
             UpdateClass.Rotation = ReflectEndRotation;
             NetClass.SendDataToServer(UpdateClass, (int)Protocal.MESSAGE_REFLECTDATA);
         }
+        else
+        {
+            isOK = false;
+        }
     }
 
-
-    //普通更新代码
     private void UpdateCode()
     {
         PlayerRigidbody.angularVelocity = 0f;

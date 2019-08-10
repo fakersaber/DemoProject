@@ -6,13 +6,14 @@ using UnityEngine;
 
 public class LocalPlayerController : MonoBehaviour
 {
+
+    public int TestCount = 0;
+
     //config
     public float ReflectTime = 0.5f; //反弹变化时间
     public float InputTime = 0.2f; //输入变化时间
     public float NormalSpeed = 3f; //正常速度
     public float SpurtSpeed = 6f; //冲刺速度
-    //public SpurtButton SpurtTouch;
-
 
     public float ReflectLerpScaleDelta = 0f;
     public float ReflectCurScale = 2f; //设置为2防止初始进入插值情况，反弹插值系数
@@ -21,7 +22,7 @@ public class LocalPlayerController : MonoBehaviour
     public float ReflectStartRotation;
     public float ReflectEndRotation;
     public float LastRotation;
-    public float DeltaRotate;
+    public float DeltaRotate = 0f;
 
 
     private float InputLerpScaleDelta = 0f;
@@ -29,7 +30,7 @@ public class LocalPlayerController : MonoBehaviour
     private float StartInputRotation;
     private float EndInputRotation;
     private float LastInputRotation;
-    
+
 
 
     private Rigidbody2D PlayerRigidbody;
@@ -37,12 +38,15 @@ public class LocalPlayerController : MonoBehaviour
     private bool isSpurt = false;
     private Vector2 ZeroVec;
 
-   
+
     private NetWorkManager NetClass;
 
     //用于同步的缓存类
     private UpdateInfo UpdateClass;
     private YVector2 UpdateVec;
+    private bool isOK = true; // 初始可以动
+
+    private int CurWaitFrame = 0;
 
 
     private void Awake()
@@ -72,9 +76,7 @@ public class LocalPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         UpdateCode();
-
         #region
         //检查冲刺时间
         //if (SpurtTouch.SpurtTime > 0f)
@@ -92,72 +94,61 @@ public class LocalPlayerController : MonoBehaviour
             ReflectCurScale += ReflectLerpScaleDelta;
             PlayerRigidbody.MovePosition(Vector2.Lerp(ReflectStartPosition, ReflectEndPosition, ReflectCurScale));
             PlayerRigidbody.MoveRotation(Mathf.LerpAngle(ReflectStartRotation, ReflectEndRotation, ReflectCurScale));
-            //反弹后一定要使输入系数无效
-            InputCurScale = 2f;
-        }
 
+            if(ReflectCurScale > 1f)
+            {
+                isOK = true;
+                CurWaitFrame = 0;
+                InputCurScale = 2f;
+            }
+        }
         //移动插值
         else
         {
-            if(direct.sqrMagnitude > 1e-7)
+            if (!isOK)
+            {
+                CurWaitFrame++;
+                if (CurWaitFrame < 3) return;
+                CurWaitFrame = 0;
+                isOK = true;
+            }
+            
+            if (direct.sqrMagnitude > 1e-7)
             {
                 Vector2 DeltaPostion;
-
-                #region
-                //if(isSpurt)
-                //{
-                //    DeltaPostion = PlayerRigidbody.transform.up * Time.fixedDeltaTime * SpurtSpeed;
-                //}
-                //else
-                //{
-                #endregion
-
                 DeltaPostion = direct * Time.fixedDeltaTime * NormalSpeed;
                 PlayerRigidbody.MovePosition(PlayerRigidbody.position + DeltaPostion);
-
                 EndInputRotation = MathTool.MappingRotation(direct.normalized);
                 //如果输入发生变化或者是当前是发生反弹后，从当前位置重新插值
-                if (Mathf.Abs(LastInputRotation - EndInputRotation) > 1e-6 || Mathf.Abs(InputCurScale-2.0f) < 1e-6)
+                if (Mathf.Abs(LastInputRotation - EndInputRotation) > 1e-6 || Mathf.Abs(InputCurScale - 2.0f) < 1e-6)
                 {
                     StartInputRotation = PlayerRigidbody.rotation;
                     LastInputRotation = EndInputRotation;
                     InputCurScale = 0f;
                 }
-
                 if (InputCurScale <= 1f)
                 {
                     InputCurScale += InputLerpScaleDelta;
                 }
-
-                PlayerRigidbody.MoveRotation(Mathf.LerpAngle(StartInputRotation, EndInputRotation, InputCurScale));
-                SendData(NetClass.LocalPlayer, PlayerRigidbody.position + DeltaPostion, Mathf.LerpAngle(StartInputRotation, EndInputRotation, InputCurScale));
+                float CurAng = Mathf.LerpAngle(StartInputRotation, EndInputRotation, InputCurScale);
+                PlayerRigidbody.MoveRotation(CurAng);
+                SendData(NetClass.LocalPlayer, PlayerRigidbody.position + DeltaPostion, CurAng,(int)Protocal.MESSAGE_UPDATEDATA);
             }
         }
     }
 
 
-    private void SendData(int id,Vector2 position,float rotation)
+    private void SendData(int id, Vector2 position, float rotation,int protocal)
     {
         UpdateClass.PlayerId = id;
         UpdateVec.X = position.x;
         UpdateVec.Y = position.y;
         UpdateClass.Position = UpdateVec;
         UpdateClass.Rotation = rotation;
-        NetClass.SendDataToServer(UpdateClass, (int)Protocal.MESSAGE_UPDATEDATA);
-        //NetClass.AllPlayerSendInfo[NetClass.LocalPlayer] = UpdateClass;
+        NetClass.SendDataToServer(UpdateClass, protocal);
     }
 
-    private void UpdateCode()
-    {
-        PlayerRigidbody.angularVelocity = 0f;
-        PlayerRigidbody.velocity = ZeroVec;
 
-        if (NetClass.LocalPlayer == 1)
-        {
-            DeltaRotate = PlayerRigidbody.rotation - LastRotation;
-            LastRotation = PlayerRigidbody.rotation;
-        }
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -171,17 +162,25 @@ public class LocalPlayerController : MonoBehaviour
             ReflectStartRotation = PlayerRigidbody.rotation;
             ReflectEndRotation = PlayerRigidbody.rotation + (Mathf.Abs(DeltaRotate) < 1e-6 ? 0f : (DeltaRotate < 0f ? 45f : -45f));
             ReflectCurScale = 0f;
+            SendData(NetClass.LocalPlayer, ReflectEndPosition, ReflectEndRotation, (int)Protocal.MESSAGE_REFLECTDATA);
+        }
+        else
+        {
+            //等待反弹同步信息到来之前不能进行任何操作
+            isOK = false;
+        }
 
-
-            UpdateClass.PlayerId = NetClass.LocalPlayer;
-            UpdateVec.X = ReflectEndPosition.x;
-            UpdateVec.Y = ReflectEndPosition.y;
-            UpdateClass.Position = UpdateVec;
-            UpdateClass.Rotation = ReflectEndRotation;
-            NetClass.SendDataToServer(UpdateClass, (int)Protocal.MESSAGE_REFLECTDATA);
+    }
+    private void UpdateCode()
+    {
+        PlayerRigidbody.angularVelocity = 0f;
+        PlayerRigidbody.velocity = ZeroVec;
+        if (NetClass.LocalPlayer == 1)
+        {
+            DeltaRotate = PlayerRigidbody.rotation - LastRotation;
+            LastRotation = PlayerRigidbody.rotation;
         }
     }
-
 }
 
 

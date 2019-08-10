@@ -16,7 +16,7 @@ public class NetWorkManager : MonoBehaviour
     public GameObject InitPrefab;
     private Socket LocalSocket;
     private const int ServerPort = 8000;
-    private const string ServerIp = "127.0.0.1";
+    private const string ServerIp = "192.168.124.207";
     private Thread recvThread;
     //private GameObject otherPlayer;
     private AccrossThreadHelper HelperClass;
@@ -25,7 +25,6 @@ public class NetWorkManager : MonoBehaviour
     
 
     //每个玩家自己对应的发送内容
-    //public Dictionary<int, UpdateInfo> AllPlayerSendInfo;
     public Dictionary<int, GameObject> AllPlayerInfo;
 
     //每次更新直接使用的缓存
@@ -34,10 +33,8 @@ public class NetWorkManager : MonoBehaviour
     void Start()
     {
         HelperClass = AccrossThreadHelper.Instance;
-        //AllPlayerSendInfo = new Dictionary<int, UpdateInfo>();
         AllPlayerInfo = new Dictionary<int, GameObject>();
         Connect();
-        //StartCoroutine(Send());
     }
 
 
@@ -59,32 +56,16 @@ public class NetWorkManager : MonoBehaviour
     }
 
 
-    //IEnumerator Send()
-    //{
-    //    //硬编码，玩家id都是1到roomsize
-    //    while (true)
-    //    {
-    //        for(int index = 1;index <= AllPlayerSendInfo.Count; ++index)
-    //        {
-    //            if (AllPlayerSendInfo[index] != null)
-    //            {
-    //                SendDataToServer(AllPlayerSendInfo[index],(int)Protocal.MESSAGE_UPDATEDATA);
-    //                AllPlayerSendInfo[index] = null;
-    //            }
-    //        }
-    //        yield return new WaitForSeconds(0.04f);
-    //    }
-    //}
-
-
     private void RecvThread()
     {
-        byte[] readBuff = new byte[1024];
+        byte[] readBuff = new byte[4096];
         while (true)
         {
             try
             {
                 int len = LocalSocket.Receive(readBuff);
+                if (len == 4096)
+                    Debug.Log("out!");
                 int offset = 0;
                 while (len != 0)
                 {
@@ -96,10 +77,10 @@ public class NetWorkManager : MonoBehaviour
                             HandleCreateObject(CreateObjInfo.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
                             break;
                         case (int)Protocal.MESSAGE_UPDATEDATA:
-                            HandleUpdateData(UpdateInfo.Parser.ParseFrom(readBuff, sizeof(int) * 2, size));
+                            HandleUpdateData(UpdateInfo.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
                             break;
                         case (int)Protocal.MESSAGE_REFLECTDATA:
-                            HandleReflectData(UpdateInfo.Parser.ParseFrom(readBuff, sizeof(int) * 2, size));
+                            HandleReflectData(UpdateInfo.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
                             break;
                         default:
                             break;
@@ -122,8 +103,6 @@ public class NetWorkManager : MonoBehaviour
     {
         //线程安全的委托列表单例
         HelperClass.AddDelegate(() => {
-            //创建所有玩家的更新结构
-            //AllPlayerSendInfo.Add(message.PlayerId, null);
             GameObject NewObject =  Instantiate(InitPrefab,new Vector3(message.Position.X, message.Position.Y, 0f),Quaternion.Euler(0f,0f,message.Rotation));
             AllPlayerInfo.Add(message.PlayerId, NewObject);
             if (message.IsManclient)
@@ -145,9 +124,9 @@ public class NetWorkManager : MonoBehaviour
     {
         //更新
         HelperClass.AddDelegate(() =>{
-            Rigidbody2D TargetRigidbody = AllPlayerInfo[message.PlayerId].GetComponent<Rigidbody2D>();
+            //每次同步位置时，若在反弹状态中，直接丢弃包
             PlayerController Controller = AllPlayerInfo[message.PlayerId].GetComponent<PlayerController>();
-
+            Rigidbody2D TargetRigidbody = AllPlayerInfo[message.PlayerId].GetComponent<Rigidbody2D>();
             //更新插值的值
             TargetPosition.x = message.Position.X;
             TargetPosition.y = message.Position.Y;
@@ -157,9 +136,6 @@ public class NetWorkManager : MonoBehaviour
             Controller.EndSynchronizerot = message.Rotation;
             Controller.NetCurScale = 0f;
             Controller.NetPositionScale = 0f;
-
-
-            //TargetRigidbody.MovePosition(TargetPosition);
         });
     }
 
@@ -180,7 +156,6 @@ public class NetWorkManager : MonoBehaviour
                 LocalPlayer.ReflectEndPosition = new Vector2(message.Position.X, message.Position.Y);
                 LocalPlayer.ReflectStartRotation = TargetRigidbody.rotation;
                 LocalPlayer.ReflectEndRotation = message.Rotation;
-                //本地用户不需要处理，没有输入时不会同步
             }
             else
             {
