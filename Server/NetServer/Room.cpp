@@ -36,12 +36,9 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 	for (auto iter = UserList.begin(); iter != UserList.end(); ++iter,++index) {
 		CreateObject(*iter,index);
 	}
-
-
 	 //select模型  
 	fd_set AllSocketSet;
 	fd_set ReadFd;
-	fd_set WriteFd;
 	FD_ZERO(&AllSocketSet);
 	for (auto UserSock : UserList)
 		FD_SET(UserSock, &AllSocketSet);
@@ -49,8 +46,7 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 	int RetVal = 0;
 	while (true){
 		ReadFd = AllSocketSet;
-		WriteFd = AllSocketSet;
-		RetVal = select(0, &ReadFd, &WriteFd, NULL, NULL);
+		RetVal = select(0, &ReadFd, NULL, NULL, NULL);
 		if (RetVal == SOCKET_ERROR){
 			printf("create Room error or room end\n");
 			return;
@@ -59,8 +55,6 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 			//有数据可读
 			if (FD_ISSET(AllSocketSet.fd_array[i], &ReadFd)) {
 				RetVal = recv(AllSocketSet.fd_array[i], RevData, 4096, 0);
-				if (RetVal == 4096)
-					printf("Out!!!");
 				//连接异常
 				{
 					if (RetVal == SOCKET_ERROR || !RetVal) {

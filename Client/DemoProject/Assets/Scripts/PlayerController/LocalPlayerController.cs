@@ -154,6 +154,8 @@ public class LocalPlayerController : MonoBehaviour
     {
         if(NetClass.LocalPlayer == 1)
         {
+            Debug.Log(collision.collider.GetHashCode());
+
             Vector2 VelocityDir = new Vector2(0f, 0f);
             for (int i = 0; i < collision.contactCount; ++i)
                 VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;
