@@ -36,7 +36,6 @@ public class LocalPlayerController : MonoBehaviour
     private Rigidbody2D PlayerRigidbody;
     private Vector2 direct;
     private bool isSpurt = false;
-    private Vector2 ZeroVec;
 
 
     private NetWorkManager NetClass;
@@ -54,7 +53,6 @@ public class LocalPlayerController : MonoBehaviour
         PlayerRigidbody = GetComponent<Rigidbody2D>();
         ReflectLerpScaleDelta = Time.fixedDeltaTime / ReflectTime;
         InputLerpScaleDelta = Time.fixedDeltaTime / InputTime;
-        ZeroVec = new Vector2(0f, 0f);
         NetClass = GameObject.Find("GameManager").GetComponent<NetWorkManager>();
         UpdateClass = new UpdateInfo();
         UpdateVec = new YVector2();
@@ -154,8 +152,7 @@ public class LocalPlayerController : MonoBehaviour
     {
         if(NetClass.LocalPlayer == 1)
         {
-            Debug.Log(collision.collider.GetHashCode());
-
+            //Debug.Log(collision.collider.GetHashCode());
             Vector2 VelocityDir = new Vector2(0f, 0f);
             for (int i = 0; i < collision.contactCount; ++i)
                 VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;
@@ -176,7 +173,7 @@ public class LocalPlayerController : MonoBehaviour
     private void UpdateCode()
     {
         PlayerRigidbody.angularVelocity = 0f;
-        PlayerRigidbody.velocity = ZeroVec;
+        PlayerRigidbody.velocity = Vector2.zero;
         if (NetClass.LocalPlayer == 1)
         {
             DeltaRotate = PlayerRigidbody.rotation - LastRotation;

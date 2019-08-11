@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 
     NetWorkManager NetClass;
     Rigidbody2D PlayerRigidbody;
-    private Vector2 ZeroVec;
 
     public Vector2 StartSynchronizepos;
     public Vector2 EndSynchronizepos;
@@ -44,7 +43,6 @@ public class PlayerController : MonoBehaviour
     {
         PlayerRigidbody = GetComponent<Rigidbody2D>();
         NetClass = GameObject.Find("GameManager").GetComponent<NetWorkManager>();
-        ZeroVec = new Vector2(0f, 0f);
         ReflectLerpScaleDelta = Time.fixedDeltaTime / ReflectTime;
         UpdateClass = new UpdateInfo();
         UpdateVec = new YVector2();
@@ -107,7 +105,7 @@ public class PlayerController : MonoBehaviour
     {
         if (NetClass.LocalPlayer == 1)
         {
-            Debug.Log(collision.collider.GetHashCode());
+            //Debug.Log(collision.collider.GetHashCode());
             Vector2 VelocityDir = new Vector2(0f, 0f);
             for (int i = 0; i < collision.contactCount; ++i)
                 VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;
@@ -133,7 +131,7 @@ public class PlayerController : MonoBehaviour
     private void UpdateCode()
     {
         PlayerRigidbody.angularVelocity = 0f;
-        PlayerRigidbody.velocity = ZeroVec;
+        PlayerRigidbody.velocity = Vector2.zero;
 
         if (NetClass.LocalPlayer == 1)
         {

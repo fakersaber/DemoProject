@@ -14,6 +14,7 @@ public class NetWorkManager : MonoBehaviour
 
 
     public GameObject InitPrefab;
+    public GameObject InitCamera;
     private Socket LocalSocket;
     private const int ServerPort = 8000;
     private const string ServerIp = "192.168.124.207";
@@ -109,6 +110,7 @@ public class NetWorkManager : MonoBehaviour
             {
                 var Controller = NewObject.AddComponent<LocalPlayerController>();
                 LocalPlayer = message.PlayerId;
+                Instantiate(InitCamera, new Vector3(message.Position.X, message.Position.Y, -10f), Quaternion.Euler(0f, 0f, 0f));
             }
             else
             {
