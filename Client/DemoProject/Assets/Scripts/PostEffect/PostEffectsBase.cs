@@ -10,10 +10,10 @@ public class PostEffectsBase : MonoBehaviour
     public Shader curShader;
 
 
-    void Start()
-    {
-        CheckResources();
-    }
+    //void Start()
+    //{
+    //    CheckResources();
+    //}
 
 
     public Material material
@@ -30,15 +30,15 @@ public class PostEffectsBase : MonoBehaviour
     }
 
 
-    protected bool CheckResources()
-    {
-        if(SystemInfo.supportsImageEffects == false || SystemInfo.supportsRenderTextures == false)
-        {
-            Debug.LogWarning("This platform does not support");
-            return false;
-        }
-        return true;
-    }
+    //protected bool CheckResources()
+    //{
+    //    if(SystemInfo.supportsImageEffects == false || SystemInfo.supportsRenderTextures == false)
+    //    {
+    //        Debug.LogWarning("This platform does not support");
+    //        return false;
+    //    }
+    //    return true;
+    //}
 
 
 
