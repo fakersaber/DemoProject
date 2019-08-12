@@ -24,11 +24,15 @@ public static partial class UpdateInfoReflection {
         string.Concat(
           "ChBVcGRhdGVJbmZvLnByb3RvGhZDcmVhdGVPYmplY3RJbmZvLnByb3RvIk0K",
           "ClVwZGF0ZUluZm8SEAoIUGxheWVySWQYASABKAUSGwoIUG9zaXRpb24YAiAB",
-          "KAsyCS5ZVmVjdG9yMhIQCghSb3RhdGlvbhgDIAEoAmIGcHJvdG8z"));
+          "KAsyCS5ZVmVjdG9yMhIQCghSb3RhdGlvbhgDIAEoAiJhCgpBdHRha2VJbmZv",
+          "EhAKCFBsYXllcklkGAEgASgFEg4KBkRhbWFnZRgCIAEoBRIUCgxFZmZlY3Rz",
+          "SW5kZXgYAyABKAUSGwoIUG9zaXRpb24YBCABKAsyCS5ZVmVjdG9yMmIGcHJv",
+          "dG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { global::CreateObjectInfoReflection.Descriptor, },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::UpdateInfo), global::UpdateInfo.Parser, new[]{ "PlayerId", "Position", "Rotation" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::UpdateInfo), global::UpdateInfo.Parser, new[]{ "PlayerId", "Position", "Rotation" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::AttakeInfo), global::AttakeInfo.Parser, new[]{ "PlayerId", "Damage", "EffectsIndex", "Position" }, null, null, null, null)
         }));
   }
   #endregion
@@ -218,6 +222,231 @@ public sealed partial class UpdateInfo : pb::IMessage<UpdateInfo> {
         }
         case 29: {
           Rotation = input.ReadFloat();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class AttakeInfo : pb::IMessage<AttakeInfo> {
+  private static readonly pb::MessageParser<AttakeInfo> _parser = new pb::MessageParser<AttakeInfo>(() => new AttakeInfo());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<AttakeInfo> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::UpdateInfoReflection.Descriptor.MessageTypes[1]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public AttakeInfo() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public AttakeInfo(AttakeInfo other) : this() {
+    playerId_ = other.playerId_;
+    damage_ = other.damage_;
+    effectsIndex_ = other.effectsIndex_;
+    position_ = other.position_ != null ? other.position_.Clone() : null;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public AttakeInfo Clone() {
+    return new AttakeInfo(this);
+  }
+
+  /// <summary>Field number for the "PlayerId" field.</summary>
+  public const int PlayerIdFieldNumber = 1;
+  private int playerId_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int PlayerId {
+    get { return playerId_; }
+    set {
+      playerId_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "Damage" field.</summary>
+  public const int DamageFieldNumber = 2;
+  private int damage_;
+  /// <summary>
+  ///伤害值
+  /// </summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int Damage {
+    get { return damage_; }
+    set {
+      damage_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "EffectsIndex" field.</summary>
+  public const int EffectsIndexFieldNumber = 3;
+  private int effectsIndex_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int EffectsIndex {
+    get { return effectsIndex_; }
+    set {
+      effectsIndex_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "Position" field.</summary>
+  public const int PositionFieldNumber = 4;
+  private global::YVector2 position_;
+  /// <summary>
+  ///用于播放特效
+  /// </summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::YVector2 Position {
+    get { return position_; }
+    set {
+      position_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as AttakeInfo);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(AttakeInfo other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (PlayerId != other.PlayerId) return false;
+    if (Damage != other.Damage) return false;
+    if (EffectsIndex != other.EffectsIndex) return false;
+    if (!object.Equals(Position, other.Position)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (PlayerId != 0) hash ^= PlayerId.GetHashCode();
+    if (Damage != 0) hash ^= Damage.GetHashCode();
+    if (EffectsIndex != 0) hash ^= EffectsIndex.GetHashCode();
+    if (position_ != null) hash ^= Position.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (PlayerId != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(PlayerId);
+    }
+    if (Damage != 0) {
+      output.WriteRawTag(16);
+      output.WriteInt32(Damage);
+    }
+    if (EffectsIndex != 0) {
+      output.WriteRawTag(24);
+      output.WriteInt32(EffectsIndex);
+    }
+    if (position_ != null) {
+      output.WriteRawTag(34);
+      output.WriteMessage(Position);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (PlayerId != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(PlayerId);
+    }
+    if (Damage != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Damage);
+    }
+    if (EffectsIndex != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(EffectsIndex);
+    }
+    if (position_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(AttakeInfo other) {
+    if (other == null) {
+      return;
+    }
+    if (other.PlayerId != 0) {
+      PlayerId = other.PlayerId;
+    }
+    if (other.Damage != 0) {
+      Damage = other.Damage;
+    }
+    if (other.EffectsIndex != 0) {
+      EffectsIndex = other.EffectsIndex;
+    }
+    if (other.position_ != null) {
+      if (position_ == null) {
+        Position = new global::YVector2();
+      }
+      Position.MergeFrom(other.Position);
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 8: {
+          PlayerId = input.ReadInt32();
+          break;
+        }
+        case 16: {
+          Damage = input.ReadInt32();
+          break;
+        }
+        case 24: {
+          EffectsIndex = input.ReadInt32();
+          break;
+        }
+        case 34: {
+          if (position_ == null) {
+            Position = new global::YVector2();
+          }
+          input.ReadMessage(Position);
           break;
         }
       }

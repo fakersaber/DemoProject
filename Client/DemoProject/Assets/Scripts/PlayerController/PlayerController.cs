@@ -8,8 +8,11 @@ public class PlayerController : MonoBehaviour
 {
     public float ReflectTime = 0.5f; //反弹变化时间
 
-    NetWorkManager NetClass;
-    Rigidbody2D PlayerRigidbody;
+    private NetWorkManager NetClass;
+    private Rigidbody2D PlayerRigidbody;
+    private PlayerHealth Health;
+    private bool isOK = true;
+    private int CurWaitFrame = 0;
 
     public Vector2 StartSynchronizepos;
     public Vector2 EndSynchronizepos;
@@ -34,18 +37,19 @@ public class PlayerController : MonoBehaviour
     //用于同步的缓存类
     private UpdateInfo UpdateClass;
     private YVector2 UpdateVec;
+    private AttakeInfo AttackClass;
 
-    private bool isOK = true;
 
-    private int CurWaitFrame = 0;
 
     private void Awake()
     {
         PlayerRigidbody = GetComponent<Rigidbody2D>();
+        Health = GetComponent<PlayerHealth>();
         NetClass = GameObject.Find("GameManager").GetComponent<NetWorkManager>();
         ReflectLerpScaleDelta = Time.fixedDeltaTime / ReflectTime;
         UpdateClass = new UpdateInfo();
         UpdateVec = new YVector2();
+        AttackClass = new AttakeInfo();
     }
 
     private void Start()
@@ -105,7 +109,36 @@ public class PlayerController : MonoBehaviour
     {
         if (NetClass.LocalPlayer == 1)
         {
-            //Debug.Log(collision.collider.GetHashCode());
+            int SelfIndex = collision.otherCollider.GetHashCode();
+            int otherIndex = collision.collider.GetHashCode();
+            PlayerHealth otherHealth = collision.gameObject.GetComponent<PlayerHealth>();
+
+            if (Health.WeaponIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
+            {
+                //武器对武器
+                SendAttackInfo((int)SpecialEffects.WEAPONTOWEAPON, 0, collision.contacts[0].point);
+                Debug.Log("weapon vs weapon");
+            }
+            else if (Health.BodyIndex == SelfIndex && otherHealth.BodyIndex == otherIndex)
+            {
+                //身体对身体
+                SendAttackInfo((int)SpecialEffects.BADYTOBADY, 0, collision.contacts[0].point);
+                Debug.Log("body vs body");
+            }
+            else if (Health.BodyIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
+            {
+                //自己身体对武器
+                SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, 2, collision.contacts[0].point);
+                Health.SubHp(2);
+                Debug.Log("sub hp");
+            }
+            //else if (Health.WeaponIndex == SelfIndex && otherHealth.BodyIndex == otherIndex)
+            //{
+            //    //自己武器对身体，扣血逻辑对方控制，这里只播放特效
+            //    SendAttackInfo((int)SpecialEffects.WEAPONTOBODY, 0, collision.contacts[0].point);
+            //    Debug.Log("damage");
+            //}
+
             Vector2 VelocityDir = new Vector2(0f, 0f);
             for (int i = 0; i < collision.contactCount; ++i)
                 VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;
@@ -124,8 +157,22 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            //特效播放都是主端发送消息到本地，不是主端不管碰撞逻辑
             isOK = false;
         }
+    }
+
+
+
+    private void SendAttackInfo(int EffectsIndex,int Damage,Vector2 ContactPoint)
+    {
+        AttackClass.PlayerId = PlayerId;
+        UpdateVec.X = ContactPoint.x;
+        UpdateVec.Y = ContactPoint.y;
+        AttackClass.Position = UpdateVec;
+        AttackClass.EffectsIndex = EffectsIndex;
+        AttackClass.Damage = Damage;
+        NetClass.SendDataToServer(AttackClass, (int)Protocal.MESSAGE_DAMAGE);
     }
 
     private void UpdateCode()

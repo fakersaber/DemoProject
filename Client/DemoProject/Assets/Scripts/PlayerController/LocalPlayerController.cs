@@ -9,12 +9,14 @@ public class LocalPlayerController : MonoBehaviour
 
     public int TestCount = 0;
 
-    //config
+    #region 
     public float ReflectTime = 0.5f; //反弹变化时间
     public float InputTime = 0.2f; //输入变化时间
     public float NormalSpeed = 3f; //正常速度
     public float SpurtSpeed = 6f; //冲刺速度
+    #endregion
 
+    #region
     public float ReflectLerpScaleDelta = 0f;
     public float ReflectCurScale = 2f; //设置为2防止初始进入插值情况，反弹插值系数
     public Vector2 ReflectStartPosition;
@@ -23,39 +25,38 @@ public class LocalPlayerController : MonoBehaviour
     public float ReflectEndRotation;
     public float LastRotation;
     public float DeltaRotate = 0f;
+    #endregion
 
-
+    #region
     private float InputLerpScaleDelta = 0f;
     private float InputCurScale = 2f; //输入插值系数
     private float StartInputRotation;
     private float EndInputRotation;
     private float LastInputRotation;
-
+    #endregion
 
 
     private Rigidbody2D PlayerRigidbody;
+    private PlayerHealth Health;
     private Vector2 direct;
     private bool isSpurt = false;
-
-
     private NetWorkManager NetClass;
-
-    //用于同步的缓存类
     private UpdateInfo UpdateClass;
     private YVector2 UpdateVec;
     private bool isOK = true; // 初始可以动
-
     private int CurWaitFrame = 0;
-
+    private AttakeInfo AttackClass;
 
     private void Awake()
     {
         PlayerRigidbody = GetComponent<Rigidbody2D>();
+        Health = GetComponent<PlayerHealth>();
         ReflectLerpScaleDelta = Time.fixedDeltaTime / ReflectTime;
         InputLerpScaleDelta = Time.fixedDeltaTime / InputTime;
         NetClass = GameObject.Find("GameManager").GetComponent<NetWorkManager>();
         UpdateClass = new UpdateInfo();
         UpdateVec = new YVector2();
+        AttackClass = new AttakeInfo();
     }
 
     private void Start()
@@ -152,7 +153,36 @@ public class LocalPlayerController : MonoBehaviour
     {
         if(NetClass.LocalPlayer == 1)
         {
-            //Debug.Log(collision.collider.GetHashCode());
+            int SelfIndex = collision.otherCollider.GetHashCode();
+            int otherIndex = collision.collider.GetHashCode();
+            PlayerHealth otherHealth = collision.gameObject.GetComponent<PlayerHealth>();
+
+            if (Health.WeaponIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
+            {
+                //武器对武器
+                SendAttackInfo((int)SpecialEffects.WEAPONTOWEAPON, 0, collision.contacts[0].point);
+                Debug.Log("weapon vs weapon");
+            }
+            else if (Health.BodyIndex == SelfIndex && otherHealth.BodyIndex == otherIndex)
+            {
+                //身体对身体
+                SendAttackInfo((int)SpecialEffects.BADYTOBADY, 0, collision.contacts[0].point);
+                Debug.Log("body vs body");
+            }
+            else if (Health.BodyIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
+            {
+                //自己身体对武器
+                SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, 2, collision.contacts[0].point);
+                Health.SubHp(2);
+                Debug.Log("sub hp");
+            }
+            //else if (Health.WeaponIndex == SelfIndex && otherHealth.BodyIndex == otherIndex)
+            //{
+            //    //自己武器对身体，扣血逻辑对方控制，这里只播放特效
+            //    SendAttackInfo((int)SpecialEffects.WEAPONTOBODY, 0, collision.contacts[0].point);
+            //    Debug.Log("damage");
+            //}
+
             Vector2 VelocityDir = new Vector2(0f, 0f);
             for (int i = 0; i < collision.contactCount; ++i)
                 VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;
@@ -168,8 +198,21 @@ public class LocalPlayerController : MonoBehaviour
             //等待反弹同步信息到来之前不能进行任何操作
             isOK = false;
         }
-
     }
+
+
+    private void SendAttackInfo(int EffectsIndex, int Damage, Vector2 ContactPoint)
+    {
+        AttackClass.PlayerId = NetClass.LocalPlayer;
+        UpdateVec.X = ContactPoint.x;
+        UpdateVec.Y = ContactPoint.y;
+        AttackClass.Position = UpdateVec;
+        AttackClass.EffectsIndex = EffectsIndex;
+        AttackClass.Damage = Damage;
+        NetClass.SendDataToServer(AttackClass, (int)Protocal.MESSAGE_DAMAGE);
+    }
+
+
     private void UpdateCode()
     {
         PlayerRigidbody.angularVelocity = 0f;

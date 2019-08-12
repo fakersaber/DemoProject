@@ -7,3 +7,12 @@ message UpdateInfo {
     float Rotation = 3;
 }
 
+
+message AttakeInfo
+{
+    int32 PlayerId = 1;
+    int32 Damage = 2; //伤害值
+    int32 EffectsIndex = 3;
+    YVector2 Position = 4; //用于播放特效
+}
+

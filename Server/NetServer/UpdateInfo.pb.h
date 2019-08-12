@@ -48,17 +48,21 @@ struct TableStruct_UpdateInfo_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[1]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[2]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_UpdateInfo_2eproto;
+class AttakeInfo;
+class AttakeInfoDefaultTypeInternal;
+extern AttakeInfoDefaultTypeInternal _AttakeInfo_default_instance_;
 class UpdateInfo;
 class UpdateInfoDefaultTypeInternal;
 extern UpdateInfoDefaultTypeInternal _UpdateInfo_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
+template<> ::AttakeInfo* Arena::CreateMaybeMessage<::AttakeInfo>(Arena*);
 template<> ::UpdateInfo* Arena::CreateMaybeMessage<::UpdateInfo>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
@@ -210,6 +214,161 @@ class UpdateInfo :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_UpdateInfo_2eproto;
 };
+// -------------------------------------------------------------------
+
+class AttakeInfo :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:AttakeInfo) */ {
+ public:
+  AttakeInfo();
+  virtual ~AttakeInfo();
+
+  AttakeInfo(const AttakeInfo& from);
+  AttakeInfo(AttakeInfo&& from) noexcept
+    : AttakeInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline AttakeInfo& operator=(const AttakeInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AttakeInfo& operator=(AttakeInfo&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const AttakeInfo& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const AttakeInfo* internal_default_instance() {
+    return reinterpret_cast<const AttakeInfo*>(
+               &_AttakeInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(AttakeInfo& a, AttakeInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AttakeInfo* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AttakeInfo* New() const final {
+    return CreateMaybeMessage<AttakeInfo>(nullptr);
+  }
+
+  AttakeInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<AttakeInfo>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const AttakeInfo& from);
+  void MergeFrom(const AttakeInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(AttakeInfo* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "AttakeInfo";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_UpdateInfo_2eproto);
+    return ::descriptor_table_UpdateInfo_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPositionFieldNumber = 4,
+    kPlayerIdFieldNumber = 1,
+    kDamageFieldNumber = 2,
+    kEffectsIndexFieldNumber = 3,
+  };
+  // .YVector2 Position = 4;
+  bool has_position() const;
+  void clear_position();
+  const ::YVector2& position() const;
+  ::YVector2* release_position();
+  ::YVector2* mutable_position();
+  void set_allocated_position(::YVector2* position);
+
+  // int32 PlayerId = 1;
+  void clear_playerid();
+  ::PROTOBUF_NAMESPACE_ID::int32 playerid() const;
+  void set_playerid(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // int32 Damage = 2;
+  void clear_damage();
+  ::PROTOBUF_NAMESPACE_ID::int32 damage() const;
+  void set_damage(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // int32 EffectsIndex = 3;
+  void clear_effectsindex();
+  ::PROTOBUF_NAMESPACE_ID::int32 effectsindex() const;
+  void set_effectsindex(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // @@protoc_insertion_point(class_scope:AttakeInfo)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::YVector2* position_;
+  ::PROTOBUF_NAMESPACE_ID::int32 playerid_;
+  ::PROTOBUF_NAMESPACE_ID::int32 damage_;
+  ::PROTOBUF_NAMESPACE_ID::int32 effectsindex_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_UpdateInfo_2eproto;
+};
 // ===================================================================
 
 
@@ -294,9 +453,102 @@ inline void UpdateInfo::set_rotation(float value) {
   // @@protoc_insertion_point(field_set:UpdateInfo.Rotation)
 }
 
+// -------------------------------------------------------------------
+
+// AttakeInfo
+
+// int32 PlayerId = 1;
+inline void AttakeInfo::clear_playerid() {
+  playerid_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 AttakeInfo::playerid() const {
+  // @@protoc_insertion_point(field_get:AttakeInfo.PlayerId)
+  return playerid_;
+}
+inline void AttakeInfo::set_playerid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:AttakeInfo.PlayerId)
+}
+
+// int32 Damage = 2;
+inline void AttakeInfo::clear_damage() {
+  damage_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 AttakeInfo::damage() const {
+  // @@protoc_insertion_point(field_get:AttakeInfo.Damage)
+  return damage_;
+}
+inline void AttakeInfo::set_damage(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  damage_ = value;
+  // @@protoc_insertion_point(field_set:AttakeInfo.Damage)
+}
+
+// int32 EffectsIndex = 3;
+inline void AttakeInfo::clear_effectsindex() {
+  effectsindex_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 AttakeInfo::effectsindex() const {
+  // @@protoc_insertion_point(field_get:AttakeInfo.EffectsIndex)
+  return effectsindex_;
+}
+inline void AttakeInfo::set_effectsindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  effectsindex_ = value;
+  // @@protoc_insertion_point(field_set:AttakeInfo.EffectsIndex)
+}
+
+// .YVector2 Position = 4;
+inline bool AttakeInfo::has_position() const {
+  return this != internal_default_instance() && position_ != nullptr;
+}
+inline const ::YVector2& AttakeInfo::position() const {
+  const ::YVector2* p = position_;
+  // @@protoc_insertion_point(field_get:AttakeInfo.Position)
+  return p != nullptr ? *p : *reinterpret_cast<const ::YVector2*>(
+      &::_YVector2_default_instance_);
+}
+inline ::YVector2* AttakeInfo::release_position() {
+  // @@protoc_insertion_point(field_release:AttakeInfo.Position)
+  
+  ::YVector2* temp = position_;
+  position_ = nullptr;
+  return temp;
+}
+inline ::YVector2* AttakeInfo::mutable_position() {
+  
+  if (position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::YVector2>(GetArenaNoVirtual());
+    position_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:AttakeInfo.Position)
+  return position_;
+}
+inline void AttakeInfo::set_allocated_position(::YVector2* position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
+  }
+  if (position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, position, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  position_ = position;
+  // @@protoc_insertion_point(field_set_allocated:AttakeInfo.Position)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
