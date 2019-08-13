@@ -11,23 +11,26 @@ using Google.Protobuf;
 
 public class NetWorkManager : MonoBehaviour
 {
-
+    private const int ServerPort = 8000;
+    private const string ServerIp = "192.168.124.207";
 
     public GameObject InitPrefab;
     public GameObject InitCamera;
     public int LocalPlayer;
+    public Dictionary<int, GameObject> AllPlayerInfo;
+
+
     private Socket LocalSocket;
-    private const int ServerPort = 8000;
-    private const string ServerIp = "192.168.124.207";
     private Thread recvThread;
-    //private GameObject otherPlayer;
     private AccrossThreadHelper HelperClass;
     private GameObject MainCamera;
-    public Dictionary<int, GameObject> AllPlayerInfo;
     private Vector2 TargetPosition;
+    private EnergySpherePool SpherePoll;
+
 
     private void Awake()
     {
+        SpherePoll = GetComponent<EnergySpherePool>();
         MainCamera = Instantiate(InitCamera, new Vector3(0f, 0f, -10f), Quaternion.Euler(0f, 0f, 0f));
     }
 
@@ -57,6 +60,7 @@ public class NetWorkManager : MonoBehaviour
     }
 
 
+    //可优化为函数表
     private void RecvThread()
     {
         byte[] readBuff = new byte[4096];
@@ -72,9 +76,6 @@ public class NetWorkManager : MonoBehaviour
                     int size = System.BitConverter.ToInt32(readBuff, offset + sizeof(int));
                     switch (protocal)
                     {
-                        case (int)Protocal.MESSAGE_CREATEOBJ:
-                            HandleCreateObject(CreateObjInfo.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
-                            break;
                         case (int)Protocal.MESSAGE_UPDATEDATA:
                             HandleUpdateData(UpdateInfo.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
                             break;
@@ -83,6 +84,18 @@ public class NetWorkManager : MonoBehaviour
                             break;
                         case (int)Protocal.MESSAGE_DAMAGE:
                             HandleAttakeInfo(AttakeInfo.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
+                            break;
+                        case (int)Protocal.MESSAGE_COLLECT:
+                            HandleCollectSphere(EnergySphere.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
+                            break;
+                        case (int)Protocal.MESSAGE_GENERATORENERGY:
+                            HandleGeneratorSphere(EnergySphere.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
+                            break;
+                        case (int)Protocal.MESSAGE_INITENERGYSPHERE:
+                            HandleInitEnergySphere(EnergySphereInit.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
+                            break;
+                        case (int)Protocal.MESSAGE_CREATEOBJ:
+                            HandleCreateObject(CreateObjInfo.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
                             break;
                         default:
                             break;
@@ -121,8 +134,6 @@ public class NetWorkManager : MonoBehaviour
         }); 
     }
 
-
-
     private void HandleUpdateData(UpdateInfo message)
     {
         //更新
@@ -148,10 +159,11 @@ public class NetWorkManager : MonoBehaviour
             //每次同步位置时，若在反弹状态中，直接丢弃包
             PlayerHealth Player = AllPlayerInfo[message.PlayerId].GetComponent<PlayerHealth>();
             Player.SubHp(message.Damage);
-            Player.PlayerSpecialEffects(message.EffectsIndex);
+            TargetPosition.x = message.Position.X;
+            TargetPosition.y = message.Position.Y;
+            Player.PlayerSpecialEffects(message.EffectsIndex, TargetPosition);
         });
     }
-
 
     private void HandleReflectData(UpdateInfo message)
     {
@@ -179,7 +191,36 @@ public class NetWorkManager : MonoBehaviour
         });
     }
 
-    //private void HandleDamage()
+    private void HandleInitEnergySphere(EnergySphereInit message)
+    {
+        HelperClass.AddDelegate(() =>{
+            var AllSphereInfo = message.AllSpherePoll;
+            for (int i = 0; i < AllSphereInfo.Count; ++i)
+            {
+                TargetPosition.x = AllSphereInfo[i].Position.X;
+                TargetPosition.y = AllSphereInfo[i].Position.Y;
+                SpherePoll.InitPool(TargetPosition, AllSphereInfo[i].Type, AllSphereInfo[i].SphereId);
+            }
+        });
+    }
+
+    private void HandleCollectSphere(EnergySphere message)
+    {
+        HelperClass.AddDelegate(() =>{
+            SpherePoll.Collect(message.SphereId);
+        });
+    }
+
+    private void HandleGeneratorSphere(EnergySphere message)
+    {
+        HelperClass.AddDelegate(() => {
+            TargetPosition.x = message.Position.X;
+            TargetPosition.y = message.Position.Y;
+            SpherePoll.GeneratorNewSphere(message.SphereId, TargetPosition);
+        });
+    }
+
+
 
     public void SendDataToServer(UpdateInfo SendClass, int protocal)
     {
@@ -203,6 +244,27 @@ public class NetWorkManager : MonoBehaviour
     }
 
     public void SendDataToServer(AttakeInfo SendClass,int protocal)
+    {
+        try
+        {
+            byte[] sendbuffer;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                stream.Write(System.BitConverter.GetBytes(protocal), 0, sizeof(int));
+                stream.Write(System.BitConverter.GetBytes(SendClass.CalculateSize()), 0, sizeof(int)); //原始数据长度
+                stream.Write(SendClass.ToByteArray(), 0, SendClass.CalculateSize());
+                sendbuffer = stream.ToArray();
+            }
+            LocalSocket.Send(sendbuffer);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            Debug.Log("Send Error");
+        }
+    }
+
+    public void SendDataToServer(EnergySphere SendClass,int protocal)
     {
         try
         {

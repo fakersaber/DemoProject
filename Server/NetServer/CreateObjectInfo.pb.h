@@ -47,7 +47,7 @@ struct TableStruct_CreateObjectInfo_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[2]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -57,11 +57,19 @@ extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table
 class CreateObjInfo;
 class CreateObjInfoDefaultTypeInternal;
 extern CreateObjInfoDefaultTypeInternal _CreateObjInfo_default_instance_;
+class EnergySphere;
+class EnergySphereDefaultTypeInternal;
+extern EnergySphereDefaultTypeInternal _EnergySphere_default_instance_;
+class EnergySphereInit;
+class EnergySphereInitDefaultTypeInternal;
+extern EnergySphereInitDefaultTypeInternal _EnergySphereInit_default_instance_;
 class YVector2;
 class YVector2DefaultTypeInternal;
 extern YVector2DefaultTypeInternal _YVector2_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::CreateObjInfo* Arena::CreateMaybeMessage<::CreateObjInfo>(Arena*);
+template<> ::EnergySphere* Arena::CreateMaybeMessage<::EnergySphere>(Arena*);
+template<> ::EnergySphereInit* Arena::CreateMaybeMessage<::EnergySphereInit>(Arena*);
 template<> ::YVector2* Arena::CreateMaybeMessage<::YVector2>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
@@ -222,6 +230,291 @@ class CreateObjInfo :
 };
 // -------------------------------------------------------------------
 
+class EnergySphereInit :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:EnergySphereInit) */ {
+ public:
+  EnergySphereInit();
+  virtual ~EnergySphereInit();
+
+  EnergySphereInit(const EnergySphereInit& from);
+  EnergySphereInit(EnergySphereInit&& from) noexcept
+    : EnergySphereInit() {
+    *this = ::std::move(from);
+  }
+
+  inline EnergySphereInit& operator=(const EnergySphereInit& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EnergySphereInit& operator=(EnergySphereInit&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const EnergySphereInit& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const EnergySphereInit* internal_default_instance() {
+    return reinterpret_cast<const EnergySphereInit*>(
+               &_EnergySphereInit_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(EnergySphereInit& a, EnergySphereInit& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(EnergySphereInit* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline EnergySphereInit* New() const final {
+    return CreateMaybeMessage<EnergySphereInit>(nullptr);
+  }
+
+  EnergySphereInit* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<EnergySphereInit>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const EnergySphereInit& from);
+  void MergeFrom(const EnergySphereInit& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(EnergySphereInit* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "EnergySphereInit";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_CreateObjectInfo_2eproto);
+    return ::descriptor_table_CreateObjectInfo_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAllSpherePollFieldNumber = 1,
+  };
+  // repeated .EnergySphere AllSpherePoll = 1;
+  int allspherepoll_size() const;
+  void clear_allspherepoll();
+  ::EnergySphere* mutable_allspherepoll(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::EnergySphere >*
+      mutable_allspherepoll();
+  const ::EnergySphere& allspherepoll(int index) const;
+  ::EnergySphere* add_allspherepoll();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::EnergySphere >&
+      allspherepoll() const;
+
+  // @@protoc_insertion_point(class_scope:EnergySphereInit)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::EnergySphere > allspherepoll_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_CreateObjectInfo_2eproto;
+};
+// -------------------------------------------------------------------
+
+class EnergySphere :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:EnergySphere) */ {
+ public:
+  EnergySphere();
+  virtual ~EnergySphere();
+
+  EnergySphere(const EnergySphere& from);
+  EnergySphere(EnergySphere&& from) noexcept
+    : EnergySphere() {
+    *this = ::std::move(from);
+  }
+
+  inline EnergySphere& operator=(const EnergySphere& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EnergySphere& operator=(EnergySphere&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const EnergySphere& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const EnergySphere* internal_default_instance() {
+    return reinterpret_cast<const EnergySphere*>(
+               &_EnergySphere_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(EnergySphere& a, EnergySphere& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(EnergySphere* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline EnergySphere* New() const final {
+    return CreateMaybeMessage<EnergySphere>(nullptr);
+  }
+
+  EnergySphere* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<EnergySphere>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const EnergySphere& from);
+  void MergeFrom(const EnergySphere& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(EnergySphere* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "EnergySphere";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_CreateObjectInfo_2eproto);
+    return ::descriptor_table_CreateObjectInfo_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPositionFieldNumber = 3,
+    kSphereIdFieldNumber = 1,
+    kTypeFieldNumber = 2,
+  };
+  // .YVector2 Position = 3;
+  bool has_position() const;
+  void clear_position();
+  const ::YVector2& position() const;
+  ::YVector2* release_position();
+  ::YVector2* mutable_position();
+  void set_allocated_position(::YVector2* position);
+
+  // int32 SphereId = 1;
+  void clear_sphereid();
+  ::PROTOBUF_NAMESPACE_ID::int32 sphereid() const;
+  void set_sphereid(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // int32 type = 2;
+  void clear_type();
+  ::PROTOBUF_NAMESPACE_ID::int32 type() const;
+  void set_type(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // @@protoc_insertion_point(class_scope:EnergySphere)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::YVector2* position_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sphereid_;
+  ::PROTOBUF_NAMESPACE_ID::int32 type_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_CreateObjectInfo_2eproto;
+};
+// -------------------------------------------------------------------
+
 class YVector2 :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:YVector2) */ {
  public:
@@ -264,7 +557,7 @@ class YVector2 :
                &_YVector2_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    3;
 
   friend void swap(YVector2& a, YVector2& b) {
     a.Swap(&b);
@@ -464,6 +757,123 @@ inline void CreateObjInfo::set_rotation(float value) {
 
 // -------------------------------------------------------------------
 
+// EnergySphereInit
+
+// repeated .EnergySphere AllSpherePoll = 1;
+inline int EnergySphereInit::allspherepoll_size() const {
+  return allspherepoll_.size();
+}
+inline void EnergySphereInit::clear_allspherepoll() {
+  allspherepoll_.Clear();
+}
+inline ::EnergySphere* EnergySphereInit::mutable_allspherepoll(int index) {
+  // @@protoc_insertion_point(field_mutable:EnergySphereInit.AllSpherePoll)
+  return allspherepoll_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::EnergySphere >*
+EnergySphereInit::mutable_allspherepoll() {
+  // @@protoc_insertion_point(field_mutable_list:EnergySphereInit.AllSpherePoll)
+  return &allspherepoll_;
+}
+inline const ::EnergySphere& EnergySphereInit::allspherepoll(int index) const {
+  // @@protoc_insertion_point(field_get:EnergySphereInit.AllSpherePoll)
+  return allspherepoll_.Get(index);
+}
+inline ::EnergySphere* EnergySphereInit::add_allspherepoll() {
+  // @@protoc_insertion_point(field_add:EnergySphereInit.AllSpherePoll)
+  return allspherepoll_.Add();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::EnergySphere >&
+EnergySphereInit::allspherepoll() const {
+  // @@protoc_insertion_point(field_list:EnergySphereInit.AllSpherePoll)
+  return allspherepoll_;
+}
+
+// -------------------------------------------------------------------
+
+// EnergySphere
+
+// int32 SphereId = 1;
+inline void EnergySphere::clear_sphereid() {
+  sphereid_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 EnergySphere::sphereid() const {
+  // @@protoc_insertion_point(field_get:EnergySphere.SphereId)
+  return sphereid_;
+}
+inline void EnergySphere::set_sphereid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  sphereid_ = value;
+  // @@protoc_insertion_point(field_set:EnergySphere.SphereId)
+}
+
+// int32 type = 2;
+inline void EnergySphere::clear_type() {
+  type_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 EnergySphere::type() const {
+  // @@protoc_insertion_point(field_get:EnergySphere.type)
+  return type_;
+}
+inline void EnergySphere::set_type(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  type_ = value;
+  // @@protoc_insertion_point(field_set:EnergySphere.type)
+}
+
+// .YVector2 Position = 3;
+inline bool EnergySphere::has_position() const {
+  return this != internal_default_instance() && position_ != nullptr;
+}
+inline void EnergySphere::clear_position() {
+  if (GetArenaNoVirtual() == nullptr && position_ != nullptr) {
+    delete position_;
+  }
+  position_ = nullptr;
+}
+inline const ::YVector2& EnergySphere::position() const {
+  const ::YVector2* p = position_;
+  // @@protoc_insertion_point(field_get:EnergySphere.Position)
+  return p != nullptr ? *p : *reinterpret_cast<const ::YVector2*>(
+      &::_YVector2_default_instance_);
+}
+inline ::YVector2* EnergySphere::release_position() {
+  // @@protoc_insertion_point(field_release:EnergySphere.Position)
+  
+  ::YVector2* temp = position_;
+  position_ = nullptr;
+  return temp;
+}
+inline ::YVector2* EnergySphere::mutable_position() {
+  
+  if (position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::YVector2>(GetArenaNoVirtual());
+    position_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:EnergySphere.Position)
+  return position_;
+}
+inline void EnergySphere::set_allocated_position(::YVector2* position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete position_;
+  }
+  if (position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, position, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  position_ = position;
+  // @@protoc_insertion_point(field_set_allocated:EnergySphere.Position)
+}
+
+// -------------------------------------------------------------------
+
 // YVector2
 
 // float x = 1;
@@ -497,6 +907,10 @@ inline void YVector2::set_y(float value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

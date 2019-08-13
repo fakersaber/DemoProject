@@ -159,29 +159,20 @@ public class LocalPlayerController : MonoBehaviour
 
             if (Health.WeaponIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
             {
-                //武器对武器
                 SendAttackInfo((int)SpecialEffects.WEAPONTOWEAPON, 0, collision.contacts[0].point);
-                Debug.Log("weapon vs weapon");
+                Health.PlayerSpecialEffects((int)SpecialEffects.WEAPONTOWEAPON, collision.contacts[0].point);
             }
             else if (Health.BodyIndex == SelfIndex && otherHealth.BodyIndex == otherIndex)
             {
-                //身体对身体
                 SendAttackInfo((int)SpecialEffects.BADYTOBADY, 0, collision.contacts[0].point);
-                Debug.Log("body vs body");
+                Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOBADY, collision.contacts[0].point);
             }
             else if (Health.BodyIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
             {
-                //自己身体对武器
                 SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, 2, collision.contacts[0].point);
+                Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
                 Health.SubHp(2);
-                Debug.Log("sub hp");
             }
-            //else if (Health.WeaponIndex == SelfIndex && otherHealth.BodyIndex == otherIndex)
-            //{
-            //    //自己武器对身体，扣血逻辑对方控制，这里只播放特效
-            //    SendAttackInfo((int)SpecialEffects.WEAPONTOBODY, 0, collision.contacts[0].point);
-            //    Debug.Log("damage");
-            //}
 
             Vector2 VelocityDir = new Vector2(0f, 0f);
             for (int i = 0; i < collision.contactCount; ++i)

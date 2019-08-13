@@ -8,6 +8,18 @@ message CreateObjInfo{
     float Rotation = 4;
 }
 
+
+message EnergySphereInit{
+    repeated EnergySphere AllSpherePoll = 1;
+}
+
+message EnergySphere{
+    int32 SphereId = 1;
+    int32 type = 2; //能量球类型
+    YVector2 Position = 3;
+}
+
+
 message YVector2{
     float x = 1;
     float y = 2;

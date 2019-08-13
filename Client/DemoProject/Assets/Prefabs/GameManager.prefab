@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4972442427450084614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4972442427450084612}
+  - component: {fileID: 4972442427450084615}
+  - component: {fileID: 4972442427450084613}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4972442427450084612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972442427450084614}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4972442427450084615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972442427450084614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ce16051207a9d40b9e5da98439a52a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitPrefab: {fileID: 1124308295514204076, guid: 2346a0b332f1bb44f82e2ab4679dc97f,
+    type: 3}
+  InitCamera: {fileID: 3506417974055313700, guid: 102d981b8b9a8e444bdc197b36dfd3eb,
+    type: 3}
+  LocalPlayer: 1
+--- !u!114 &4972442427450084613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972442427450084614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f00a186999ea6384facc9f2bc110751d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitSize: 5
+  RedEnergySphere: {fileID: 2782167100430168387, guid: 480e16b2fdc20d048bca545edccbf8eb,
+    type: 3}
+  BlueEnergySphere: {fileID: 8763991897205619649, guid: 8a49a8d40d334a94093dd7c3248bd657,
+    type: 3}
+  YellowEnergySphere: {fileID: 9221476910471732743, guid: 712e0ca97e15ebe45916cefa92f29e68,
+    type: 3}
