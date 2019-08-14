@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerEnergyController                                                                                           : MonoBehaviour
 {
-    static float width = 19.2f;
-    static float height = 10.8f;
+    static float width = 12.8f;
+    static float height = 7.2f;
     private NetWorkManager NetClass;
     private EnergySpherePool SphereManager;
     private YVector2 UpdateVec;

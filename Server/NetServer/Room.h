@@ -40,8 +40,8 @@ public:
 	static void CreateObject(SOCKET socket, int index);
 	static const uint32_t RoomSize = 1;
 	static const uint32_t SphereSize = 5;
-	static const int width = 1920;
-	static const int height = 1080;
+	static const int width = 1280;
+	static const int height = 720;
 };
 
 
