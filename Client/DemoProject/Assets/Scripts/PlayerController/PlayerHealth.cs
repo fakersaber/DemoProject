@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Awake()
     {
-        NetClass = GameObject.Find("GameManager").GetComponent<NetWorkManager>();
+        NetClass = GameObject.FindWithTag("GameManager").GetComponent<NetWorkManager>();
         weaponIndex = gameObject.GetComponents<PolygonCollider2D>()[0].GetHashCode();
         bodyIndex = gameObject.GetComponents<PolygonCollider2D>()[1].GetHashCode();
         WeaponToWeapon = WeaponEffect.GetComponent<ParticleSystem>();

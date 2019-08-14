@@ -13,10 +13,12 @@ message EnergySphereInit{
     repeated EnergySphere AllSpherePoll = 1;
 }
 
+
 message EnergySphere{
-    int32 SphereId = 1;
-    int32 type = 2; //能量球类型
-    YVector2 Position = 3;
+    int32 PlayerId = 1; //获取或消耗的玩家id
+    int32 SphereId = 2;
+    int32 type = 3; //能量球类型
+    YVector2 Position = 4;
 }
 
 

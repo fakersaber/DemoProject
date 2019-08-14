@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     private Rigidbody2D LocalPlayerRididbody;
     private NetWorkManager NetClass;
-    private float MoveTime = 0.1f;
+    private float MoveTime = 0f;
     private Vector2 currentVelocity = Vector2.zero;
     private Vector3 CacheVec;
 

@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerRigidbody = GetComponent<Rigidbody2D>();
         Health = GetComponent<PlayerHealth>();
-        NetClass = GameObject.Find("GameManager").GetComponent<NetWorkManager>();
+        NetClass = GameObject.FindWithTag("GameManager").GetComponent<NetWorkManager>();
         ReflectLerpScaleDelta = Time.fixedDeltaTime / ReflectTime;
         UpdateClass = new UpdateInfo();
         UpdateVec = new YVector2();

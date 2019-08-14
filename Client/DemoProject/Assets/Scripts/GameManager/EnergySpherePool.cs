@@ -8,6 +8,9 @@ public class EnergySpherePool : MonoBehaviour
     public int InitSize = 5;
     private Dictionary<int, GameObject> AllSpherePoll = new Dictionary<int, GameObject>(15);
 
+    //cache component
+    private Dictionary<int, SphereInfo> AllSphereInfo = new Dictionary<int, SphereInfo>(15);
+
     public GameObject RedEnergySphere;
     public GameObject BlueEnergySphere;
     public GameObject YellowEnergySphere;
@@ -30,9 +33,15 @@ public class EnergySpherePool : MonoBehaviour
         }
         TempObj.transform.position = Position;
         AllSpherePoll.Add(SphereId, TempObj);
-        TempObj.GetComponent<SphereInfo>().SphereId = SphereId;
+        var CurComponent = TempObj.GetComponent<SphereInfo>();
+        CurComponent.SphereId = SphereId;
+        AllSphereInfo.Add(SphereId, CurComponent);
     }
 
+    public SphereInfo GetSphereInfo(int SphereIndex)
+    {
+        return AllSphereInfo[SphereIndex];
+    }
 
     public void GeneratorNewSphere(int SphereIndex, Vector2 Position)
     {

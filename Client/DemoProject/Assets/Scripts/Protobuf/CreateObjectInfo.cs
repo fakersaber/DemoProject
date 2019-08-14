@@ -26,15 +26,16 @@ public static partial class CreateObjectInfoReflection {
           "aXNNYW5jbGllbnQYASABKAgSEAoIUGxheWVySWQYAiABKAUSGwoIUG9zaXRp",
           "b24YAyABKAsyCS5ZVmVjdG9yMhIQCghSb3RhdGlvbhgEIAEoAiI4ChBFbmVy",
           "Z3lTcGhlcmVJbml0EiQKDUFsbFNwaGVyZVBvbGwYASADKAsyDS5FbmVyZ3lT",
-          "cGhlcmUiSwoMRW5lcmd5U3BoZXJlEhAKCFNwaGVyZUlkGAEgASgFEgwKBHR5",
-          "cGUYAiABKAUSGwoIUG9zaXRpb24YAyABKAsyCS5ZVmVjdG9yMiIgCghZVmVj",
-          "dG9yMhIJCgF4GAEgASgCEgkKAXkYAiABKAJiBnByb3RvMw=="));
+          "cGhlcmUiXQoMRW5lcmd5U3BoZXJlEhAKCFBsYXllcklkGAEgASgFEhAKCFNw",
+          "aGVyZUlkGAIgASgFEgwKBHR5cGUYAyABKAUSGwoIUG9zaXRpb24YBCABKAsy",
+          "CS5ZVmVjdG9yMiIgCghZVmVjdG9yMhIJCgF4GAEgASgCEgkKAXkYAiABKAJi",
+          "BnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::CreateObjInfo), global::CreateObjInfo.Parser, new[]{ "IsManclient", "PlayerId", "Position", "Rotation" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::EnergySphereInit), global::EnergySphereInit.Parser, new[]{ "AllSpherePoll" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::EnergySphere), global::EnergySphere.Parser, new[]{ "SphereId", "Type", "Position" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::EnergySphere), global::EnergySphere.Parser, new[]{ "PlayerId", "SphereId", "Type", "Position" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::YVector2), global::YVector2.Parser, new[]{ "X", "Y" }, null, null, null, null)
         }));
   }
@@ -407,6 +408,7 @@ public sealed partial class EnergySphere : pb::IMessage<EnergySphere> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public EnergySphere(EnergySphere other) : this() {
+    playerId_ = other.playerId_;
     sphereId_ = other.sphereId_;
     type_ = other.type_;
     position_ = other.position_ != null ? other.position_.Clone() : null;
@@ -418,8 +420,22 @@ public sealed partial class EnergySphere : pb::IMessage<EnergySphere> {
     return new EnergySphere(this);
   }
 
+  /// <summary>Field number for the "PlayerId" field.</summary>
+  public const int PlayerIdFieldNumber = 1;
+  private int playerId_;
+  /// <summary>
+  ///获取或消耗的玩家id
+  /// </summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int PlayerId {
+    get { return playerId_; }
+    set {
+      playerId_ = value;
+    }
+  }
+
   /// <summary>Field number for the "SphereId" field.</summary>
-  public const int SphereIdFieldNumber = 1;
+  public const int SphereIdFieldNumber = 2;
   private int sphereId_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int SphereId {
@@ -430,7 +446,7 @@ public sealed partial class EnergySphere : pb::IMessage<EnergySphere> {
   }
 
   /// <summary>Field number for the "type" field.</summary>
-  public const int TypeFieldNumber = 2;
+  public const int TypeFieldNumber = 3;
   private int type_;
   /// <summary>
   ///能量球类型
@@ -444,7 +460,7 @@ public sealed partial class EnergySphere : pb::IMessage<EnergySphere> {
   }
 
   /// <summary>Field number for the "Position" field.</summary>
-  public const int PositionFieldNumber = 3;
+  public const int PositionFieldNumber = 4;
   private global::YVector2 position_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public global::YVector2 Position {
@@ -467,6 +483,7 @@ public sealed partial class EnergySphere : pb::IMessage<EnergySphere> {
     if (ReferenceEquals(other, this)) {
       return true;
     }
+    if (PlayerId != other.PlayerId) return false;
     if (SphereId != other.SphereId) return false;
     if (Type != other.Type) return false;
     if (!object.Equals(Position, other.Position)) return false;
@@ -476,6 +493,7 @@ public sealed partial class EnergySphere : pb::IMessage<EnergySphere> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
+    if (PlayerId != 0) hash ^= PlayerId.GetHashCode();
     if (SphereId != 0) hash ^= SphereId.GetHashCode();
     if (Type != 0) hash ^= Type.GetHashCode();
     if (position_ != null) hash ^= Position.GetHashCode();
@@ -492,16 +510,20 @@ public sealed partial class EnergySphere : pb::IMessage<EnergySphere> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
-    if (SphereId != 0) {
+    if (PlayerId != 0) {
       output.WriteRawTag(8);
+      output.WriteInt32(PlayerId);
+    }
+    if (SphereId != 0) {
+      output.WriteRawTag(16);
       output.WriteInt32(SphereId);
     }
     if (Type != 0) {
-      output.WriteRawTag(16);
+      output.WriteRawTag(24);
       output.WriteInt32(Type);
     }
     if (position_ != null) {
-      output.WriteRawTag(26);
+      output.WriteRawTag(34);
       output.WriteMessage(Position);
     }
     if (_unknownFields != null) {
@@ -512,6 +534,9 @@ public sealed partial class EnergySphere : pb::IMessage<EnergySphere> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
+    if (PlayerId != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(PlayerId);
+    }
     if (SphereId != 0) {
       size += 1 + pb::CodedOutputStream.ComputeInt32Size(SphereId);
     }
@@ -531,6 +556,9 @@ public sealed partial class EnergySphere : pb::IMessage<EnergySphere> {
   public void MergeFrom(EnergySphere other) {
     if (other == null) {
       return;
+    }
+    if (other.PlayerId != 0) {
+      PlayerId = other.PlayerId;
     }
     if (other.SphereId != 0) {
       SphereId = other.SphereId;
@@ -556,14 +584,18 @@ public sealed partial class EnergySphere : pb::IMessage<EnergySphere> {
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 8: {
-          SphereId = input.ReadInt32();
+          PlayerId = input.ReadInt32();
           break;
         }
         case 16: {
+          SphereId = input.ReadInt32();
+          break;
+        }
+        case 24: {
           Type = input.ReadInt32();
           break;
         }
-        case 26: {
+        case 34: {
           if (position_ == null) {
             Position = new global::YVector2();
           }

@@ -480,11 +480,12 @@ class EnergySphere :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPositionFieldNumber = 3,
-    kSphereIdFieldNumber = 1,
-    kTypeFieldNumber = 2,
+    kPositionFieldNumber = 4,
+    kPlayerIdFieldNumber = 1,
+    kSphereIdFieldNumber = 2,
+    kTypeFieldNumber = 3,
   };
-  // .YVector2 Position = 3;
+  // .YVector2 Position = 4;
   bool has_position() const;
   void clear_position();
   const ::YVector2& position() const;
@@ -492,12 +493,17 @@ class EnergySphere :
   ::YVector2* mutable_position();
   void set_allocated_position(::YVector2* position);
 
-  // int32 SphereId = 1;
+  // int32 PlayerId = 1;
+  void clear_playerid();
+  ::PROTOBUF_NAMESPACE_ID::int32 playerid() const;
+  void set_playerid(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // int32 SphereId = 2;
   void clear_sphereid();
   ::PROTOBUF_NAMESPACE_ID::int32 sphereid() const;
   void set_sphereid(::PROTOBUF_NAMESPACE_ID::int32 value);
 
-  // int32 type = 2;
+  // int32 type = 3;
   void clear_type();
   ::PROTOBUF_NAMESPACE_ID::int32 type() const;
   void set_type(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -508,6 +514,7 @@ class EnergySphere :
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::YVector2* position_;
+  ::PROTOBUF_NAMESPACE_ID::int32 playerid_;
   ::PROTOBUF_NAMESPACE_ID::int32 sphereid_;
   ::PROTOBUF_NAMESPACE_ID::int32 type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -793,7 +800,21 @@ EnergySphereInit::allspherepoll() const {
 
 // EnergySphere
 
-// int32 SphereId = 1;
+// int32 PlayerId = 1;
+inline void EnergySphere::clear_playerid() {
+  playerid_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 EnergySphere::playerid() const {
+  // @@protoc_insertion_point(field_get:EnergySphere.PlayerId)
+  return playerid_;
+}
+inline void EnergySphere::set_playerid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:EnergySphere.PlayerId)
+}
+
+// int32 SphereId = 2;
 inline void EnergySphere::clear_sphereid() {
   sphereid_ = 0;
 }
@@ -807,7 +828,7 @@ inline void EnergySphere::set_sphereid(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:EnergySphere.SphereId)
 }
 
-// int32 type = 2;
+// int32 type = 3;
 inline void EnergySphere::clear_type() {
   type_ = 0;
 }
@@ -821,7 +842,7 @@ inline void EnergySphere::set_type(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:EnergySphere.type)
 }
 
-// .YVector2 Position = 3;
+// .YVector2 Position = 4;
 inline bool EnergySphere::has_position() const {
   return this != internal_default_instance() && position_ != nullptr;
 }

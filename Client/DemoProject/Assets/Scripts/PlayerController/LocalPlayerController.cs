@@ -46,6 +46,7 @@ public class LocalPlayerController : MonoBehaviour
     private bool isOK = true; // 初始可以动
     private int CurWaitFrame = 0;
     private AttakeInfo AttackClass;
+    SpurtButton SpurtTouch;
 
     private void Awake()
     {
@@ -53,7 +54,8 @@ public class LocalPlayerController : MonoBehaviour
         Health = GetComponent<PlayerHealth>();
         ReflectLerpScaleDelta = Time.fixedDeltaTime / ReflectTime;
         InputLerpScaleDelta = Time.fixedDeltaTime / InputTime;
-        NetClass = GameObject.Find("GameManager").GetComponent<NetWorkManager>();
+        NetClass = GameObject.FindWithTag("GameManager").GetComponent<NetWorkManager>();
+        SpurtTouch = GameObject.FindWithTag("Spurt").GetComponent<SpurtButton>();
         UpdateClass = new UpdateInfo();
         UpdateVec = new YVector2();
         AttackClass = new AttakeInfo();
@@ -78,13 +80,13 @@ public class LocalPlayerController : MonoBehaviour
         UpdateCode();
         #region
         //检查冲刺时间
-        //if (SpurtTouch.SpurtTime > 0f)
-        //{
-        //    SpurtTouch.SpurtTime -= Time.fixedDeltaTime;
-        //    isSpurt = true;
-        //}
-        //else
-        //    isSpurt = false;
+        if (SpurtTouch.SpurtTime > 0f)
+        {
+            SpurtTouch.SpurtTime -= Time.fixedDeltaTime;
+            isSpurt = true;
+        }
+        else
+            isSpurt = false;
         #endregion
 
         //反弹插值
@@ -104,14 +106,26 @@ public class LocalPlayerController : MonoBehaviour
         //移动插值
         else
         {
+            //等待帧
             if (!isOK)
             {
                 CurWaitFrame++;
-                if (CurWaitFrame < 3) return;
+                if (CurWaitFrame < 3)
+                    return;
                 CurWaitFrame = 0;
                 isOK = true;
             }
-            
+
+            //冲刺时直接返回
+            if (isSpurt)
+            {
+                Vector2 DeltaPostion;
+                DeltaPostion = PlayerRigidbody.transform.up * Time.fixedDeltaTime * SpurtSpeed;
+                PlayerRigidbody.MovePosition(PlayerRigidbody.position + DeltaPostion);
+                SendData(NetClass.LocalPlayer, PlayerRigidbody.position + DeltaPostion, PlayerRigidbody.rotation, (int)Protocal.MESSAGE_UPDATEDATA);
+                return;
+            }
+
             if (direct.sqrMagnitude > 1e-7)
             {
                 Vector2 DeltaPostion;

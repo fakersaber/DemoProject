@@ -17,7 +17,7 @@ public class NetWorkManager : MonoBehaviour
     public GameObject InitPrefab;
     public GameObject InitCamera;
     public int LocalPlayer;
-    public Dictionary<int, GameObject> AllPlayerInfo;
+    public Dictionary<int, GameObject> AllPlayerInfo = new Dictionary<int, GameObject>();
 
 
     private Socket LocalSocket;
@@ -28,16 +28,18 @@ public class NetWorkManager : MonoBehaviour
     private EnergySpherePool SpherePoll;
 
 
+    //cache component
+
+
     private void Awake()
     {
         SpherePoll = GetComponent<EnergySpherePool>();
         MainCamera = Instantiate(InitCamera, new Vector3(0f, 0f, -10f), Quaternion.Euler(0f, 0f, 0f));
+        HelperClass = AccrossThreadHelper.Instance;
     }
 
     void Start()
     {
-        HelperClass = AccrossThreadHelper.Instance;
-        AllPlayerInfo = new Dictionary<int, GameObject>();
         Connect();
     }
 
@@ -125,12 +127,14 @@ public class NetWorkManager : MonoBehaviour
                 var Controller = NewObject.AddComponent<LocalPlayerController>();
                 LocalPlayer = message.PlayerId;
                 MainCamera.GetComponent<CameraController>().PlayerRidibody = NewObject.GetComponent<Rigidbody2D>();
+                GameObject.FindWithTag("Spurt").GetComponent<SpurtButton>().LocalPlayerEnergy = NewObject.GetComponent<PlayerEnergyController>();
             }
             else
             {
                 var Controller = NewObject.AddComponent<PlayerController>();
                 Controller.PlayerId = message.PlayerId;
             }
+            NewObject.GetComponent<PlayerEnergyController>().playerid = message.PlayerId;
         }); 
     }
 
@@ -208,12 +212,14 @@ public class NetWorkManager : MonoBehaviour
     {
         HelperClass.AddDelegate(() =>{
             SpherePoll.Collect(message.SphereId);
+            AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>().EnergyStack.Push(SpherePoll.GetSphereInfo(message.SphereId));
         });
     }
 
     private void HandleGeneratorSphere(EnergySphere message)
     {
         HelperClass.AddDelegate(() => {
+            AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>().EnergyStack.Pop();
             TargetPosition.x = message.Position.X;
             TargetPosition.y = message.Position.Y;
             SpherePoll.GeneratorNewSphere(message.SphereId, TargetPosition);

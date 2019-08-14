@@ -14,9 +14,6 @@ void Room::CreateObject(SOCKET socket, int index) {
 	int totalSize = 0;
 	CreateObjInfo SendClass;
 	for (int i = 0; i < Room::RoomSize; ++i) {
-		//YVector2 position;
-		//position.set_x(i * 5.f);
-		//position.set_y(i * 5.f);
 		SendClass.mutable_position()->set_x(i * 5.f);
 		SendClass.mutable_position()->set_y(i * 5.f);
 		SendClass.set_playerid(i + 1);

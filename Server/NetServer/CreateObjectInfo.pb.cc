@@ -117,6 +117,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_CreateObjectInfo_2eproto::offs
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::EnergySphere, playerid_),
   PROTOBUF_FIELD_OFFSET(::EnergySphere, sphereid_),
   PROTOBUF_FIELD_OFFSET(::EnergySphere, type_),
   PROTOBUF_FIELD_OFFSET(::EnergySphere, position_),
@@ -132,7 +133,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, -1, sizeof(::CreateObjInfo)},
   { 9, -1, sizeof(::EnergySphereInit)},
   { 15, -1, sizeof(::EnergySphere)},
-  { 23, -1, sizeof(::YVector2)},
+  { 24, -1, sizeof(::YVector2)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -147,10 +148,11 @@ const char descriptor_table_protodef_CreateObjectInfo_2eproto[] PROTOBUF_SECTION
   "o\022\023\n\013isManclient\030\001 \001(\010\022\020\n\010PlayerId\030\002 \001(\005"
   "\022\033\n\010Position\030\003 \001(\0132\t.YVector2\022\020\n\010Rotatio"
   "n\030\004 \001(\002\"8\n\020EnergySphereInit\022$\n\rAllSphere"
-  "Poll\030\001 \003(\0132\r.EnergySphere\"K\n\014EnergySpher"
-  "e\022\020\n\010SphereId\030\001 \001(\005\022\014\n\004type\030\002 \001(\005\022\033\n\010Pos"
-  "ition\030\003 \001(\0132\t.YVector2\" \n\010YVector2\022\t\n\001x\030"
-  "\001 \001(\002\022\t\n\001y\030\002 \001(\002b\006proto3"
+  "Poll\030\001 \003(\0132\r.EnergySphere\"]\n\014EnergySpher"
+  "e\022\020\n\010PlayerId\030\001 \001(\005\022\020\n\010SphereId\030\002 \001(\005\022\014\n"
+  "\004type\030\003 \001(\005\022\033\n\010Position\030\004 \001(\0132\t.YVector2"
+  "\" \n\010YVector2\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002b\006prot"
+  "o3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_CreateObjectInfo_2eproto_deps[1] = {
 };
@@ -163,7 +165,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_Cre
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_CreateObjectInfo_2eproto_once;
 static bool descriptor_table_CreateObjectInfo_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_CreateObjectInfo_2eproto = {
-  &descriptor_table_CreateObjectInfo_2eproto_initialized, descriptor_table_protodef_CreateObjectInfo_2eproto, "CreateObjectInfo.proto", 304,
+  &descriptor_table_CreateObjectInfo_2eproto_initialized, descriptor_table_protodef_CreateObjectInfo_2eproto, "CreateObjectInfo.proto", 322,
   &descriptor_table_CreateObjectInfo_2eproto_once, descriptor_table_CreateObjectInfo_2eproto_sccs, descriptor_table_CreateObjectInfo_2eproto_deps, 4, 0,
   schemas, file_default_instances, TableStruct_CreateObjectInfo_2eproto::offsets,
   file_level_metadata_CreateObjectInfo_2eproto, 4, file_level_enum_descriptors_CreateObjectInfo_2eproto, file_level_service_descriptors_CreateObjectInfo_2eproto,
@@ -855,9 +857,9 @@ EnergySphere::EnergySphere(const EnergySphere& from)
   } else {
     position_ = nullptr;
   }
-  ::memcpy(&sphereid_, &from.sphereid_,
+  ::memcpy(&playerid_, &from.playerid_,
     static_cast<size_t>(reinterpret_cast<char*>(&type_) -
-    reinterpret_cast<char*>(&sphereid_)) + sizeof(type_));
+    reinterpret_cast<char*>(&playerid_)) + sizeof(type_));
   // @@protoc_insertion_point(copy_constructor:EnergySphere)
 }
 
@@ -896,9 +898,9 @@ void EnergySphere::Clear() {
     delete position_;
   }
   position_ = nullptr;
-  ::memset(&sphereid_, 0, static_cast<size_t>(
+  ::memset(&playerid_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&type_) -
-      reinterpret_cast<char*>(&sphereid_)) + sizeof(type_));
+      reinterpret_cast<char*>(&playerid_)) + sizeof(type_));
   _internal_metadata_.Clear();
 }
 
@@ -910,23 +912,30 @@ const char* EnergySphere::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // int32 SphereId = 1;
+      // int32 PlayerId = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          playerid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 SphereId = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
           sphereid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 type = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+      // int32 type = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .YVector2 Position = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+      // .YVector2 Position = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           ptr = ctx->ParseMessage(mutable_position(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
@@ -961,9 +970,22 @@ bool EnergySphere::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // int32 SphereId = 1;
+      // int32 PlayerId = 1;
       case 1: {
         if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8 & 0xFF)) {
+
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32>(
+                 input, &playerid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 SphereId = 2;
+      case 2: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (16 & 0xFF)) {
 
           DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
                    ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32>(
@@ -974,9 +996,9 @@ bool EnergySphere::MergePartialFromCodedStream(
         break;
       }
 
-      // int32 type = 2;
-      case 2: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (16 & 0xFF)) {
+      // int32 type = 3;
+      case 3: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (24 & 0xFF)) {
 
           DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
                    ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32>(
@@ -987,9 +1009,9 @@ bool EnergySphere::MergePartialFromCodedStream(
         break;
       }
 
-      // .YVector2 Position = 3;
-      case 3: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (26 & 0xFF)) {
+      // .YVector2 Position = 4;
+      case 4: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (34 & 0xFF)) {
           DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
                input, mutable_position()));
         } else {
@@ -1025,20 +1047,25 @@ void EnergySphere::SerializeWithCachedSizes(
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 SphereId = 1;
+  // int32 PlayerId = 1;
+  if (this->playerid() != 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32(1, this->playerid(), output);
+  }
+
+  // int32 SphereId = 2;
   if (this->sphereid() != 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32(1, this->sphereid(), output);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32(2, this->sphereid(), output);
   }
 
-  // int32 type = 2;
+  // int32 type = 3;
   if (this->type() != 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32(2, this->type(), output);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32(3, this->type(), output);
   }
 
-  // .YVector2 Position = 3;
+  // .YVector2 Position = 4;
   if (this->has_position()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, _Internal::position(this), output);
+      4, _Internal::position(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -1054,21 +1081,26 @@ void EnergySphere::SerializeWithCachedSizes(
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 SphereId = 1;
+  // int32 PlayerId = 1;
+  if (this->playerid() != 0) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->playerid(), target);
+  }
+
+  // int32 SphereId = 2;
   if (this->sphereid() != 0) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->sphereid(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->sphereid(), target);
   }
 
-  // int32 type = 2;
+  // int32 type = 3;
   if (this->type() != 0) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->type(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->type(), target);
   }
 
-  // .YVector2 Position = 3;
+  // .YVector2 Position = 4;
   if (this->has_position()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        3, _Internal::position(this), target);
+        4, _Internal::position(this), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -1092,21 +1124,28 @@ size_t EnergySphere::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .YVector2 Position = 3;
+  // .YVector2 Position = 4;
   if (this->has_position()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *position_);
   }
 
-  // int32 SphereId = 1;
+  // int32 PlayerId = 1;
+  if (this->playerid() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->playerid());
+  }
+
+  // int32 SphereId = 2;
   if (this->sphereid() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->sphereid());
   }
 
-  // int32 type = 2;
+  // int32 type = 3;
   if (this->type() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
@@ -1143,6 +1182,9 @@ void EnergySphere::MergeFrom(const EnergySphere& from) {
   if (from.has_position()) {
     mutable_position()->::YVector2::MergeFrom(from.position());
   }
+  if (from.playerid() != 0) {
+    set_playerid(from.playerid());
+  }
   if (from.sphereid() != 0) {
     set_sphereid(from.sphereid());
   }
@@ -1173,6 +1215,7 @@ void EnergySphere::InternalSwap(EnergySphere* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(position_, other->position_);
+  swap(playerid_, other->playerid_);
   swap(sphereid_, other->sphereid_);
   swap(type_, other->type_);
 }
