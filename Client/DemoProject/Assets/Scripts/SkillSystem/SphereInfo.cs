@@ -5,7 +5,7 @@ using UnityEngine;
 public class SphereInfo : MonoBehaviour
 {
     private int _SphereId;
-    //private int _Type;
+    private int _Type;
 
     public int SphereId
     {
@@ -14,10 +14,10 @@ public class SphereInfo : MonoBehaviour
     }
 
 
-    //public int Type
-    //{
-    //    get { return _Type; }
-    //    set { _Type = value; }
-    //}
+    public int Type
+    {
+        get { return _Type; }
+        set { _Type = value; }
+    }
 
 }

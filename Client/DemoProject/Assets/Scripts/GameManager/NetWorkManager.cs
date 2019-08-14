@@ -93,6 +93,9 @@ public class NetWorkManager : MonoBehaviour
                         case (int)Protocal.MESSAGE_GENERATORENERGY:
                             HandleGeneratorSphere(EnergySphere.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
                             break;
+                        case (int)Protocal.MESSAGE_RELEASESKILL:
+                            HandleReleaseSkill(SkillInfo.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
+                            break;
                         case (int)Protocal.MESSAGE_INITENERGYSPHERE:
                             HandleInitEnergySphere(EnergySphereInit.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
                             break;
@@ -212,19 +215,31 @@ public class NetWorkManager : MonoBehaviour
     {
         HelperClass.AddDelegate(() =>{
             SpherePoll.Collect(message.SphereId);
-            AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>().EnergyStack.Push(SpherePoll.GetSphereInfo(message.SphereId));
+            AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>().EnergyList.Add(SpherePoll.GetSphereInfo(message.SphereId));
         });
     }
 
     private void HandleGeneratorSphere(EnergySphere message)
     {
         HelperClass.AddDelegate(() => {
-            AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>().EnergyStack.Pop();
+            var CurList = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>().EnergyList;
+            CurList.RemoveAt(CurList.Count - 1);
             TargetPosition.x = message.Position.X;
             TargetPosition.y = message.Position.Y;
             SpherePoll.GeneratorNewSphere(message.SphereId, TargetPosition);
         });
     }
+
+    private void HandleReleaseSkill(SkillInfo message)
+    {
+        HelperClass.AddDelegate(() => {
+            //技能效果表现上其实只影响local
+            var SkillController = AllPlayerInfo[LocalPlayer].GetComponent<PlayerSkillController>();
+            SkillController.AddSkillTime(message.Type);
+            SkillController.PlaySkillEffect(message.Type);
+        });
+    }
+
 
 
 
@@ -291,6 +306,26 @@ public class NetWorkManager : MonoBehaviour
         }
     }
 
+    public void SendDataToServer(SkillInfo SendClass, int protocal)
+    {
+        try
+        {
+            byte[] sendbuffer;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                stream.Write(System.BitConverter.GetBytes(protocal), 0, sizeof(int));
+                stream.Write(System.BitConverter.GetBytes(SendClass.CalculateSize()), 0, sizeof(int)); //原始数据长度
+                stream.Write(SendClass.ToByteArray(), 0, SendClass.CalculateSize());
+                sendbuffer = stream.ToArray();
+            }
+            LocalSocket.Send(sendbuffer);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            Debug.Log("Send Error");
+        }
+    }
 
     public void OnDisable()
     {

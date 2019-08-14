@@ -38,15 +38,79 @@ public class LocalPlayerController : MonoBehaviour
 
     private Rigidbody2D PlayerRigidbody;
     private PlayerHealth Health;
-    private Vector2 direct;
-    private bool isSpurt = false;
+    private PlayerSkillController SkillController;
     private NetWorkManager NetClass;
-    private UpdateInfo UpdateClass;
-    private YVector2 UpdateVec;
-    private bool isOK = true; // 初始可以动
+    private Vector2 direct;
     private int CurWaitFrame = 0;
-    private AttakeInfo AttackClass;
     SpurtButton SpurtTouch;
+
+
+    private UpdateInfo UpdateClass = new UpdateInfo();
+    private YVector2 UpdateVec = new YVector2();
+    private AttakeInfo AttackClass = new AttakeInfo();
+
+    private bool isOK = true; // 初始可以动
+    private bool isSpurt = false;
+    private bool isFreeze = false;
+    private bool isChaos = false;
+    private bool isDisarm = false;
+
+
+    #region
+    private void CheckSpurt()
+    {
+        if (SpurtTouch.SpurtTime > 0f)
+        {
+            SpurtTouch.SpurtTime -= Time.fixedDeltaTime;
+            isSpurt = true;
+        }
+        else
+        {
+            isSpurt = false;
+        }
+            
+    }
+
+    private void CheckChaos()
+    {
+        if (SkillController.ChaosTime > 0f)
+        {
+            SkillController.ChaosTime -= Time.fixedDeltaTime;
+            isChaos = true;
+        }
+        else
+        {
+            isChaos = false;
+        }
+    }
+
+    private void CheckFreeze()
+    {
+        if(SkillController.FreezeTime > 0f)
+        {
+            SkillController.FreezeTime -= Time.fixedDeltaTime;
+            isFreeze = true;
+        }
+        else
+        {
+            isFreeze = false;
+        }
+    }
+
+    private void CheckDisarm()
+    {
+        if (SkillController.DisarmTime > 0f)
+        {
+            SkillController.DisarmTime -= Time.fixedDeltaTime;
+            isDisarm = true;
+        }
+        else
+        {
+            isDisarm = false;
+        }
+    }
+
+    #endregion
 
     private void Awake()
     {
@@ -56,9 +120,7 @@ public class LocalPlayerController : MonoBehaviour
         InputLerpScaleDelta = Time.fixedDeltaTime / InputTime;
         NetClass = GameObject.FindWithTag("GameManager").GetComponent<NetWorkManager>();
         SpurtTouch = GameObject.FindWithTag("Spurt").GetComponent<SpurtButton>();
-        UpdateClass = new UpdateInfo();
-        UpdateVec = new YVector2();
-        AttackClass = new AttakeInfo();
+        SkillController = GetComponent<PlayerSkillController>();
     }
 
     private void Start()
@@ -78,16 +140,12 @@ public class LocalPlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         UpdateCode();
-        #region
-        //检查冲刺时间
-        if (SpurtTouch.SpurtTime > 0f)
-        {
-            SpurtTouch.SpurtTime -= Time.fixedDeltaTime;
-            isSpurt = true;
-        }
-        else
-            isSpurt = false;
-        #endregion
+        CheckSpurt();
+        CheckChaos();
+        CheckFreeze();
+        CheckDisarm();
+
+
 
         //反弹插值
         if (ReflectCurScale <= 1f)
@@ -103,7 +161,7 @@ public class LocalPlayerController : MonoBehaviour
                 InputCurScale = 2f;
             }
         }
-        //移动插值
+
         else
         {
             //等待帧
@@ -116,7 +174,7 @@ public class LocalPlayerController : MonoBehaviour
                 isOK = true;
             }
 
-            //冲刺时直接返回
+            #region
             if (isSpurt)
             {
                 Vector2 DeltaPostion;
@@ -125,10 +183,25 @@ public class LocalPlayerController : MonoBehaviour
                 SendData(NetClass.LocalPlayer, PlayerRigidbody.position + DeltaPostion, PlayerRigidbody.rotation, (int)Protocal.MESSAGE_UPDATEDATA);
                 return;
             }
+            #endregion
+
+            #region
+            if (isFreeze)
+                return;
+            #endregion
 
             if (direct.sqrMagnitude > 1e-7)
             {
                 Vector2 DeltaPostion;
+
+                #region
+                if (isChaos)
+                {
+                    direct.x = -direct.x;
+                    direct.y = -direct.y;
+                }
+                #endregion
+
                 DeltaPostion = direct * Time.fixedDeltaTime * NormalSpeed;
                 PlayerRigidbody.MovePosition(PlayerRigidbody.position + DeltaPostion);
                 EndInputRotation = MathTool.MappingRotation(direct.normalized);

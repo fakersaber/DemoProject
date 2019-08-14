@@ -35,6 +35,7 @@ public class EnergySpherePool : MonoBehaviour
         AllSpherePoll.Add(SphereId, TempObj);
         var CurComponent = TempObj.GetComponent<SphereInfo>();
         CurComponent.SphereId = SphereId;
+        CurComponent.Type = Type;
         AllSphereInfo.Add(SphereId, CurComponent);
     }
 

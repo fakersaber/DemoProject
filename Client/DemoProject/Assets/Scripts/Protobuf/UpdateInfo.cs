@@ -26,13 +26,15 @@ public static partial class UpdateInfoReflection {
           "ClVwZGF0ZUluZm8SEAoIUGxheWVySWQYASABKAUSGwoIUG9zaXRpb24YAiAB",
           "KAsyCS5ZVmVjdG9yMhIQCghSb3RhdGlvbhgDIAEoAiJhCgpBdHRha2VJbmZv",
           "EhAKCFBsYXllcklkGAEgASgFEg4KBkRhbWFnZRgCIAEoBRIUCgxFZmZlY3Rz",
-          "SW5kZXgYAyABKAUSGwoIUG9zaXRpb24YBCABKAsyCS5ZVmVjdG9yMmIGcHJv",
-          "dG8z"));
+          "SW5kZXgYAyABKAUSGwoIUG9zaXRpb24YBCABKAsyCS5ZVmVjdG9yMiJICglT",
+          "a2lsbEluZm8SEAoIUGxheWVySWQYASABKAUSDAoEdHlwZRgCIAEoBRIbCghQ",
+          "b3NpdGlvbhgDIAEoCzIJLllWZWN0b3IyYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { global::CreateObjectInfoReflection.Descriptor, },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::UpdateInfo), global::UpdateInfo.Parser, new[]{ "PlayerId", "Position", "Rotation" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::AttakeInfo), global::AttakeInfo.Parser, new[]{ "PlayerId", "Damage", "EffectsIndex", "Position" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::AttakeInfo), global::AttakeInfo.Parser, new[]{ "PlayerId", "Damage", "EffectsIndex", "Position" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::SkillInfo), global::SkillInfo.Parser, new[]{ "PlayerId", "Type", "Position" }, null, null, null, null)
         }));
   }
   #endregion
@@ -443,6 +445,203 @@ public sealed partial class AttakeInfo : pb::IMessage<AttakeInfo> {
           break;
         }
         case 34: {
+          if (position_ == null) {
+            Position = new global::YVector2();
+          }
+          input.ReadMessage(Position);
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class SkillInfo : pb::IMessage<SkillInfo> {
+  private static readonly pb::MessageParser<SkillInfo> _parser = new pb::MessageParser<SkillInfo>(() => new SkillInfo());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<SkillInfo> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::UpdateInfoReflection.Descriptor.MessageTypes[2]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public SkillInfo() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public SkillInfo(SkillInfo other) : this() {
+    playerId_ = other.playerId_;
+    type_ = other.type_;
+    position_ = other.position_ != null ? other.position_.Clone() : null;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public SkillInfo Clone() {
+    return new SkillInfo(this);
+  }
+
+  /// <summary>Field number for the "PlayerId" field.</summary>
+  public const int PlayerIdFieldNumber = 1;
+  private int playerId_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int PlayerId {
+    get { return playerId_; }
+    set {
+      playerId_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "type" field.</summary>
+  public const int TypeFieldNumber = 2;
+  private int type_;
+  /// <summary>
+  ///技能类型
+  /// </summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int Type {
+    get { return type_; }
+    set {
+      type_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "Position" field.</summary>
+  public const int PositionFieldNumber = 3;
+  private global::YVector2 position_;
+  /// <summary>
+  ///释放位置
+  /// </summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::YVector2 Position {
+    get { return position_; }
+    set {
+      position_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as SkillInfo);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(SkillInfo other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (PlayerId != other.PlayerId) return false;
+    if (Type != other.Type) return false;
+    if (!object.Equals(Position, other.Position)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (PlayerId != 0) hash ^= PlayerId.GetHashCode();
+    if (Type != 0) hash ^= Type.GetHashCode();
+    if (position_ != null) hash ^= Position.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (PlayerId != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(PlayerId);
+    }
+    if (Type != 0) {
+      output.WriteRawTag(16);
+      output.WriteInt32(Type);
+    }
+    if (position_ != null) {
+      output.WriteRawTag(26);
+      output.WriteMessage(Position);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (PlayerId != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(PlayerId);
+    }
+    if (Type != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Type);
+    }
+    if (position_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(SkillInfo other) {
+    if (other == null) {
+      return;
+    }
+    if (other.PlayerId != 0) {
+      PlayerId = other.PlayerId;
+    }
+    if (other.Type != 0) {
+      Type = other.Type;
+    }
+    if (other.position_ != null) {
+      if (position_ == null) {
+        Position = new global::YVector2();
+      }
+      Position.MergeFrom(other.Position);
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 8: {
+          PlayerId = input.ReadInt32();
+          break;
+        }
+        case 16: {
+          Type = input.ReadInt32();
+          break;
+        }
+        case 26: {
           if (position_ == null) {
             Position = new global::YVector2();
           }

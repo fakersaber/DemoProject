@@ -7,7 +7,6 @@ public class CameraController : MonoBehaviour
     private Rigidbody2D LocalPlayerRididbody;
     private NetWorkManager NetClass;
     private float MoveTime = 0f;
-    private Vector2 currentVelocity = Vector2.zero;
     private Vector3 CacheVec;
 
     //private void Awake()
@@ -29,6 +28,7 @@ public class CameraController : MonoBehaviour
     {
         if (LocalPlayerRididbody != null)
         {
+            Vector2 currentVelocity = Vector2.zero;
             CacheVec = Vector2.SmoothDamp(transform.position, LocalPlayerRididbody.position, ref currentVelocity, MoveTime);
             CacheVec.z = -10f;
             transform.position = CacheVec;
