@@ -1,7 +1,7 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 
-Shader "Unlit/VertxFragShader"
+Shader "Unlit/HealthBar"
 {
     Properties
     {
