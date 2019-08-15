@@ -24,15 +24,29 @@ public class PlayerSkillController : MonoBehaviour
 
 
 
-    //该函数仅仅被EnergyController调用
-    public void ReleaseSkill(int type)
+    //该函数仅仅被localplayer调用，第二个参数为技能释放者
+    public void ReleaseSkill(int type,int PalyerId)
     {
-        Debug.Log("Skill: " + type);
         UpdateSkillInfo.Type = type;
         UpdateVec.X = PlayerRigidbody.position.x;
         UpdateVec.Y = PlayerRigidbody.position.y;
+        UpdateSkillInfo.PlayerId = PalyerId;
         NetClass.SendDataToServer(UpdateSkillInfo,(int)Protocal.MESSAGE_RELEASESKILL);
-        PlaySkillEffect(type);
+
+        //负面技能,只要不是主端释放的就会造成影响
+        if (type != (int)SphereType.SPHERE_YELLOW && PalyerId != NetClass.LocalPlayer)
+        {
+            AddSkillTime(type);
+        }
+        //增益技能，只有当是主端释放才会对主端造成影响
+        else if (type == (int)SphereType.SPHERE_YELLOW && PalyerId == NetClass.LocalPlayer)
+        {
+            AddSkillTime(type);
+        }
+
+        //找到对应的释放者播放特效，主端在本地计算
+        var SkillController = NetClass.AllPlayerInfo[PalyerId].GetComponent<PlayerSkillController>();
+        SkillController.PlaySkillEffect(type);
     }
 
 

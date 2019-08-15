@@ -233,10 +233,22 @@ public class NetWorkManager : MonoBehaviour
     private void HandleReleaseSkill(SkillInfo message)
     {
         HelperClass.AddDelegate(() => {
-            //技能效果表现上其实只影响local
-            var SkillController = AllPlayerInfo[LocalPlayer].GetComponent<PlayerSkillController>();
-            SkillController.AddSkillTime(message.Type);
-            SkillController.PlaySkillEffect(message.Type);
+            //技能效果表现上其实只影响local,但是都是从主端发送出来的
+            var LocalSkillController = AllPlayerInfo[LocalPlayer].GetComponent<PlayerSkillController>();
+
+            //负面技能,只要不是自己释放便会有影响
+            if (message.Type != (int)SphereType.SPHERE_YELLOW && message.PlayerId != LocalPlayer)
+            {
+                LocalSkillController.AddSkillTime(message.Type);
+            }
+            //增益技能，只有当是自己释放才有效果
+            else if (message.Type == (int)SphereType.SPHERE_YELLOW && message.PlayerId == LocalPlayer)
+            {
+                LocalSkillController.AddSkillTime(message.Type);
+            }
+
+            //找到对应的释放者播放特效
+            AllPlayerInfo[message.PlayerId].GetComponent<PlayerSkillController>().PlaySkillEffect(message.Type);
         });
     }
 
