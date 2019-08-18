@@ -7,6 +7,7 @@ TagManager:
   - Spurt
   - FxTemporaire
   - GameManager
+  - soldier
   layers:
   - Default
   - TransparentFX
@@ -47,9 +48,15 @@ TagManager:
   - name: BackGround
     uniqueID: 4272494873
     locked: 0
-  - name: Player
+  - name: IceAndRim
     uniqueID: 811830035
     locked: 0
-  - name: EnergySphere
+  - name: Player
     uniqueID: 4234021209
+    locked: 0
+  - name: EnergySphere
+    uniqueID: 293294181
+    locked: 0
+  - name: Loading
+    uniqueID: 3743653549
     locked: 0

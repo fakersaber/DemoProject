@@ -21,14 +21,14 @@
 - [x] 混乱逻辑效果
 - [x] 冰冻逻辑效果
 - [x] 技能系统
+- [x] 使用LWRP渲染
+- [x] 血条 shader   
+- [x] waterfall shader
+- [x] 平面水流动 shader
 ## todo
-- [ ] 冰面反光shader
-- [ ] 血条与能量显示
+- [ ] 能量球UI显示
 - [ ] 相机平滑移动 
-- [ ] waterfall shader
-- [ ] 平面水流动 shader
 - [ ] 接收缓存优化
-- [ ] 使用LWRP渲染
 - [ ] 围墙碰撞物理定义
 - [ ] 粒子管理
 ## bugs

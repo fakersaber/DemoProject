@@ -8,12 +8,17 @@ public class AccrossThreadHelper : MonoSingleton<AccrossThreadHelper>
 {
     public delegate void AccrossThreadFunc();
     //一个委托集合
-    private List<AccrossThreadFunc> delegateList;
+    private List<AccrossThreadFunc> delegateList = new List<AccrossThreadFunc>();
     private static System.Object thisLock = new System.Object();
+
+    //private void Awake()
+    //{
+    //    StartCoroutine(Done());
+    //}
+
     private void Start()
     {
         //初始化委托集合，并开启协程(Update替代协程也可以)
-        delegateList = new List<AccrossThreadFunc>();
         StartCoroutine(Done());
     }
 

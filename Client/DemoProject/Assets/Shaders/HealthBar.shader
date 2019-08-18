@@ -1,16 +1,17 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-
-Shader "Unlit/HealthBar"
+﻿Shader "Custom/HealthBar"
 {
     Properties
     {
-    	_Color ("Main Color", Color) = (1,1,1,1)  
+        _MainTex ("MatinTex",2D) = "white" {}  
     }
+
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
-        LOD 100
+        // Tags {"Queue" = "Transparent" "RenderType" = "Transparent" "RenderPipeline" = "LightweightPipeline" }
+        // Blend SrcAlpha OneMinusSrcAlpha
+        // ZWrite Off
+        // Cull Off
+        Tags { "Queue" = "AlphaTest" "RenderType" = "TransparentCutout" "IgnoreProjector" = "True" }
 
         Pass
         {
@@ -20,18 +21,26 @@ Shader "Unlit/HealthBar"
             
             #include "UnityCG.cginc"
 
-            fixed4 _Color;  
+            uniform fixed4 _Color;  
+            uniform sampler2D _MainTex;
+            float4 _MainTex_ST;
+            uniform float _CurHealth;
+
+
+            float MappingHealth(float curHealth){
+                return curHealth * 0.95 + 0.025;
+            }
 
             struct appdata
             {
                 float4 vertex : POSITION;
-                fixed4 color : COLOR;
+                float4 uv : TEXCOORD0;
             };
 
             struct v2f
             {
-                fixed4 vertexColor : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                float2 uv : TEXCOORD0;
             };
 
             
@@ -39,14 +48,19 @@ Shader "Unlit/HealthBar"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.vertexColor = v.color;
+                o.uv = v.uv;
                 return o;
             }
             
             fixed4 frag (v2f i) : SV_Target
             {
-            	fixed4 c = i.vertexColor;
-            	return c * _Color;
+                fixed4 SampColor = tex2D(_MainTex,i.uv);
+                half healthResult = step(i.uv.x,MappingHealth(_CurHealth));
+                fixed4 healthColor = fixed4(0,1,0,SampColor.a) * healthResult + fixed4(1,0,0,SampColor.a) * (1-healthResult);
+                // half result = step(SampColor.a, 0.7);
+                // fixed4 color = result * SampColor + healthColor * (1-result);
+                clip(SampColor.a - 0.7);
+                return healthColor;
             }
             ENDCG
         }

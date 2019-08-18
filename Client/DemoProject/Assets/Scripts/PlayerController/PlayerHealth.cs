@@ -8,7 +8,8 @@ public class PlayerHealth : MonoBehaviour
 {
     private int weaponIndex;
     private int bodyIndex;
-    public int Health = 100;
+    public float Health = 10;
+    public const float MaxHealth = 10f;
     //public int Damage = 2;
     private NetWorkManager NetClass;
     public GameObject WeaponEffect;
@@ -17,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
     private ParticleSystem WeaponToWeapon;
     private ParticleSystem BodyToBody;
     private ParticleSystem BodyToWeapon;
+    private Material HealthBar;
 
 
 
@@ -38,6 +40,9 @@ public class PlayerHealth : MonoBehaviour
         WeaponToWeapon = WeaponEffect.GetComponent<ParticleSystem>();
         BodyToBody = PlayerCollidEffct.GetComponent<ParticleSystem>();
         BodyToWeapon = AttackedEffect.GetComponent<ParticleSystem>();
+
+        HealthBar = GetComponentsInChildren<SpriteRenderer>()[1].material;
+        HealthBar.SetFloat("_CurHealth", Health / MaxHealth);
     }
 
 
@@ -47,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
         if (Damage > 0)
         {
             Health -= Damage;
-            //发送扣血消息
+            HealthBar.SetFloat("_CurHealth", Health/MaxHealth);
             if (Health <= 0)
             {
                 gameObject.SetActive(false);

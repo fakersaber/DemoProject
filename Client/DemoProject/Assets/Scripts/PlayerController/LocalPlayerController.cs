@@ -7,8 +7,6 @@ using UnityEngine;
 public class LocalPlayerController : MonoBehaviour
 {
 
-    public int TestCount = 0;
-
     #region 
     public float ReflectTime = 0.5f; //反弹变化时间
     public float InputTime = 0.2f; //输入变化时间

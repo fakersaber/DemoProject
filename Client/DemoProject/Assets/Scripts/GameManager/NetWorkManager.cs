@@ -36,12 +36,13 @@ public class NetWorkManager : MonoBehaviour
         SpherePoll = GetComponent<EnergySpherePool>();
         MainCamera = Instantiate(InitCamera, new Vector3(0f, 0f, -10f), Quaternion.Euler(0f, 0f, 0f));
         HelperClass = AccrossThreadHelper.Instance;
-    }
-
-    void Start()
-    {
         Connect();
     }
+
+    //void Start()
+    //{
+    //    Connect();
+    //}
 
 
     public void Connect()
