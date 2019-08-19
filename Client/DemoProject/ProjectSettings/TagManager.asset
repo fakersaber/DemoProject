@@ -17,8 +17,8 @@ TagManager:
   - UI
   - 
   - 
+  - Wall
   - Player
-  - 
   - 
   - 
   - 
@@ -48,8 +48,14 @@ TagManager:
   - name: BackGround
     uniqueID: 4272494873
     locked: 0
-  - name: IceAndRim
+  - name: Stone
+    uniqueID: 2821130927
+    locked: 0
+  - name: Ice_Water
     uniqueID: 811830035
+    locked: 0
+  - name: Rim_GreyOutline
+    uniqueID: 1582977405
     locked: 0
   - name: Player
     uniqueID: 4234021209
