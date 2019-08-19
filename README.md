@@ -1,4 +1,4 @@
-# DemoProject
+﻿# DemoProject
 
 ## complete
 - [x] 自定义物理碰撞
@@ -27,10 +27,12 @@
 - [x] 平面水流动 shader
 - [x] 围墙碰撞物理定义
 - [x] fog shader
+
 ## todo
 - [ ] 能量球UI显示
 - [ ] 相机平滑移动 
 - [ ] 接收缓存优化
 - [ ] 技能特效
+
 ## bugs
 - [ ] 武器攻击特效显示不正确
