@@ -7,11 +7,11 @@
 
     SubShader
     {
-        // Tags {"Queue" = "Transparent" "RenderType" = "Transparent" "RenderPipeline" = "LightweightPipeline" }
-        // Blend SrcAlpha OneMinusSrcAlpha
-        // ZWrite Off
-        // Cull Off
-        Tags { "Queue" = "AlphaTest" "RenderType" = "TransparentCutout" "IgnoreProjector" = "True" }
+        Tags {"Queue" = "Transparent" "RenderType" = "Transparent" "RenderPipeline" = "LightweightPipeline" }
+        Blend SrcAlpha OneMinusSrcAlpha
+        ZWrite Off
+        Cull Off
+        //Tags { "Queue" = "AlphaTest" "RenderType" = "TransparentCutout" "IgnoreProjector" = "True" }
 
         Pass
         {
@@ -57,10 +57,9 @@
                 fixed4 SampColor = tex2D(_MainTex,i.uv);
                 half healthResult = step(i.uv.x,MappingHealth(_CurHealth));
                 fixed4 healthColor = fixed4(0,1,0,SampColor.a) * healthResult + fixed4(1,0,0,SampColor.a) * (1-healthResult);
-                // half result = step(SampColor.a, 0.7);
-                // fixed4 color = result * SampColor + healthColor * (1-result);
-                clip(SampColor.a - 0.7);
-                return healthColor;
+                half result = step(SampColor.a, 0.7);
+                fixed4 color = result * SampColor + healthColor * (1-result);
+                return color;
             }
             ENDCG
         }

@@ -35,11 +35,14 @@ public class PlayerController : MonoBehaviour
     public int PlayerId;
 
     //用于同步的缓存类
-    private UpdateInfo UpdateClass;
-    private YVector2 UpdateVec;
-    private AttakeInfo AttackClass;
+    private UpdateInfo UpdateClass = new UpdateInfo();
+    private YVector2 UpdateVec = new YVector2();
+    private AttakeInfo AttackClass = new AttakeInfo();
 
-
+    #region
+    private int WallLayer;
+    private int PlayerLayer;
+    #endregion
 
     private void Awake()
     {
@@ -47,9 +50,8 @@ public class PlayerController : MonoBehaviour
         Health = GetComponent<PlayerHealth>();
         NetClass = GameObject.FindWithTag("GameManager").GetComponent<NetWorkManager>();
         ReflectLerpScaleDelta = Time.fixedDeltaTime / ReflectTime;
-        UpdateClass = new UpdateInfo();
-        UpdateVec = new YVector2();
-        AttackClass = new AttakeInfo();
+        WallLayer = LayerMask.NameToLayer("Wall");
+        PlayerLayer = LayerMask.NameToLayer("Player");
     }
 
     private void Start()
@@ -109,30 +111,37 @@ public class PlayerController : MonoBehaviour
     {
         if (NetClass.LocalPlayer == 1)
         {
-            int SelfIndex = collision.otherCollider.GetHashCode();
-            int otherIndex = collision.collider.GetHashCode();
-            PlayerHealth otherHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            Vector2 VelocityDir = Vector2.zero;
+            if (collision.gameObject.layer == PlayerLayer)
+            {
+                int SelfIndex = collision.otherCollider.GetHashCode();
+                int otherIndex = collision.collider.GetHashCode();
+                PlayerHealth otherHealth = collision.gameObject.GetComponent<PlayerHealth>();
 
-            if (Health.WeaponIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
-            {
-                SendAttackInfo((int)SpecialEffects.WEAPONTOWEAPON, 0, collision.contacts[0].point);
-                Health.PlayerSpecialEffects((int)SpecialEffects.WEAPONTOWEAPON, collision.contacts[0].point);
+                if (Health.WeaponIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
+                {
+                    SendAttackInfo((int)SpecialEffects.WEAPONTOWEAPON, 0, collision.contacts[0].point);
+                    Health.PlayerSpecialEffects((int)SpecialEffects.WEAPONTOWEAPON, collision.contacts[0].point);
+                }
+                else if (Health.BodyIndex == SelfIndex && otherHealth.BodyIndex == otherIndex)
+                {
+                    SendAttackInfo((int)SpecialEffects.BADYTOBADY, 0, collision.contacts[0].point);
+                    Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOBADY, collision.contacts[0].point);
+                }
+                else if (Health.BodyIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
+                {
+                    SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, 2, collision.contacts[0].point);
+                    Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
+                    Health.SubHp(2);
+                }
+                for (int i = 0; i < collision.contactCount; ++i)
+                    VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;
             }
-            else if (Health.BodyIndex == SelfIndex && otherHealth.BodyIndex == otherIndex)
+            else if (collision.gameObject.layer == WallLayer)
             {
-                SendAttackInfo((int)SpecialEffects.BADYTOBADY, 0, collision.contacts[0].point);
-                Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOBADY, collision.contacts[0].point);
+                for (int i = 0; i < collision.contactCount; ++i)
+                    VelocityDir += (collision.otherRigidbody.worldCenterOfMass - collision.contacts[i].point).normalized;
             }
-            else if (Health.BodyIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
-            {
-                SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, 2, collision.contacts[0].point);
-                Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
-                Health.SubHp(2);
-            }
-
-            Vector2 VelocityDir = new Vector2(0f, 0f);
-            for (int i = 0; i < collision.contactCount; ++i)
-                VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;
             ReflectStartPosition = PlayerRigidbody.position;
             ReflectEndPosition = PlayerRigidbody.position + VelocityDir.normalized;
             ReflectStartRotation = PlayerRigidbody.rotation;

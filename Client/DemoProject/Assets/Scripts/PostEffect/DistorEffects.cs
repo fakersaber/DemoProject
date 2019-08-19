@@ -5,13 +5,23 @@ using UnityEngine;
 
 class DistorEffects : PostEffectsBase
 {
+    public Shader FogShader;
+    private Material Material;
+
     public Texture NoiseTexture;
     [Range(0.0f, 1.0f)]
     public float DistortTimeFactor = 0.1f; //采样噪音图的幅度 
     [Range(0.0f, 1.0f)]
     public float LuminosityAmount = 0.15f; // 扭曲系数
 
-
+    public Material material
+    {
+        get
+        {
+            Material = CheckShaderAndCreateMaterial(FogShader, Material);
+            return Material;
+        }
+    }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {

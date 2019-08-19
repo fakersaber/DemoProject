@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9071630676319477189}
   - component: {fileID: 8404776451756861167}
   - component: {fileID: 6734889939247660521}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4801,7 +4801,7 @@ GameObject:
   - component: {fileID: 7161432139843372488}
   - component: {fileID: 7182957493943032924}
   - component: {fileID: 5766078773655971221}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4881,7 +4881,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -60946087
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1f14aebdd466a854d97ddacd7f6ec21d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5033,7 +5033,7 @@ GameObject:
   - component: {fileID: 4510115545535274559}
   - component: {fileID: 8565607418928608816}
   - component: {fileID: 2671104040579232066}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9772,7 +9772,7 @@ GameObject:
   - component: {fileID: 559014753592331551}
   - component: {fileID: 5242752685581012619}
   - component: {fileID: 6537615265204666895}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Weapon0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14476,7 +14476,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 811830035
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_RenderMode: 1
   m_SortMode: 0
@@ -14511,7 +14511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2091100031206460246}
   - component: {fileID: 2750773910680270748}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14568,7 +14568,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -60946087
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f853ef1875aaea54daf75cfaba475fe2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -14592,7 +14592,7 @@ GameObject:
   - component: {fileID: 5946046788950859333}
   - component: {fileID: 7039809768335129971}
   - component: {fileID: 8778090111868933563}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Attacked0
   m_TagString: FxTemporaire
   m_Icon: {fileID: 0}
@@ -19233,7 +19233,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 811830035
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_RenderMode: 1
   m_SortMode: 0
@@ -19269,7 +19269,7 @@ GameObject:
   - component: {fileID: 7109928417261414762}
   - component: {fileID: 979460140622135022}
   - component: {fileID: 5128220880586420494}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerEffect0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23955,7 +23955,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 811830035
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -23991,7 +23991,7 @@ GameObject:
   - component: {fileID: 6739041418582284465}
   - component: {fileID: 4732453642318376907}
   - component: {fileID: 7532042409032058203}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28766,7 +28766,7 @@ GameObject:
   - component: {fileID: 5058933731529074917}
   - component: {fileID: 4309199316731219930}
   - component: {fileID: 7872556739141612265}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Droplets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33550,7 +33550,7 @@ GameObject:
   - component: {fileID: 7708653634063459977}
   - component: {fileID: 7614015625302519427}
   - component: {fileID: 7761505454642139079}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}

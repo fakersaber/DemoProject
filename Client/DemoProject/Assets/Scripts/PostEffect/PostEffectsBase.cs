@@ -1,52 +1,70 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-
-[RequireComponent (typeof(Camera))]
+//在编辑器状态下执行该脚本
+[ExecuteInEditMode]
+//刚需组件（Camera）
+[RequireComponent(typeof(Camera))]
 public class PostEffectsBase : MonoBehaviour
 {
-    private Material curMaterial;
-    public Shader curShader;
 
-
-    //void Start()
-    //{
-    //    CheckResources();
-    //}
-
-
-    public Material material
+    // 在Start()中调用
+    protected void CheckResources()
     {
-        get
+        bool isSupported = CheckSupport();
+
+        if (isSupported == false)
         {
-            if (curMaterial == null)
-            {
-                curMaterial = new Material(curShader);
-                curMaterial.hideFlags = HideFlags.HideAndDontSave;
-            }
-            return curMaterial;
+            NotSupported();
         }
     }
 
-
-    //protected bool CheckResources()
-    //{
-    //    if(SystemInfo.supportsImageEffects == false || SystemInfo.supportsRenderTextures == false)
-    //    {
-    //        Debug.LogWarning("This platform does not support");
-    //        return false;
-    //    }
-    //    return true;
-    //}
-
-
-
-    private void OnDisable()
+    // 平台渲染纹理与屏幕特效支持检测
+    protected bool CheckSupport()
     {
-        if (curMaterial != null)
+        if (SystemInfo.supportsImageEffects == false || SystemInfo.supportsRenderTextures == false)
         {
-            DestroyImmediate(curMaterial);
+            Debug.LogWarning("This platform does not support image effects or render textures.");
+            return false;
+        }
+
+        return true;
+    }
+
+    // 当不支持的时候，将脚本的enabled设置为false
+    protected void NotSupported()
+    {
+        enabled = false;
+    }
+
+    protected void Start()
+    {
+        CheckResources();
+    }
+
+    // 检测Material和Shader，在派生类中调用，绑定材质和shader
+    protected Material CheckShaderAndCreateMaterial(Shader shader, Material material)
+    {
+        if (shader == null)
+        {
+            return null;
+        }
+
+        if (shader.isSupported && material && material.shader == shader)
+            return material;
+
+        if (!shader.isSupported)
+        {
+            return null;
+        }
+        else
+        {
+            material = new Material(shader);
+            material.hideFlags = HideFlags.DontSave;
+            if (material)
+                return material;
+            else
+                return null;
         }
     }
 }

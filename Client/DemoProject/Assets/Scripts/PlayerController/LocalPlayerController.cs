@@ -53,6 +53,10 @@ public class LocalPlayerController : MonoBehaviour
     private bool isChaos = false;
     private bool isDisarm = false;
 
+    #region
+    private int WallLayer;
+    private int PlayerLayer;
+    #endregion
 
     #region
     private void CheckSpurt()
@@ -119,6 +123,8 @@ public class LocalPlayerController : MonoBehaviour
         NetClass = GameObject.FindWithTag("GameManager").GetComponent<NetWorkManager>();
         SpurtTouch = GameObject.FindWithTag("Spurt").GetComponent<SpurtButton>();
         SkillController = GetComponent<PlayerSkillController>();
+        WallLayer = LayerMask.NameToLayer("Wall");
+        PlayerLayer = LayerMask.NameToLayer("Player");
     }
 
     private void Start()
@@ -238,30 +244,38 @@ public class LocalPlayerController : MonoBehaviour
     {
         if(NetClass.LocalPlayer == 1)
         {
-            int SelfIndex = collision.otherCollider.GetHashCode();
-            int otherIndex = collision.collider.GetHashCode();
-            PlayerHealth otherHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            Vector2 VelocityDir = Vector2.zero;
+            if (collision.gameObject.layer == PlayerLayer)
+            {
+                int SelfIndex = collision.otherCollider.GetHashCode();
+                int otherIndex = collision.collider.GetHashCode();
+                PlayerHealth otherHealth = collision.gameObject.GetComponent<PlayerHealth>();
 
-            if (Health.WeaponIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
-            {
-                SendAttackInfo((int)SpecialEffects.WEAPONTOWEAPON, 0, collision.contacts[0].point);
-                Health.PlayerSpecialEffects((int)SpecialEffects.WEAPONTOWEAPON, collision.contacts[0].point);
+                if (Health.WeaponIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
+                {
+                    SendAttackInfo((int)SpecialEffects.WEAPONTOWEAPON, 0, collision.contacts[0].point);
+                    Health.PlayerSpecialEffects((int)SpecialEffects.WEAPONTOWEAPON, collision.contacts[0].point);
+                }
+                else if (Health.BodyIndex == SelfIndex && otherHealth.BodyIndex == otherIndex)
+                {
+                    SendAttackInfo((int)SpecialEffects.BADYTOBADY, 0, collision.contacts[0].point);
+                    Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOBADY, collision.contacts[0].point);
+                }
+                else if (Health.BodyIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
+                {
+                    SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, 2, collision.contacts[0].point);
+                    Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
+                    Health.SubHp(2);
+                }
+                for (int i = 0; i < collision.contactCount; ++i)
+                    VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;
             }
-            else if (Health.BodyIndex == SelfIndex && otherHealth.BodyIndex == otherIndex)
+            else if(collision.gameObject.layer == WallLayer)
             {
-                SendAttackInfo((int)SpecialEffects.BADYTOBADY, 0, collision.contacts[0].point);
-                Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOBADY, collision.contacts[0].point);
-            }
-            else if (Health.BodyIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
-            {
-                SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, 2, collision.contacts[0].point);
-                Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
-                Health.SubHp(2);
+                for (int i = 0; i < collision.contactCount; ++i)
+                    VelocityDir += (collision.otherRigidbody.worldCenterOfMass - collision.contacts[i].point).normalized;
             }
 
-            Vector2 VelocityDir = new Vector2(0f, 0f);
-            for (int i = 0; i < collision.contactCount; ++i)
-                VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;
             ReflectStartPosition = PlayerRigidbody.position;
             ReflectEndPosition = PlayerRigidbody.position + VelocityDir.normalized;
             ReflectStartRotation = PlayerRigidbody.rotation;

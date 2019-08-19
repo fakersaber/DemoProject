@@ -210,13 +210,13 @@ GameObject:
   m_Component:
   - component: {fileID: 388532211}
   - component: {fileID: 388532212}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TopWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &388532211
 Transform:
   m_ObjectHideFlags: 0
@@ -267,13 +267,13 @@ GameObject:
   m_Component:
   - component: {fileID: 475235276}
   - component: {fileID: 475235277}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &475235276
 Transform:
   m_ObjectHideFlags: 0
@@ -540,8 +540,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 811830035
-  m_SortingLayer: 3
+  m_SortingLayerID: -1473836369
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: de8d01c69f20acc4a8f517cc7e8de102, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -617,7 +617,7 @@ SpriteRenderer:
   m_Size: {x: 25.6, y: 14.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &659632016
@@ -667,7 +667,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.1
+  m_Intensity: 1
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 000000001919a9feaf0a27a8138b63307d515a5e59095efc65507b11ad9e23df
   m_LightCookieSprite: {fileID: 0}
@@ -878,13 +878,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1505916469}
   - component: {fileID: 1505916470}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LeftWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1505916469
 Transform:
   m_ObjectHideFlags: 0
@@ -1284,13 +1284,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1803443658}
   - component: {fileID: 1803443659}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BottomWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1803443658
 Transform:
   m_ObjectHideFlags: 0
