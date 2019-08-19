@@ -135,64 +135,64 @@
             ENDHLSL
         }
 
-        Pass
-        {
-            Tags { "LightMode" = "NormalsRendering"}
-            HLSLPROGRAM
-            #pragma prefer_hlslcc gles
-            #pragma vertex NormalsRenderingVertex
-            #pragma fragment NormalsRenderingFragment
+        // Pass
+        // {
+        //     Tags { "LightMode" = "NormalsRendering"}
+        //     HLSLPROGRAM
+        //     #pragma prefer_hlslcc gles
+        //     #pragma vertex NormalsRenderingVertex
+        //     #pragma fragment NormalsRenderingFragment
 
-            struct Attributes
-            {
-                float3 positionOS   : POSITION;
-                float4 color		: COLOR;
-                float2 uv			: TEXCOORD0;
-            };
+        //     struct Attributes
+        //     {
+        //         float3 positionOS   : POSITION;
+        //         float4 color		: COLOR;
+        //         float2 uv			: TEXCOORD0;
+        //     };
 
-            struct Varyings
-            {
-                float4  positionCS		: SV_POSITION;
-                float4  color			: COLOR;
-                float2	uv				: TEXCOORD0;
-                float3  normalWS		: TEXCOORD1;
-                float3  tangentWS		: TEXCOORD2;
-                float3  bitangentWS		: TEXCOORD3;
-            };
+        //     struct Varyings
+        //     {
+        //         float4  positionCS		: SV_POSITION;
+        //         float4  color			: COLOR;
+        //         float2	uv				: TEXCOORD0;
+        //         float3  normalWS		: TEXCOORD1;
+        //         float3  tangentWS		: TEXCOORD2;
+        //         float3  bitangentWS		: TEXCOORD3;
+        //     };
 
-            TEXTURE2D(_MainTex);
-            SAMPLER(sampler_MainTex);
-            TEXTURE2D(_NormalMap);
-            SAMPLER(sampler_NormalMap);
-            float4 _NormalMap_ST;  // Is this the right way to do this?
+        //     TEXTURE2D(_MainTex);
+        //     SAMPLER(sampler_MainTex);
+        //     TEXTURE2D(_NormalMap);
+        //     SAMPLER(sampler_NormalMap);
+        //     float4 _NormalMap_ST;  // Is this the right way to do this?
 
-            Varyings NormalsRenderingVertex(Attributes attributes)
-            {
-                Varyings o = (Varyings)0;
+        //     Varyings NormalsRenderingVertex(Attributes attributes)
+        //     {
+        //         Varyings o = (Varyings)0;
 
-                o.positionCS = TransformObjectToHClip(attributes.positionOS);
-                #if UNITY_UV_STARTS_AT_TOP
-                    o.positionCS.y = -o.positionCS.y;
-                #endif
-                o.uv = TRANSFORM_TEX(attributes.uv, _NormalMap);
-                o.uv = attributes.uv;
-                o.color = attributes.color;
-                o.normalWS = TransformObjectToWorldDir(float3(0, 0, 1));
-                o.tangentWS = TransformObjectToWorldDir(float3(1, 0, 0));
-                o.bitangentWS = TransformObjectToWorldDir(float3(0, 1, 0));
-                return o;
-            }
+        //         o.positionCS = TransformObjectToHClip(attributes.positionOS);
+        //         #if UNITY_UV_STARTS_AT_TOP
+        //             o.positionCS.y = -o.positionCS.y;
+        //         #endif
+        //         o.uv = TRANSFORM_TEX(attributes.uv, _NormalMap);
+        //         o.uv = attributes.uv;
+        //         o.color = attributes.color;
+        //         o.normalWS = TransformObjectToWorldDir(float3(0, 0, 1));
+        //         o.tangentWS = TransformObjectToWorldDir(float3(1, 0, 0));
+        //         o.bitangentWS = TransformObjectToWorldDir(float3(0, 1, 0));
+        //         return o;
+        //     }
 
-            #include "Packages/com.unity.render-pipelines.lightweight/Shaders/2D/Include/NormalsRenderingShared.hlsl"
+        //     #include "Packages/com.unity.render-pipelines.lightweight/Shaders/2D/Include/NormalsRenderingShared.hlsl"
 
-            float4 NormalsRenderingFragment(Varyings i) : SV_Target
-            {
-                float4 mainTex = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
-                float3 normalTS = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, i.uv));
-                return NormalsRenderingShared(mainTex, normalTS, i.tangentWS.xyz, i.bitangentWS.xyz, -i.normalWS.xyz);
-            }
-            ENDHLSL
-        }
+        //     float4 NormalsRenderingFragment(Varyings i) : SV_Target
+        //     {
+        //         float4 mainTex = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+        //         float3 normalTS = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, i.uv));
+        //         return NormalsRenderingShared(mainTex, normalTS, i.tangentWS.xyz, i.bitangentWS.xyz, -i.normalWS.xyz);
+        //     }
+        //     ENDHLSL
+        // }
     }
 
         // Pass

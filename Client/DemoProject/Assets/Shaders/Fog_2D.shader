@@ -8,7 +8,7 @@
 	SubShader
 	{
 		// No culling or depth
-		Cull Off ZWrite Off ZTest Always
+		Cull Off ZWrite Off ZTest Always Blend SrcAlpha OneMinusSrcAlpha
 
 		Pass
 		{
@@ -83,7 +83,7 @@
 				float3 col_fog = {rd,rd,rd};
 				col_fog *= _Color;
 				
-				col = lerp(col, col_fog,0.2);
+				col = lerp(col, col_fog, 0.2);
 				return fixed4(col,1);
 			}
 			ENDCG
