@@ -7,7 +7,7 @@
 
     SubShader
     {
-        Tags {"Queue" = "Transparent" "RenderType" = "Transparent" "RenderPipeline" = "LightweightPipeline" }
+        Tags {"Queue" = "Transparent" "RenderType" = "Transparent"} //"RenderPipeline" = "LightweightPipeline" }
         Blend SrcAlpha OneMinusSrcAlpha
         ZWrite Off
         Cull Off

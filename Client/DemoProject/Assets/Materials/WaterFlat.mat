@@ -33,7 +33,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NoiseTex:
         m_Texture: {fileID: 2800000, guid: 7116818a06f3cf3428f3b7a895ec12c1, type: 3}
-        m_Scale: {x: 1, y: 3}
+        m_Scale: {x: 1, y: 5}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 0}
@@ -43,7 +43,7 @@ Material:
     - _BottomFoamThreshold: 0
     - _DisplAmount: 0.05
     m_Colors:
-    - _ColorBottomDark: {r: 0, g: 0.5294118, b: 1, a: 1}
-    - _ColorBottomLight: {r: 0.5235849, g: 0.6847794, b: 1, a: 1}
-    - _ColorTopDark: {r: 0, g: 0.5294118, b: 1, a: 1}
-    - _ColorTopLight: {r: 0.5235849, g: 0.6847794, b: 1, a: 1}
+    - _ColorBottomDark: {r: 0, g: 0.05241585, b: 0.24705882, a: 1}
+    - _ColorBottomLight: {r: 0.19650482, g: 0, b: 0.3679245, a: 1}
+    - _ColorTopDark: {r: 0.2028302, g: 0.7291997, b: 1, a: 1}
+    - _ColorTopLight: {r: 1, g: 1, b: 1, a: 1}
