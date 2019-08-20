@@ -21,17 +21,17 @@
 - [x] 混乱逻辑效果
 - [x] 冰冻逻辑效果
 - [x] 技能系统
-- [x] 使用LWRP渲染
 - [x] 血条 shader   
 - [x] waterfall shader
 - [x] 平面水流动 shader
 - [x] 围墙碰撞物理定义
 - [x] fog shader
+- [x] 接收缓存优化
+
 
 ## todo
 - [ ] 能量球UI显示
-- [ ] 相机平滑移动 
-- [ ] 接收缓存优化
+- [ ] 强化逻辑
 - [ ] 技能特效
 
 ## bugs

@@ -11,7 +11,7 @@ public class PlayerSkillController : MonoBehaviour
 
     public float ChaosTime = 0f; //混乱时间
     public float FreezeTime = 0f; //冰冻时间
-    public float DisarmTime = 0f; //缴械时间
+    public float ThunderTime = 0f; //强化时间
 
 
 
@@ -61,7 +61,7 @@ public class PlayerSkillController : MonoBehaviour
                 FreezeTime = 100f;
                 break;
             case (int)SphereType.SPHERE_YELLOW:
-                DisarmTime = 100f;
+                ThunderTime = 100f;
                 break;
         }
     }

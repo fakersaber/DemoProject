@@ -51,7 +51,7 @@ public class LocalPlayerController : MonoBehaviour
     private bool isSpurt = false;
     private bool isFreeze = false;
     private bool isChaos = false;
-    private bool isDisarm = false;
+    private bool isThunder = false;
 
     #region
     private int WallLayer;
@@ -59,7 +59,7 @@ public class LocalPlayerController : MonoBehaviour
     #endregion
 
     #region
-    private void CheckSpurt()
+    private void CheckStatus()
     {
         if (SpurtTouch.SpurtTime > 0f)
         {
@@ -70,11 +70,7 @@ public class LocalPlayerController : MonoBehaviour
         {
             isSpurt = false;
         }
-            
-    }
 
-    private void CheckChaos()
-    {
         if (SkillController.ChaosTime > 0f)
         {
             SkillController.ChaosTime -= Time.fixedDeltaTime;
@@ -84,11 +80,8 @@ public class LocalPlayerController : MonoBehaviour
         {
             isChaos = false;
         }
-    }
 
-    private void CheckFreeze()
-    {
-        if(SkillController.FreezeTime > 0f)
+        if (SkillController.FreezeTime > 0f)
         {
             SkillController.FreezeTime -= Time.fixedDeltaTime;
             isFreeze = true;
@@ -97,21 +90,17 @@ public class LocalPlayerController : MonoBehaviour
         {
             isFreeze = false;
         }
-    }
 
-    private void CheckDisarm()
-    {
-        if (SkillController.DisarmTime > 0f)
+        if (SkillController.ThunderTime > 0f)
         {
-            SkillController.DisarmTime -= Time.fixedDeltaTime;
-            isDisarm = true;
+            SkillController.ThunderTime -= Time.fixedDeltaTime;
+            isThunder = true;
         }
         else
         {
-            isDisarm = false;
+            isThunder = false;
         }
     }
-
     #endregion
 
     private void Awake()
@@ -144,10 +133,7 @@ public class LocalPlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         UpdateCode();
-        CheckSpurt();
-        CheckChaos();
-        CheckFreeze();
-        CheckDisarm();
+        CheckStatus();
 
 
 
@@ -165,7 +151,6 @@ public class LocalPlayerController : MonoBehaviour
                 InputCurScale = 2f;
             }
         }
-
         else
         {
             //等待帧

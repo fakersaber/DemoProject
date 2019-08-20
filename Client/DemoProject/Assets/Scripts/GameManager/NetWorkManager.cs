@@ -39,11 +39,6 @@ public class NetWorkManager : MonoBehaviour
         Connect();
     }
 
-    //void Start()
-    //{
-    //    Connect();
-    //}
-
 
     public void Connect()
     {
@@ -178,8 +173,9 @@ public class NetWorkManager : MonoBehaviour
         //同步该端所有内容
         HelperClass.AddDelegate(() =>{
             Rigidbody2D TargetRigidbody = AllPlayerInfo[message.PlayerId].GetComponent<Rigidbody2D>();
-            PlayerController OtherPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerController>();
-            if (OtherPlayer == null)
+            
+            //getcomponent的gc只有在没有对应组件时才会产生
+            if(message.PlayerId == LocalPlayer)
             {
                 LocalPlayerController LocalPlayer = AllPlayerInfo[message.PlayerId].GetComponent<LocalPlayerController>();
                 LocalPlayer.ReflectCurScale = 0f;
@@ -190,6 +186,7 @@ public class NetWorkManager : MonoBehaviour
             }
             else
             {
+                PlayerController OtherPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerController>();
                 OtherPlayer.ReflectCurScale = 0f;
                 OtherPlayer.ReflectStartPosition = TargetRigidbody.position;
                 OtherPlayer.ReflectEndPosition = new Vector2(message.Position.X, message.Position.Y);
