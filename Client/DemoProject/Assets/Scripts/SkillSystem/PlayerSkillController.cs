@@ -15,11 +15,31 @@ public class PlayerSkillController : MonoBehaviour
 
 
 
+    public GameObject ChaosEffectObj;
+    public GameObject ThunderEffectObj;
+    private ParticleSystem _ChaosEffect;
+    private ParticleSystem _ThunderEffect;
+
+
+    public ParticleSystem ChaosEffect
+    {
+        get { return _ChaosEffect; }
+        set { _ChaosEffect = value; }
+    }
+
+    public ParticleSystem ThunderEffect
+    {
+        get { return _ThunderEffect; }
+        set { _ThunderEffect = value; }
+    }
+
     private void Awake()
     {
         GameObject GameManager = GameObject.FindWithTag("GameManager");
         NetClass = GameManager.GetComponent<NetWorkManager>();
         PlayerRigidbody = GetComponent<Rigidbody2D>();
+        _ChaosEffect = ChaosEffectObj.GetComponent<ParticleSystem>();
+        _ThunderEffect = ThunderEffectObj.GetComponent<ParticleSystem>();
     }
 
 
@@ -33,20 +53,21 @@ public class PlayerSkillController : MonoBehaviour
         UpdateSkillInfo.PlayerId = PalyerId;
         NetClass.SendDataToServer(UpdateSkillInfo,(int)Protocal.MESSAGE_RELEASESKILL);
 
-        //负面技能,只要不是主端释放的就会造成影响
-        if (type != (int)SphereType.SPHERE_YELLOW && PalyerId != NetClass.LocalPlayer)
+        var ReleasePlayer = NetClass.AllPlayerInfo[PalyerId].GetComponent<PlayerSkillController>();
+        if (type == (int)SphereType.SPHERE_YELLOW)
         {
-            AddSkillTime(type);
+            ReleasePlayer.PlaySkillEffect(type);
+            ReleasePlayer.AddSkillTime(type);
+            return;
         }
-        //增益技能，只有当是主端释放才会对主端造成影响
-        else if (type == (int)SphereType.SPHERE_YELLOW && PalyerId == NetClass.LocalPlayer)
+        for (int i = 1; i <= NetClass.AllPlayerInfo.Count; ++i)
         {
-            AddSkillTime(type);
+            if (i != PalyerId)
+            {
+                NetClass.AllPlayerInfo[i].GetComponent<PlayerSkillController>().AddSkillTime(type);
+                NetClass.AllPlayerInfo[i].GetComponent<PlayerSkillController>().PlaySkillEffect(type);
+            }
         }
-
-        //找到对应的释放者播放特效，主端在本地计算
-        var SkillController = NetClass.AllPlayerInfo[PalyerId].GetComponent<PlayerSkillController>();
-        SkillController.PlaySkillEffect(type);
     }
 
 
@@ -55,13 +76,13 @@ public class PlayerSkillController : MonoBehaviour
         switch (type)
         {
             case (int)SphereType.SPHERE_RED:
-                ChaosTime = 100f;
+                ChaosTime = 10f;
                 break;
             case (int)SphereType.SPHERE_BLUE:
-                FreezeTime = 100f;
+                FreezeTime = 10f;
                 break;
             case (int)SphereType.SPHERE_YELLOW:
-                ThunderTime = 100f;
+                ThunderTime = 10f;
                 break;
         }
     }
@@ -73,13 +94,13 @@ public class PlayerSkillController : MonoBehaviour
         switch (type)
         {
             case (int)SphereType.SPHERE_RED:
-                //ChaosTime = 100f;
+                _ChaosEffect.Play();
                 break;
             case (int)SphereType.SPHERE_BLUE:
-                //FreezeTime = 100f;
+
                 break;
             case (int)SphereType.SPHERE_YELLOW:
-                //DisarmTime = 100f;
+                _ThunderEffect.Play();
                 break;
         }
     }

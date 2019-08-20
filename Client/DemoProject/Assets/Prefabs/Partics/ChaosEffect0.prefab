@@ -41,7 +41,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3304503545446413694}
   serializedVersion: 6
-  lengthInSec: 2
+  lengthInSec: 5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 1
@@ -4695,7 +4695,7 @@ PrefabInstance:
     - target: {fileID: 198234101354350678, guid: 3012541b8eaa79e458c457f018b2977d,
         type: 3}
       propertyPath: lengthInSec
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 198234101354350678, guid: 3012541b8eaa79e458c457f018b2977d,
         type: 3}

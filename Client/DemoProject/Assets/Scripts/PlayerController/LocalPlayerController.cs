@@ -78,6 +78,8 @@ public class LocalPlayerController : MonoBehaviour
         }
         else
         {
+            if (SkillController.ChaosEffect.isPlaying)
+                SkillController.ChaosEffect.Stop();
             isChaos = false;
         }
 
@@ -88,6 +90,8 @@ public class LocalPlayerController : MonoBehaviour
         }
         else
         {
+            //if (SkillController.ChaosEffect.isPlaying)
+            //    SkillController.ChaosEffect.Stop();
             isFreeze = false;
         }
 
@@ -98,6 +102,8 @@ public class LocalPlayerController : MonoBehaviour
         }
         else
         {
+            if (SkillController.ThunderEffect.isPlaying)
+                SkillController.ThunderEffect.Stop();
             isThunder = false;
         }
     }
@@ -249,8 +255,8 @@ public class LocalPlayerController : MonoBehaviour
                 else if (Health.BodyIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
                 {
                     SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, 2, collision.contacts[0].point);
-                    Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
                     Health.SubHp(2);
+                    Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
                 }
                 for (int i = 0; i < collision.contactCount; ++i)
                     VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;

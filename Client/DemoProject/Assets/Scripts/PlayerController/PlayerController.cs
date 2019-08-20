@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private NetWorkManager NetClass;
     private Rigidbody2D PlayerRigidbody;
+    private PlayerSkillController SkillController;
     private PlayerHealth Health;
     private bool isOK = true;
     private int CurWaitFrame = 0;
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerRigidbody = GetComponent<Rigidbody2D>();
         Health = GetComponent<PlayerHealth>();
+        SkillController = GetComponent<PlayerSkillController>();
         NetClass = GameObject.FindWithTag("GameManager").GetComponent<NetWorkManager>();
         ReflectLerpScaleDelta = Time.fixedDeltaTime / ReflectTime;
         WallLayer = LayerMask.NameToLayer("Wall");
@@ -60,9 +62,35 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void CheckStatus()
+    {
+        if (SkillController.ChaosTime > 0f)
+            SkillController.ChaosTime -= Time.fixedDeltaTime;
+ 
+        else if (SkillController.ChaosEffect.isPlaying)
+                SkillController.ChaosEffect.Stop();
+
+        #region
+        if (SkillController.FreezeTime > 0f)
+            SkillController.FreezeTime -= Time.fixedDeltaTime;
+        else
+        {
+            //if (SkillController.ChaosEffect.isPlaying)
+            //    SkillController.ChaosEffect.Stop();
+        }
+        #endregion
+
+        if (SkillController.ThunderTime > 0f)
+            SkillController.ThunderTime -= Time.fixedDeltaTime;
+        else if(SkillController.ThunderEffect.isPlaying)
+                SkillController.ThunderEffect.Stop();
+    }
+
     private void FixedUpdate()
     {
         UpdateCode();
+        CheckStatus();
+
         //同步反弹插值
         if (ReflectCurScale <= 1f)
         {
@@ -131,8 +159,8 @@ public class PlayerController : MonoBehaviour
                 else if (Health.BodyIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
                 {
                     SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, 2, collision.contacts[0].point);
-                    Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
                     Health.SubHp(2);
+                    Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
                 }
                 for (int i = 0; i < collision.contactCount; ++i)
                     VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;

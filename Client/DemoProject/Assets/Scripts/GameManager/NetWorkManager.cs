@@ -161,10 +161,10 @@ public class NetWorkManager : MonoBehaviour
         HelperClass.AddDelegate(() => {
             //每次同步位置时，若在反弹状态中，直接丢弃包
             PlayerHealth Player = AllPlayerInfo[message.PlayerId].GetComponent<PlayerHealth>();
-            Player.SubHp(message.Damage);
             TargetPosition.x = message.Position.X;
             TargetPosition.y = message.Position.Y;
             Player.PlayerSpecialEffects(message.EffectsIndex, TargetPosition);
+            Player.SubHp(message.Damage);
         });
     }
 
@@ -231,22 +231,21 @@ public class NetWorkManager : MonoBehaviour
     private void HandleReleaseSkill(SkillInfo message)
     {
         HelperClass.AddDelegate(() => {
-            //技能效果表现上其实只影响local,但是都是从主端发送出来的
-            var LocalSkillController = AllPlayerInfo[LocalPlayer].GetComponent<PlayerSkillController>();
-
-            //负面技能,只要不是自己释放便会有影响
-            if (message.Type != (int)SphereType.SPHERE_YELLOW && message.PlayerId != LocalPlayer)
+            var ReleasePlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerSkillController>();
+            if (message.Type == (int)SphereType.SPHERE_YELLOW)
             {
-                LocalSkillController.AddSkillTime(message.Type);
+                ReleasePlayer.PlaySkillEffect(message.Type);
+                ReleasePlayer.AddSkillTime(message.Type);
+                return;
             }
-            //增益技能，只有当是自己释放才有效果
-            else if (message.Type == (int)SphereType.SPHERE_YELLOW && message.PlayerId == LocalPlayer)
+            for (int i = 1; i <= AllPlayerInfo.Count; ++i)
             {
-                LocalSkillController.AddSkillTime(message.Type);
+                if (i != message.PlayerId)
+                {
+                    AllPlayerInfo[i].GetComponent<PlayerSkillController>().AddSkillTime(message.Type);
+                    AllPlayerInfo[i].GetComponent<PlayerSkillController>().PlaySkillEffect(message.Type);
+                }
             }
-
-            //找到对应的释放者播放特效
-            AllPlayerInfo[message.PlayerId].GetComponent<PlayerSkillController>().PlaySkillEffect(message.Type);
         });
     }
 
