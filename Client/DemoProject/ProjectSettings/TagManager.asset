@@ -8,6 +8,8 @@ TagManager:
   - FxTemporaire
   - GameManager
   - soldier
+  - HealthBar
+  - FakerCenter
   layers:
   - Default
   - TransparentFX

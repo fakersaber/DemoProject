@@ -85,6 +85,8 @@ public class PlayerEnergyController : MonoBehaviour
 
     public bool CustomEnergySphere()
     {
+        //
+
         if (_EnergyList.Count == 0)
             return false;
         SphereInfo CustomSphere = _EnergyList[_EnergyList.Count - 1];

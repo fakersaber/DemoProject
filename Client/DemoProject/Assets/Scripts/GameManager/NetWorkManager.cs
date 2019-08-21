@@ -26,7 +26,7 @@ public class NetWorkManager : MonoBehaviour
     private GameObject MainCamera;
     private Vector2 TargetPosition;
     private EnergySpherePool SpherePoll;
-
+    private PlayerEffectsManager EffectsManager;
 
     //cache component
 
@@ -34,6 +34,7 @@ public class NetWorkManager : MonoBehaviour
     private void Awake()
     {
         SpherePoll = GetComponent<EnergySpherePool>();
+        EffectsManager = GetComponent<PlayerEffectsManager>();
         MainCamera = Instantiate(InitCamera, new Vector3(0f, 0f, -10f), Quaternion.Euler(0f, 0f, 0f));
         HelperClass = AccrossThreadHelper.Instance;
         Connect();
@@ -121,6 +122,7 @@ public class NetWorkManager : MonoBehaviour
         HelperClass.AddDelegate(() => {
             GameObject NewObject =  Instantiate(InitPrefab,new Vector3(message.Position.X, message.Position.Y, 0f),Quaternion.Euler(0f,0f,message.Rotation));
             AllPlayerInfo.Add(message.PlayerId, NewObject);
+            EffectsManager.InitPlayerEffects(message.PlayerId);
             if (message.IsManclient)
             {
                 var Controller = NewObject.AddComponent<LocalPlayerController>();
@@ -163,7 +165,7 @@ public class NetWorkManager : MonoBehaviour
             PlayerHealth Player = AllPlayerInfo[message.PlayerId].GetComponent<PlayerHealth>();
             TargetPosition.x = message.Position.X;
             TargetPosition.y = message.Position.Y;
-            Player.PlayerSpecialEffects(message.EffectsIndex, TargetPosition);
+            EffectsManager.PlayerSpecialEffects(message.PlayerId,message.EffectsIndex, TargetPosition);
             Player.SubHp(message.Damage);
         });
     }

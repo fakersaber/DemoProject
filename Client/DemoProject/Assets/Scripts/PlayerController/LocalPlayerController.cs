@@ -38,6 +38,7 @@ public class LocalPlayerController : MonoBehaviour
     private PlayerHealth Health;
     private PlayerSkillController SkillController;
     private NetWorkManager NetClass;
+    private PlayerEffectsManager EffectsManager;
     private Vector2 direct;
     private int CurWaitFrame = 0;
     SpurtButton SpurtTouch;
@@ -57,6 +58,11 @@ public class LocalPlayerController : MonoBehaviour
     private int WallLayer;
     private int PlayerLayer;
     #endregion
+
+
+    private GameObject HealthBar;
+    private GameObject FakeCenter;
+    private Vector3 Offset;
 
     #region
     private void CheckStatus()
@@ -115,11 +121,15 @@ public class LocalPlayerController : MonoBehaviour
         Health = GetComponent<PlayerHealth>();
         ReflectLerpScaleDelta = Time.fixedDeltaTime / ReflectTime;
         InputLerpScaleDelta = Time.fixedDeltaTime / InputTime;
-        NetClass = GameObject.FindWithTag("GameManager").GetComponent<NetWorkManager>();
+        var GameManager = GameObject.FindWithTag("GameManager");
+        NetClass = GameManager.GetComponent<NetWorkManager>();
+        EffectsManager = GameManager.GetComponent<PlayerEffectsManager>();
         SpurtTouch = GameObject.FindWithTag("Spurt").GetComponent<SpurtButton>();
         SkillController = GetComponent<PlayerSkillController>();
         WallLayer = LayerMask.NameToLayer("Wall");
         PlayerLayer = LayerMask.NameToLayer("Player");
+        HealthBar = GameObject.FindWithTag("HealthBar");
+        FakeCenter = GameObject.FindWithTag("FakerCenter");
     }
 
     private void Start()
@@ -128,6 +138,14 @@ public class LocalPlayerController : MonoBehaviour
         EndInputRotation = PlayerRigidbody.rotation;
         LastInputRotation = PlayerRigidbody.rotation;
         LastRotation = PlayerRigidbody.rotation;
+
+        Offset = HealthBar.transform.position - FakeCenter.transform.position;
+    }
+
+    private void Update()
+    {
+        HealthBar.transform.position = Offset + FakeCenter.transform.position;
+        HealthBar.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     private void LateUpdate()
@@ -214,6 +232,7 @@ public class LocalPlayerController : MonoBehaviour
                 float CurAng = Mathf.LerpAngle(StartInputRotation, EndInputRotation, InputCurScale);
                 PlayerRigidbody.MoveRotation(CurAng);
                 SendData(NetClass.LocalPlayer, PlayerRigidbody.position + DeltaPostion, CurAng,(int)Protocal.MESSAGE_UPDATEDATA);
+
             }
         }
     }
@@ -241,22 +260,24 @@ public class LocalPlayerController : MonoBehaviour
                 int SelfIndex = collision.otherCollider.GetHashCode();
                 int otherIndex = collision.collider.GetHashCode();
                 PlayerHealth otherHealth = collision.gameObject.GetComponent<PlayerHealth>();
-
                 if (Health.WeaponIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
                 {
                     SendAttackInfo((int)SpecialEffects.WEAPONTOWEAPON, 0, collision.contacts[0].point);
-                    Health.PlayerSpecialEffects((int)SpecialEffects.WEAPONTOWEAPON, collision.contacts[0].point);
+                    EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer,(int)SpecialEffects.WEAPONTOWEAPON, collision.contacts[0].point);
                 }
                 else if (Health.BodyIndex == SelfIndex && otherHealth.BodyIndex == otherIndex)
                 {
                     SendAttackInfo((int)SpecialEffects.BADYTOBADY, 0, collision.contacts[0].point);
-                    Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOBADY, collision.contacts[0].point);
+                    EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer,(int)SpecialEffects.BADYTOBADY, collision.contacts[0].point);
                 }
                 else if (Health.BodyIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
                 {
-                    SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, 2, collision.contacts[0].point);
-                    Health.SubHp(2);
-                    Health.PlayerSpecialEffects((int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
+                    int CurDamage = PlayerHealth.NormalDamage;
+                    if (collision.gameObject.GetComponent<PlayerSkillController>().ThunderTime > 0f)
+                        CurDamage = PlayerHealth.ThunderDamage;
+                    SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, CurDamage, collision.contacts[0].point);
+                    EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer, (int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
+                    Health.SubHp(CurDamage);
                 }
                 for (int i = 0; i < collision.contactCount; ++i)
                     VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;

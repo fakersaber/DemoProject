@@ -17,7 +17,7 @@ void Room::CreateObject(SOCKET socket, int index) {
 		SendClass.mutable_position()->set_x(i * 5.f);
 		SendClass.mutable_position()->set_y(i * 5.f);
 		SendClass.set_playerid(i + 1);
-		SendClass.set_rotation(45.f);
+		SendClass.set_rotation(0.f);
 		index == i + 1 ? SendClass.set_ismanclient(true) : SendClass.set_ismanclient(false);
 		SendClass.SerializeToArray(send_buffer + 2 * sizeof(int) + totalSize, SendClass.ByteSize());
 		Room::Encode(Protocal::MESSAGE_CREATEOBJ, SendClass.ByteSize(), send_buffer + totalSize);

@@ -8,16 +8,13 @@ public class PlayerHealth : MonoBehaviour
 {
     private int weaponIndex;
     private int bodyIndex;
-    public float Health = 10;
+    private float Health = 10;
     public const float MaxHealth = 10f;
-    //public int Damage = 2;
+    public const int NormalDamage = 2;
+    public const int ThunderDamage = 5;
+
+
     private NetWorkManager NetClass;
-    public GameObject WeaponEffect;
-    public GameObject AttackedEffect;
-    public GameObject PlayerCollidEffct;
-    private ParticleSystem WeaponToWeapon;
-    private ParticleSystem BodyToBody;
-    private ParticleSystem BodyToWeapon;
     private Material HealthBar;
 
 
@@ -37,10 +34,6 @@ public class PlayerHealth : MonoBehaviour
         NetClass = GameObject.FindWithTag("GameManager").GetComponent<NetWorkManager>();
         weaponIndex = gameObject.GetComponents<PolygonCollider2D>()[0].GetHashCode();
         bodyIndex = gameObject.GetComponents<PolygonCollider2D>()[1].GetHashCode();
-        WeaponToWeapon = WeaponEffect.GetComponent<ParticleSystem>();
-        BodyToBody = PlayerCollidEffct.GetComponent<ParticleSystem>();
-        BodyToWeapon = AttackedEffect.GetComponent<ParticleSystem>();
-
         HealthBar = GetComponentsInChildren<SpriteRenderer>()[1].material;
         HealthBar.SetFloat("_CurHealth", Health / MaxHealth);
     }
@@ -53,30 +46,11 @@ public class PlayerHealth : MonoBehaviour
         {
             Health -= Damage;
             HealthBar.SetFloat("_CurHealth", Health/MaxHealth);
-            if (Health <= 0)
+            if (Health <= 0f)
             {
                 gameObject.SetActive(false);
             }
         }
     }
 
-
-    public void PlayerSpecialEffects(int EffectsIndex,Vector2 PlayPosition)
-    {
-        switch(EffectsIndex)
-        {
-            case (int)SpecialEffects.BADYTOBADY:
-                BodyToBody.transform.position = PlayPosition;
-                BodyToBody.Play();
-                break;
-            case (int)SpecialEffects.WEAPONTOWEAPON:
-                WeaponToWeapon.transform.position = PlayPosition;
-                WeaponToWeapon.Play();
-                break;
-            case (int)SpecialEffects.BADYTOWEAPON:
-                BodyToWeapon.transform.position = PlayPosition;
-                BodyToWeapon.Play();
-                break;
-        }
-    }
 }
