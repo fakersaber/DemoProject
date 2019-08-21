@@ -7,11 +7,13 @@ public class PlayerEffectsManager : MonoBehaviour
     public GameObject WeaponEffect;
     public GameObject AttackedEffect;
     public GameObject PlayerCollidEffct;
+    public GameObject PlayerDeathEffct;
     private class PlayerEffects
     {
         public ParticleSystem WeaponToWeapon;
         public ParticleSystem BodyToBody;
         public ParticleSystem BodyToWeapon;
+        public ParticleSystem PlayerDeath;
     }
     private Dictionary<int, PlayerEffects> AllEffectsInfo = new Dictionary<int, PlayerEffects>(4);
 

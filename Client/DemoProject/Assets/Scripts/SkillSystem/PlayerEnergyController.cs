@@ -10,7 +10,7 @@ public class PlayerEnergyController : MonoBehaviour
     private EnergySpherePool SphereManager;
     private YVector2 UpdateVec;
     private Vector2 LocalVec;
-    //private PlayerSkillController LocalSkillController;
+    private PlayerSkillController SkillController;
 
     private EnergySphere CacheEnergySphere = new EnergySphere();
 
@@ -41,6 +41,7 @@ public class PlayerEnergyController : MonoBehaviour
         GameObject GameManager = GameObject.FindWithTag("GameManager");
         NetClass = GameManager.GetComponent<NetWorkManager>();
         SphereManager = GameManager.GetComponent<EnergySpherePool>();
+        SkillController = GetComponent<PlayerSkillController>();
         UpdateVec = new YVector2();
     }
 
@@ -85,7 +86,9 @@ public class PlayerEnergyController : MonoBehaviour
 
     public bool CustomEnergySphere()
     {
-        //
+        //当处于技能时间内不能消耗能量球
+        if (SkillController.SuperTime > 0f)
+            return true;
 
         if (_EnergyList.Count == 0)
             return false;

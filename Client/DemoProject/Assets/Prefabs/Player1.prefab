@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 468873750542192829}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 1960804242587531098}
   - {fileID: 2005652706989753477}
@@ -234,6 +234,7 @@ MonoBehaviour:
   ChaosTime: 0
   FreezeTime: 0
   ThunderTime: 0
+  SuperTime: 0
   ChaosEffectObj: {fileID: 468339425363073970}
   ThunderEffectObj: {fileID: 1954577241754890360}
 --- !u!1 &5502949901536997094

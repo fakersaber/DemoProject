@@ -52,12 +52,12 @@
 
 			fixed4 frag (v2f i) : SV_Target
 			{
-				fixed3 col = tex2D(_MainTex,i.uv).rgb;
+				fixed4 col = tex2D(_MainTex,i.uv);
 				half Noise = tex2D(_NoiseTex,i.uv + _Time.x * 2).x;
 				half IntensityNoise = tex2D(_NoiseTex,i.uv + _Time.x * 5).x;
-				fixed3 FinalColor = lerp(col, _Color, Noise *_FogMass);
-				col = lerp(col, FinalColor, Noise * _FogIntensity);
-				return fixed4(col,1);
+				fixed3 FinalColor = lerp(col.rgb, _Color.rgb, Noise *_FogMass);
+				col.rgb = lerp(col.rgb, FinalColor, Noise * _FogIntensity);
+				return col;
 			}
 			ENDCG
 		}

@@ -9,21 +9,14 @@ public class CameraController : MonoBehaviour
     private float MoveTime = 0f;
     private Vector3 CacheVec;
 
-    //private void Awake()
-    //{
-    //    //NetClass = GameObject.Find("GameManager").GetComponent<NetWorkManager>();
-    //    //LocalPlayerRididbody = NetClass.AllPlayerInfo[NetClass.LocalPlayer].GetComponent<Rigidbody2D>();
-    //}
-
-
 
     public Rigidbody2D PlayerRidibody
     {
-        get{return LocalPlayerRididbody;}
-        set{LocalPlayerRididbody = value;}
+        get{ return LocalPlayerRididbody; }
+        set{ LocalPlayerRididbody = value; }
     }
 
-    // Update is called once per frame
+
     private void FixedUpdate()
     {
         if (LocalPlayerRididbody != null)

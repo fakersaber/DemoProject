@@ -60,8 +60,8 @@ public class LocalPlayerController : MonoBehaviour
     #endregion
 
 
-    private GameObject HealthBar;
-    private GameObject FakeCenter;
+    private Transform HealthBarTrans;
+    private Transform FakeCenter;
     private Vector3 Offset;
 
     #region
@@ -112,6 +112,9 @@ public class LocalPlayerController : MonoBehaviour
                 SkillController.ThunderEffect.Stop();
             isThunder = false;
         }
+
+        if(SkillController.SuperTime > 0f)
+            SkillController.SuperTime -= Time.fixedDeltaTime;
     }
     #endregion
 
@@ -128,8 +131,8 @@ public class LocalPlayerController : MonoBehaviour
         SkillController = GetComponent<PlayerSkillController>();
         WallLayer = LayerMask.NameToLayer("Wall");
         PlayerLayer = LayerMask.NameToLayer("Player");
-        HealthBar = GameObject.FindWithTag("HealthBar");
-        FakeCenter = GameObject.FindWithTag("FakerCenter");
+        HealthBarTrans = GetComponentsInChildren<Transform>()[5];
+        FakeCenter = GetComponentsInChildren<Transform>()[6];
     }
 
     private void Start()
@@ -138,14 +141,13 @@ public class LocalPlayerController : MonoBehaviour
         EndInputRotation = PlayerRigidbody.rotation;
         LastInputRotation = PlayerRigidbody.rotation;
         LastRotation = PlayerRigidbody.rotation;
-
-        Offset = HealthBar.transform.position - FakeCenter.transform.position;
+        Offset = HealthBarTrans.position - FakeCenter.position;
     }
 
     private void Update()
     {
-        HealthBar.transform.position = Offset + FakeCenter.transform.position;
-        HealthBar.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        HealthBarTrans.position = Offset + FakeCenter.transform.position;
+        HealthBarTrans.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     private void LateUpdate()

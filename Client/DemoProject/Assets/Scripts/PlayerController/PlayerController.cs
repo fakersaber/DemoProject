@@ -46,6 +46,11 @@ public class PlayerController : MonoBehaviour
     private int PlayerLayer;
     #endregion
 
+
+    private Transform HealthBarTrans;
+    private Transform FakeCenter;
+    private Vector3 Offset;
+
     private void Awake()
     {
         PlayerRigidbody = GetComponent<Rigidbody2D>();
@@ -57,13 +62,21 @@ public class PlayerController : MonoBehaviour
         ReflectLerpScaleDelta = Time.fixedDeltaTime / ReflectTime;
         WallLayer = LayerMask.NameToLayer("Wall");
         PlayerLayer = LayerMask.NameToLayer("Player");
+        HealthBarTrans = GetComponentsInChildren<Transform>()[5];
+        FakeCenter = GetComponentsInChildren<Transform>()[6];
     }
 
     private void Start()
     {
         LastRotation = PlayerRigidbody.rotation;
+        Offset = HealthBarTrans.position - FakeCenter.position;
     }
 
+    private void Update()
+    {
+        HealthBarTrans.position = Offset + FakeCenter.transform.position;
+        HealthBarTrans.rotation = Quaternion.Euler(0f, 0f, 0f);
+    }
 
     private void CheckStatus()
     {
@@ -87,6 +100,10 @@ public class PlayerController : MonoBehaviour
             SkillController.ThunderTime -= Time.fixedDeltaTime;
         else if(SkillController.ThunderEffect.isPlaying)
                 SkillController.ThunderEffect.Stop();
+
+
+        if (SkillController.SuperTime > 0f)
+            SkillController.SuperTime -= Time.fixedDeltaTime;
     }
 
     private void FixedUpdate()

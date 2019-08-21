@@ -17,25 +17,30 @@ public class NetWorkManager : MonoBehaviour
     public GameObject InitPrefab;
     public GameObject InitCamera;
     public int LocalPlayer;
-    public Dictionary<int, GameObject> AllPlayerInfo = new Dictionary<int, GameObject>();
+    public Dictionary<int, GameObject> AllPlayerInfo = new Dictionary<int, GameObject>(4);
+    public Dictionary<int, Rigidbody2D> AllPlayerRigidy = new Dictionary<int, Rigidbody2D>(4);
+    public Dictionary<int, PlayerController> AllPlayerController = new Dictionary<int, PlayerController>(3);
+
 
 
     private Socket LocalSocket;
     private Thread recvThread;
     private AccrossThreadHelper HelperClass;
-    private GameObject MainCamera;
     private Vector2 TargetPosition;
     private EnergySpherePool SpherePoll;
     private PlayerEffectsManager EffectsManager;
+    private LoadingManager LocalLoadingManager;
+
 
     //cache component
+
 
 
     private void Awake()
     {
         SpherePoll = GetComponent<EnergySpherePool>();
         EffectsManager = GetComponent<PlayerEffectsManager>();
-        MainCamera = Instantiate(InitCamera, new Vector3(0f, 0f, -10f), Quaternion.Euler(0f, 0f, 0f));
+        LocalLoadingManager = GetComponent<LoadingManager>();
         HelperClass = AccrossThreadHelper.Instance;
         Connect();
     }
@@ -99,6 +104,9 @@ public class NetWorkManager : MonoBehaviour
                         case (int)Protocal.MESSAGE_CREATEOBJ:
                             HandleCreateObject(CreateObjInfo.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
                             break;
+                        case (int)Protocal.MESSAGE_LOADING:
+                            HandleLoading(UpdateInfo.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
+                            break;
                         default:
                             break;
                     }
@@ -118,16 +126,14 @@ public class NetWorkManager : MonoBehaviour
 
     private void HandleCreateObject(CreateObjInfo message)
     {
-        //线程安全的委托列表单例
         HelperClass.AddDelegate(() => {
             GameObject NewObject =  Instantiate(InitPrefab,new Vector3(message.Position.X, message.Position.Y, 0f),Quaternion.Euler(0f,0f,message.Rotation));
-            AllPlayerInfo.Add(message.PlayerId, NewObject);
+            AllPlayerInfo.Add(message.PlayerId, NewObject);   
             EffectsManager.InitPlayerEffects(message.PlayerId);
             if (message.IsManclient)
             {
                 var Controller = NewObject.AddComponent<LocalPlayerController>();
                 LocalPlayer = message.PlayerId;
-                MainCamera.GetComponent<CameraController>().PlayerRidibody = NewObject.GetComponent<Rigidbody2D>();
                 GameObject.FindWithTag("Spurt").GetComponent<SpurtButton>().LocalPlayerEnergy = NewObject.GetComponent<PlayerEnergyController>();
             }
             else
@@ -136,6 +142,15 @@ public class NetWorkManager : MonoBehaviour
                 Controller.PlayerId = message.PlayerId;
             }
             NewObject.GetComponent<PlayerEnergyController>().playerid = message.PlayerId;
+            AllPlayerRigidy.Add(message.PlayerId, NewObject.GetComponent<Rigidbody2D>());
+            AllPlayerController.Add(message.PlayerId, NewObject.GetComponent<PlayerController>());
+            LocalLoadingManager.LocalDownPlayer++;
+            if (LocalLoadingManager.LocalDownPlayer == LoadingManager.RoomSize)
+            {
+                //任意一个结构，反正为空
+                UpdateInfo SendClass = new UpdateInfo() { PlayerId = LocalPlayer };
+                SendDataToServer(SendClass,(int)Protocal.MESSAGE_LOADING);
+            }
         }); 
     }
 
@@ -143,10 +158,8 @@ public class NetWorkManager : MonoBehaviour
     {
         //更新
         HelperClass.AddDelegate(() =>{
-            //每次同步位置时，若在反弹状态中，直接丢弃包
-            PlayerController Controller = AllPlayerInfo[message.PlayerId].GetComponent<PlayerController>();
-            Rigidbody2D TargetRigidbody = AllPlayerInfo[message.PlayerId].GetComponent<Rigidbody2D>();
-            //更新插值的值
+            PlayerController Controller = AllPlayerController[message.PlayerId];
+            Rigidbody2D TargetRigidbody = AllPlayerRigidy[message.PlayerId];
             TargetPosition.x = message.Position.X;
             TargetPosition.y = message.Position.Y;
             Controller.StartSynchronizepos = TargetRigidbody.position;
@@ -174,7 +187,7 @@ public class NetWorkManager : MonoBehaviour
     {
         //同步该端所有内容
         HelperClass.AddDelegate(() =>{
-            Rigidbody2D TargetRigidbody = AllPlayerInfo[message.PlayerId].GetComponent<Rigidbody2D>();
+            Rigidbody2D TargetRigidbody = AllPlayerRigidy[message.PlayerId];
             
             //getcomponent的gc只有在没有对应组件时才会产生
             if(message.PlayerId == LocalPlayer)
@@ -188,7 +201,7 @@ public class NetWorkManager : MonoBehaviour
             }
             else
             {
-                PlayerController OtherPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerController>();
+                PlayerController OtherPlayer = AllPlayerController[message.PlayerId];
                 OtherPlayer.ReflectCurScale = 0f;
                 OtherPlayer.ReflectStartPosition = TargetRigidbody.position;
                 OtherPlayer.ReflectEndPosition = new Vector2(message.Position.X, message.Position.Y);
@@ -234,6 +247,7 @@ public class NetWorkManager : MonoBehaviour
     {
         HelperClass.AddDelegate(() => {
             var ReleasePlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerSkillController>();
+            ReleasePlayer.SuperTime = 10f;
             if (message.Type == (int)SphereType.SPHERE_YELLOW)
             {
                 ReleasePlayer.PlaySkillEffect(message.Type);
@@ -252,7 +266,13 @@ public class NetWorkManager : MonoBehaviour
     }
 
 
-
+    private void HandleLoading(UpdateInfo message)
+    {
+        HelperClass.AddDelegate(() =>
+        {
+            LocalLoadingManager.OtherDownPlayerNum++;
+        });
+    }
 
     public void SendDataToServer(UpdateInfo SendClass, int protocal)
     {

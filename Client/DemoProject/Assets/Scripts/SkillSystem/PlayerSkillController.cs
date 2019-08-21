@@ -13,6 +13,7 @@ public class PlayerSkillController : MonoBehaviour
     public float FreezeTime = 0f; //冰冻时间
     public float ThunderTime = 0f; //强化时间
 
+    public float SuperTime = 0f; //释放技能后进入的超级时间
 
 
     public GameObject ChaosEffectObj;
@@ -54,6 +55,8 @@ public class PlayerSkillController : MonoBehaviour
         NetClass.SendDataToServer(UpdateSkillInfo,(int)Protocal.MESSAGE_RELEASESKILL);
 
         var ReleasePlayer = NetClass.AllPlayerInfo[PalyerId].GetComponent<PlayerSkillController>();
+        ReleasePlayer.SuperTime = 10f;
+
         if (type == (int)SphereType.SPHERE_YELLOW)
         {
             ReleasePlayer.PlaySkillEffect(type);

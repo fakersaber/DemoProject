@@ -21,7 +21,8 @@ enum class Protocal {
 	MESSAGE_INITENERGYSPHERE = 1004,
 	MESSAGE_COLLECT = 1005,
 	MESSAGE_GENERATORENERGY = 1006,
-	MESSAGE_RELEASESKILL = 1007
+	MESSAGE_RELEASESKILL = 1007,
+	MESSAGE_LOADING = 1008
 };
 
 
@@ -39,7 +40,7 @@ public:
 	static void InitEnergyShpere(std::list<SOCKET>& UserList);
 	static void Encode(Protocal message_type, int size, char* buffer);
 	static void CreateObject(SOCKET socket, int index);
-	static const uint32_t RoomSize = 1;
+	static const uint32_t RoomSize = 2;
 	static const uint32_t SphereSize = 5;
 	static const int width = 1280;
 	static const int height = 720;

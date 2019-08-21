@@ -23,3 +23,4 @@ message SkillInfo
     int32 type = 2;//技能类型
     YVector2 Position = 3; //释放位置
 }
+
