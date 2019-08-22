@@ -61,8 +61,10 @@ public class LocalPlayerController : MonoBehaviour
 
 
     private Transform HealthBarTrans;
+    private Transform EnergyRenderTrans;
     private Transform FakeCenter;
-    private Vector3 Offset;
+    private Vector3 OffsetHealth;
+    private Vector3 OffsetEnergy;
 
     #region
     private void CheckStatus()
@@ -133,6 +135,7 @@ public class LocalPlayerController : MonoBehaviour
         PlayerLayer = LayerMask.NameToLayer("Player");
         HealthBarTrans = GetComponentsInChildren<Transform>()[5];
         FakeCenter = GetComponentsInChildren<Transform>()[6];
+        EnergyRenderTrans = GetComponentsInChildren<Transform>()[7];
     }
 
     private void Start()
@@ -141,13 +144,16 @@ public class LocalPlayerController : MonoBehaviour
         EndInputRotation = PlayerRigidbody.rotation;
         LastInputRotation = PlayerRigidbody.rotation;
         LastRotation = PlayerRigidbody.rotation;
-        Offset = HealthBarTrans.position - FakeCenter.position;
+        OffsetHealth = HealthBarTrans.position - FakeCenter.position;
+        OffsetEnergy = EnergyRenderTrans.position - FakeCenter.position;
     }
 
     private void Update()
     {
-        HealthBarTrans.position = Offset + FakeCenter.transform.position;
+        HealthBarTrans.position = OffsetHealth + FakeCenter.transform.position;
         HealthBarTrans.rotation = Quaternion.Euler(0f, 0f, 0f);
+        EnergyRenderTrans.position = OffsetEnergy + FakeCenter.transform.position;
+        EnergyRenderTrans.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     private void LateUpdate()

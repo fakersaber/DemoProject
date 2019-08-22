@@ -227,16 +227,19 @@ public class NetWorkManager : MonoBehaviour
     private void HandleCollectSphere(EnergySphere message)
     {
         HelperClass.AddDelegate(() =>{
+            var CurPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>();
+            CurPlayer.EnergyList.Add(SpherePoll.GetSphereInfo(message.SphereId));
+            CurPlayer.uIManager.CollectSphere(message.Type);
             SpherePoll.Collect(message.SphereId);
-            AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>().EnergyList.Add(SpherePoll.GetSphereInfo(message.SphereId));
         });
     }
 
     private void HandleGeneratorSphere(EnergySphere message)
     {
         HelperClass.AddDelegate(() => {
-            var CurList = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>().EnergyList;
-            CurList.RemoveAt(CurList.Count - 1);
+            var CurPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>();
+            CurPlayer.EnergyList.RemoveAt(CurPlayer.EnergyList.Count - 1);
+            CurPlayer.uIManager.ConsumeSphere();
             TargetPosition.x = message.Position.X;
             TargetPosition.y = message.Position.Y;
             SpherePoll.GeneratorNewSphere(message.SphereId, TargetPosition);
@@ -360,8 +363,8 @@ public class NetWorkManager : MonoBehaviour
 
     public void OnDisable()
     {
-        if (recvThread != null)
-            recvThread.Abort();
+        //if (recvThread != null)
+        //    recvThread.Abort();
         LocalSocket.Close();
     }
 }

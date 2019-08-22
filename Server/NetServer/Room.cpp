@@ -97,8 +97,10 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 					if (RetVal == SOCKET_ERROR || !RetVal) {
 						closesocket(AllSocketSet.fd_array[i]);
 						FD_CLR(AllSocketSet.fd_array[i], &AllSocketSet);
-
-						if (!RetVal) { printf("Client closes normally\n"); }
+						if (!RetVal) 
+						{ 
+							printf("Client closes normally\n"); 
+						}
 						else {
 							auto err = WSAGetLastError();
 							if (err == WSAECONNRESET) { printf("Client is forced to close\n"); }

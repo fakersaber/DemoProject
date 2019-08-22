@@ -9,7 +9,6 @@ TagManager:
   - GameManager
   - soldier
   - HealthBar
-  - FakerCenter
   layers:
   - Default
   - TransparentFX

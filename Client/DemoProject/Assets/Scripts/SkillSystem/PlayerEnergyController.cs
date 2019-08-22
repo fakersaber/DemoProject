@@ -11,7 +11,7 @@ public class PlayerEnergyController : MonoBehaviour
     private YVector2 UpdateVec;
     private Vector2 LocalVec;
     private PlayerSkillController SkillController;
-
+    private EnergyUIManager _uIManager;
     private EnergySphere CacheEnergySphere = new EnergySphere();
 
     private int _playerid;
@@ -36,12 +36,18 @@ public class PlayerEnergyController : MonoBehaviour
     }
 
 
+    public EnergyUIManager uIManager
+    {
+        get { return _uIManager; }
+    }
+
     private void Awake()
     {
         GameObject GameManager = GameObject.FindWithTag("GameManager");
         NetClass = GameManager.GetComponent<NetWorkManager>();
         SphereManager = GameManager.GetComponent<EnergySpherePool>();
         SkillController = GetComponent<PlayerSkillController>();
+        _uIManager = GetComponentInChildren<EnergyUIManager>();
         UpdateVec = new YVector2();
     }
 
@@ -59,7 +65,7 @@ public class PlayerEnergyController : MonoBehaviour
                 CollectSphere(CurSphereInfo);
                 for(int i = 0; i < 3; ++i)
                 {
-                    CustomEnergySphere();
+                    ConsumeEnergySphere();
                 }
 
                 //忽略小概率事件，确保本地调用
@@ -76,20 +82,20 @@ public class PlayerEnergyController : MonoBehaviour
     private void CollectSphere(SphereInfo CurSphereInfo)
     {
         _EnergyList.Add(CurSphereInfo);
-        int CurIndex = CurSphereInfo.SphereId;
         CacheEnergySphere.PlayerId = _playerid;
-        CacheEnergySphere.SphereId = CurIndex;
+        CacheEnergySphere.SphereId = CurSphereInfo.SphereId;
+        CacheEnergySphere.Type = CurSphereInfo.Type;
         NetClass.SendDataToServer(CacheEnergySphere, (int)Protocal.MESSAGE_COLLECT);
-        SphereManager.Collect(CurIndex);
+        SphereManager.Collect(CurSphereInfo.SphereId);
+        _uIManager.CollectSphere(CurSphereInfo.Type);
     }
 
 
-    public bool CustomEnergySphere()
+    public bool ConsumeEnergySphere()
     {
         //当处于技能时间内不能消耗能量球
         if (SkillController.SuperTime > 0f)
             return true;
-
         if (_EnergyList.Count == 0)
             return false;
         SphereInfo CustomSphere = _EnergyList[_EnergyList.Count - 1];
@@ -103,6 +109,7 @@ public class PlayerEnergyController : MonoBehaviour
         NetClass.SendDataToServer(CacheEnergySphere, (int)Protocal.MESSAGE_GENERATORENERGY);
         SphereManager.GeneratorNewSphere(CustomSphere.SphereId, LocalVec);
         _EnergyList.RemoveAt(_EnergyList.Count - 1);
+        _uIManager.ConsumeSphere();
         return true;
     }
 }

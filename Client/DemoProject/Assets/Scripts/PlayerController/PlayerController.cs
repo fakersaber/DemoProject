@@ -48,8 +48,10 @@ public class PlayerController : MonoBehaviour
 
 
     private Transform HealthBarTrans;
+    private Transform EnergyRenderTrans;
     private Transform FakeCenter;
-    private Vector3 Offset;
+    private Vector3 OffsetHealth;
+    private Vector3 OffsetEnergy;
 
     private void Awake()
     {
@@ -64,18 +66,22 @@ public class PlayerController : MonoBehaviour
         PlayerLayer = LayerMask.NameToLayer("Player");
         HealthBarTrans = GetComponentsInChildren<Transform>()[5];
         FakeCenter = GetComponentsInChildren<Transform>()[6];
+        EnergyRenderTrans = GetComponentsInChildren<Transform>()[7];
     }
 
     private void Start()
     {
         LastRotation = PlayerRigidbody.rotation;
-        Offset = HealthBarTrans.position - FakeCenter.position;
+        OffsetHealth = HealthBarTrans.position - FakeCenter.position;
+        OffsetEnergy = EnergyRenderTrans.position - FakeCenter.position;
     }
 
     private void Update()
     {
-        HealthBarTrans.position = Offset + FakeCenter.transform.position;
+        HealthBarTrans.position = OffsetHealth + FakeCenter.transform.position;
         HealthBarTrans.rotation = Quaternion.Euler(0f, 0f, 0f);
+        EnergyRenderTrans.position = OffsetEnergy + FakeCenter.transform.position;
+        EnergyRenderTrans.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     private void CheckStatus()
@@ -146,7 +152,7 @@ public class PlayerController : MonoBehaviour
             }
             if (NetPositionScale <= 1f)
             {
-                NetPositionScale += 0.5f;
+                NetPositionScale += 0.2f;
                 PlayerRigidbody.MovePosition(Vector2.Lerp(StartSynchronizepos, EndSynchronizepos, NetPositionScale));
             }
         }

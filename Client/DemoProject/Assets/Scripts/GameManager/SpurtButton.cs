@@ -26,7 +26,7 @@ public class SpurtButton : MonoBehaviour
 
     public void SetSpurtTime()
     {
-        if (_SpurtTime <=0f && LocalPlayerEnergy.CustomEnergySphere())
+        if (_SpurtTime <=0f && LocalPlayerEnergy.ConsumeEnergySphere())
         {
             _SpurtTime = 0.5f;
         }
