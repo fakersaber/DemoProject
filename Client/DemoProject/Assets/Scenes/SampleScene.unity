@@ -303,7 +303,8 @@ MonoBehaviour:
     type: 3}
   PlayerCollidEffct: {fileID: 4855370516559374766, guid: 8e88a8c18b545ef43b49ed7a8ece7818,
     type: 3}
-  PlayerDeathEffct: {fileID: 0}
+  PlayerDeathEffct: {fileID: 1902304290096252, guid: f0c2ec2ec173dfa44833e4947c69600c,
+    type: 3}
 --- !u!114 &687357738
 MonoBehaviour:
   m_ObjectHideFlags: 0

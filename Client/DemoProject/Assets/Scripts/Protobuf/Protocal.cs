@@ -21,7 +21,8 @@ enum SpecialEffects : int
 {
     WEAPONTOWEAPON = 1,
     BADYTOWEAPON = 2,
-    BADYTOBADY = 3
+    BADYTOBADY = 3,
+    PLAYERDEAD = 4
 }
 
 
