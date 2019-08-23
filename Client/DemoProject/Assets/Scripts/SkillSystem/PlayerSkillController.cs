@@ -18,9 +18,12 @@ public class PlayerSkillController : MonoBehaviour
 
     public GameObject ChaosEffectObj;
     public GameObject ThunderEffectObj;
+    public GameObject SelfEffectChaosObj;
+    public GameObject SelfEffectIceObj;
     private ParticleSystem _ChaosEffect;
     private ParticleSystem _ThunderEffect;
-
+    private ParticleSystem _SelfEffectChaos;
+    private ParticleSystem _SelfEffectIce;
 
     public ParticleSystem ChaosEffect
     {
@@ -34,6 +37,19 @@ public class PlayerSkillController : MonoBehaviour
         set { _ThunderEffect = value; }
     }
 
+    public ParticleSystem SelfEffectChaos
+    {
+        get { return _SelfEffectChaos; }
+        set { _SelfEffectChaos = value; }
+    }
+
+    public ParticleSystem SelfEffectIce
+    {
+        get { return _SelfEffectIce; }
+        set { _SelfEffectIce = value; }
+    }
+
+
     private void Awake()
     {
         GameObject GameManager = GameObject.FindWithTag("GameManager");
@@ -41,6 +57,8 @@ public class PlayerSkillController : MonoBehaviour
         PlayerRigidbody = GetComponent<Rigidbody2D>();
         _ChaosEffect = ChaosEffectObj.GetComponent<ParticleSystem>();
         _ThunderEffect = ThunderEffectObj.GetComponent<ParticleSystem>();
+        _SelfEffectChaos = SelfEffectChaosObj.GetComponent<ParticleSystem>();
+        _SelfEffectIce = SelfEffectIceObj.GetComponent<ParticleSystem>();
     }
 
 
@@ -53,16 +71,15 @@ public class PlayerSkillController : MonoBehaviour
         UpdateVec.Y = PlayerRigidbody.position.y;
         UpdateSkillInfo.PlayerId = PalyerId;
         NetClass.SendDataToServer(UpdateSkillInfo,(int)Protocal.MESSAGE_RELEASESKILL);
-
         var ReleasePlayer = NetClass.AllPlayerInfo[PalyerId].GetComponent<PlayerSkillController>();
         ReleasePlayer.SuperTime = 10f;
-
         if (type == (int)SphereType.SPHERE_YELLOW)
         {
             ReleasePlayer.PlaySkillEffect(type);
             ReleasePlayer.AddSkillTime(type);
             return;
         }
+        ReleasePlayer.PlaySelfEffect(type);
         for (int i = 1; i <= NetClass.AllPlayerInfo.Count; ++i)
         {
             if (i != PalyerId)
@@ -104,6 +121,19 @@ public class PlayerSkillController : MonoBehaviour
                 break;
             case (int)SphereType.SPHERE_YELLOW:
                 _ThunderEffect.Play();
+                break;
+        }
+    }
+
+    public void PlaySelfEffect(int type)
+    {
+        switch (type)
+        {
+            case (int)SphereType.SPHERE_RED:
+                _SelfEffectChaos.Play();
+                break;
+            case (int)SphereType.SPHERE_BLUE:
+                _SelfEffectIce.Play();
                 break;
         }
     }

@@ -110,6 +110,13 @@ public class PlayerController : MonoBehaviour
 
         if (SkillController.SuperTime > 0f)
             SkillController.SuperTime -= Time.fixedDeltaTime;
+        else
+        {
+            if (SkillController.SelfEffectChaos.isPlaying)
+                SkillController.SelfEffectChaos.Stop();
+            if (SkillController.SelfEffectIce.isPlaying)
+                SkillController.SelfEffectIce.Stop();
+        }
     }
 
     private void FixedUpdate()
@@ -152,7 +159,7 @@ public class PlayerController : MonoBehaviour
             }
             if (NetPositionScale <= 1f)
             {
-                NetPositionScale += 0.2f;
+                NetPositionScale += 0.35f;
                 PlayerRigidbody.MovePosition(Vector2.Lerp(StartSynchronizepos, EndSynchronizepos, NetPositionScale));
             }
         }

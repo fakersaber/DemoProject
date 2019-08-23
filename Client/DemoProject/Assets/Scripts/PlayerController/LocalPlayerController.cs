@@ -117,6 +117,13 @@ public class LocalPlayerController : MonoBehaviour
 
         if(SkillController.SuperTime > 0f)
             SkillController.SuperTime -= Time.fixedDeltaTime;
+        else
+        {
+            if (SkillController.SelfEffectChaos.isPlaying)
+                SkillController.SelfEffectChaos.Stop();
+            if (SkillController.SelfEffectIce.isPlaying)
+                SkillController.SelfEffectIce.Stop();
+        }
     }
     #endregion
 

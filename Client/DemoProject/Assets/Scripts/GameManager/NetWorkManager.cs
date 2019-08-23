@@ -162,6 +162,8 @@ public class NetWorkManager : MonoBehaviour
             Rigidbody2D TargetRigidbody = AllPlayerRigidy[message.PlayerId];
             TargetPosition.x = message.Position.X;
             TargetPosition.y = message.Position.Y;
+            //TargetRigidbody.position = TargetPosition;
+            //TargetRigidbody.rotation = message.Rotation;
             Controller.StartSynchronizepos = TargetRigidbody.position;
             Controller.EndSynchronizepos = TargetPosition;
             Controller.StartSynchronizerot = TargetRigidbody.rotation;
