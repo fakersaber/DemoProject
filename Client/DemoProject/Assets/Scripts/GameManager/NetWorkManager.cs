@@ -144,6 +144,7 @@ public class NetWorkManager : MonoBehaviour
             NewObject.GetComponent<PlayerEnergyController>().playerid = message.PlayerId;
             AllPlayerRigidy.Add(message.PlayerId, NewObject.GetComponent<Rigidbody2D>());
             AllPlayerController.Add(message.PlayerId, NewObject.GetComponent<PlayerController>());
+
             LocalLoadingManager.LocalDownPlayer++;
             if (LocalLoadingManager.LocalDownPlayer == LoadingManager.RoomSize)
             {
@@ -259,6 +260,7 @@ public class NetWorkManager : MonoBehaviour
                 ReleasePlayer.AddSkillTime(message.Type);
                 return;
             }
+            ReleasePlayer.PlaySelfEffect(message.Type);
             for (int i = 1; i <= AllPlayerInfo.Count; ++i)
             {
                 if (i != message.PlayerId)

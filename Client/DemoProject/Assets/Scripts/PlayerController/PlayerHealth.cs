@@ -8,15 +8,16 @@ public class PlayerHealth : MonoBehaviour
 {
     private int weaponIndex;
     private int bodyIndex;
+    private int _PlayerId;
     private float Health = 10;
     public const float MaxHealth = 10f;
     public const int NormalDamage = 2;
     public const int ThunderDamage = 5;
-
+    
 
     private NetWorkManager NetClass;
     private Material HealthBar;
-
+    private PlayerEffectsManager EffectsManager;
 
 
     public int WeaponIndex
@@ -27,11 +28,17 @@ public class PlayerHealth : MonoBehaviour
     {
         get{ return bodyIndex; }
     }
-
+    public int PlayerId
+    {
+        get { return _PlayerId; }
+        set { _PlayerId = value; }
+    }
 
     private void Awake()
     {
-        NetClass = GameObject.FindWithTag("GameManager").GetComponent<NetWorkManager>();
+        var GameManager = GameObject.FindWithTag("GameManager");
+        NetClass = GameManager.GetComponent<NetWorkManager>();
+        EffectsManager = GameManager.GetComponent<PlayerEffectsManager>();
         weaponIndex = gameObject.GetComponents<PolygonCollider2D>()[0].GetHashCode();
         bodyIndex = gameObject.GetComponents<PolygonCollider2D>()[1].GetHashCode();
         HealthBar = GetComponentsInChildren<SpriteRenderer>()[1].material;
@@ -48,6 +55,7 @@ public class PlayerHealth : MonoBehaviour
             HealthBar.SetFloat("_CurHealth", Health/MaxHealth);
             if (Health <= 0f)
             {
+                EffectsManager.PlayerDead(_PlayerId, transform.position);
                 gameObject.SetActive(false);
             }
         }

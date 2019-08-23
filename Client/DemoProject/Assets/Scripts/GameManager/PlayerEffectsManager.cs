@@ -24,6 +24,7 @@ public class PlayerEffectsManager : MonoBehaviour
         CurEffects.WeaponToWeapon = Instantiate(WeaponEffect).GetComponent<ParticleSystem>();
         CurEffects.BodyToWeapon = Instantiate(AttackedEffect).GetComponent<ParticleSystem>();
         CurEffects.BodyToBody = Instantiate(PlayerCollidEffct).GetComponent<ParticleSystem>();
+        CurEffects.PlayerDeath = Instantiate(PlayerDeathEffct).GetComponent<ParticleSystem>();
         AllEffectsInfo.Add(PlayerId, CurEffects);
     }
 
@@ -48,6 +49,13 @@ public class PlayerEffectsManager : MonoBehaviour
                 BodyToWeapon.Play();
                 break;
         }
+    }
+
+    public void PlayerDead(int PlayerId,Vector2 Position)
+    {
+        var PlayerDeath = AllEffectsInfo[PlayerId].PlayerDeath;
+        PlayerDeath.transform.position = Position;
+        PlayerDeath.Play();
     }
 
 }
