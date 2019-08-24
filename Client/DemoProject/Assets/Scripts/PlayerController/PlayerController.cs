@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D PlayerRigidbody;
     private PlayerSkillController SkillController;
     private PlayerHealth Health;
+    private Animator animator;
     private bool isOK = true;
     private int CurWaitFrame = 0;
 
@@ -67,6 +68,7 @@ public class PlayerController : MonoBehaviour
         HealthBarTrans = GetComponentsInChildren<Transform>()[5];
         FakeCenter = GetComponentsInChildren<Transform>()[6];
         EnergyRenderTrans = GetComponentsInChildren<Transform>()[7];
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -92,15 +94,10 @@ public class PlayerController : MonoBehaviour
         else if (SkillController.ChaosEffect.isPlaying)
                 SkillController.ChaosEffect.Stop();
 
-        #region
         if (SkillController.FreezeTime > 0f)
             SkillController.FreezeTime -= Time.fixedDeltaTime;
         else
-        {
-            //if (SkillController.ChaosEffect.isPlaying)
-            //    SkillController.ChaosEffect.Stop();
-        }
-        #endregion
+            animator.SetBool("iced", false);
 
         if (SkillController.ThunderTime > 0f)
             SkillController.ThunderTime -= Time.fixedDeltaTime;
@@ -178,7 +175,8 @@ public class PlayerController : MonoBehaviour
                 int SelfIndex = collision.otherCollider.GetHashCode();
                 int otherIndex = collision.collider.GetHashCode();
                 PlayerHealth otherHealth = collision.gameObject.GetComponent<PlayerHealth>();
-
+                for (int i = 0; i < collision.contactCount; ++i)
+                    VelocityDir += (collision.otherRigidbody.worldCenterOfMass - collision.contacts[i].point).normalized;
                 if (Health.WeaponIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
                 {
                     SendAttackInfo((int)SpecialEffects.WEAPONTOWEAPON, 0, collision.contacts[0].point);
@@ -198,8 +196,6 @@ public class PlayerController : MonoBehaviour
                     EffectsManager.PlayerSpecialEffects(PlayerId,(int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
                     Health.SubHp(CurDamage);
                 }
-                for (int i = 0; i < collision.contactCount; ++i)
-                    VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;
             }
             else if (collision.gameObject.layer == WallLayer)
             {

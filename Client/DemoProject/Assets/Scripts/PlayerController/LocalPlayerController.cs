@@ -39,6 +39,7 @@ public class LocalPlayerController : MonoBehaviour
     private PlayerSkillController SkillController;
     private NetWorkManager NetClass;
     private PlayerEffectsManager EffectsManager;
+    private Animator animator;
     private Vector2 direct;
     private int CurWaitFrame = 0;
     SpurtButton SpurtTouch;
@@ -98,8 +99,7 @@ public class LocalPlayerController : MonoBehaviour
         }
         else
         {
-            //if (SkillController.ChaosEffect.isPlaying)
-            //    SkillController.ChaosEffect.Stop();
+            animator.SetBool("iced", false);
             isFreeze = false;
         }
 
@@ -143,6 +143,7 @@ public class LocalPlayerController : MonoBehaviour
         HealthBarTrans = GetComponentsInChildren<Transform>()[5];
         FakeCenter = GetComponentsInChildren<Transform>()[6];
         EnergyRenderTrans = GetComponentsInChildren<Transform>()[7];
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -275,6 +276,8 @@ public class LocalPlayerController : MonoBehaviour
                 int SelfIndex = collision.otherCollider.GetHashCode();
                 int otherIndex = collision.collider.GetHashCode();
                 PlayerHealth otherHealth = collision.gameObject.GetComponent<PlayerHealth>();
+                for (int i = 0; i < collision.contactCount; ++i)
+                    VelocityDir += (collision.otherRigidbody.worldCenterOfMass - collision.contacts[i].point).normalized;
                 if (Health.WeaponIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
                 {
                     SendAttackInfo((int)SpecialEffects.WEAPONTOWEAPON, 0, collision.contacts[0].point);
@@ -294,8 +297,6 @@ public class LocalPlayerController : MonoBehaviour
                     EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer, (int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
                     Health.SubHp(CurDamage);
                 }
-                for (int i = 0; i < collision.contactCount; ++i)
-                    VelocityDir += (collision.contacts[i].point - collision.rigidbody.worldCenterOfMass).normalized;
             }
             else if(collision.gameObject.layer == WallLayer)
             {

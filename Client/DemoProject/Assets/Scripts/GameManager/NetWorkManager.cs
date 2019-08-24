@@ -142,6 +142,7 @@ public class NetWorkManager : MonoBehaviour
                 Controller.PlayerId = message.PlayerId;
             }
             NewObject.GetComponent<PlayerEnergyController>().playerid = message.PlayerId;
+            NewObject.GetComponent<PlayerHealth>().PlayerId = message.PlayerId;
             AllPlayerRigidy.Add(message.PlayerId, NewObject.GetComponent<Rigidbody2D>());
             AllPlayerController.Add(message.PlayerId, NewObject.GetComponent<PlayerController>());
 
@@ -254,7 +255,7 @@ public class NetWorkManager : MonoBehaviour
         HelperClass.AddDelegate(() => {
             var ReleasePlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerSkillController>();
             ReleasePlayer.SuperTime = 10f;
-            if (message.Type == (int)SphereType.SPHERE_YELLOW)
+            if (message.Type == (int)SphereType.SPHERE_RED)
             {
                 ReleasePlayer.PlaySkillEffect(message.Type);
                 ReleasePlayer.AddSkillTime(message.Type);

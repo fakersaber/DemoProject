@@ -2,31 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AniController : MonoBehaviour
+public class AnimationController : MonoBehaviour
 {
-    private Animator anim;
+    private Animator animator;
 
     public void Awake()
     {
-        anim = this.GetComponent<Animator>();
-        
+        animator = GetComponent<Animator>();
     }
 
 
-    private void Start()
+
+    public void SetIce()
     {
-        //var test = anim.GetParameter(1);
-        SetAttacked();
+        animator.SetBool("iced",true);
     }
 
-    public void SetDie()
+    public void SetUnIce()
     {
-        anim.SetBool("isdie", true);
-    }
-
-    public void SetAttacked()
-    {
-        //anim.GetParameter(0);
-        anim.SetBool("isattacked", true);
+        animator.SetBool("iced", false);
     }
 }

@@ -23,13 +23,13 @@ public class EnergyUIManager : MonoBehaviour
         switch (type)
         {
             case (int)SphereType.SPHERE_RED:
-                EnergyRender[CurIndex].sprite = EnergyResource[2];
+                EnergyRender[CurIndex].sprite = EnergyResource[1];
                 break;
             case (int)SphereType.SPHERE_BLUE:
                 EnergyRender[CurIndex].sprite = EnergyResource[0];
                 break;
-            case (int)SphereType.SPHERE_YELLOW:
-                EnergyRender[CurIndex].sprite = EnergyResource[1];
+            case (int)SphereType.SPHERE_PURPLE:
+                EnergyRender[CurIndex].sprite = EnergyResource[2];
                 break;
         }
         CurIndex++;

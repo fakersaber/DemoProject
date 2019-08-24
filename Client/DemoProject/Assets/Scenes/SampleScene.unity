@@ -464,6 +464,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &799327262 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3506417974055313700, guid: 102d981b8b9a8e444bdc197b36dfd3eb,
+    type: 3}
+  m_PrefabInstance: {fileID: 141827408}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &799327267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799327262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba2e7e04660cd54db19ddb926d05922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FogShader: {fileID: 0}
+  FogColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &863681689
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,7 +1409,13 @@ PrefabInstance:
         type: 3}
       propertyPath: YellowEnergySphere
       value: 
-      objectReference: {fileID: 2457481187780732727, guid: c9a370b5f4c418046bee5098ee076877,
+      objectReference: {fileID: 2457481187780732727, guid: 00bb97f119d453a45894e289227739e1,
+        type: 3}
+    - target: {fileID: 4972442427450084613, guid: cb676354caeee2c4f83aafba4149cada,
+        type: 3}
+      propertyPath: PurpleEnergySphere
+      value: 
+      objectReference: {fileID: 2457481187780732727, guid: 00bb97f119d453a45894e289227739e1,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb676354caeee2c4f83aafba4149cada, type: 3}

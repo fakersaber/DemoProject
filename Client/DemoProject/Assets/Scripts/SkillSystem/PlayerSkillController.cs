@@ -5,7 +5,8 @@ public class PlayerSkillController : MonoBehaviour
 {
     private NetWorkManager NetClass;
     private Rigidbody2D PlayerRigidbody;
-
+    private Animator animator;
+    
     private SkillInfo UpdateSkillInfo = new SkillInfo();
     private YVector2 UpdateVec = new YVector2();
 
@@ -55,6 +56,7 @@ public class PlayerSkillController : MonoBehaviour
         GameObject GameManager = GameObject.FindWithTag("GameManager");
         NetClass = GameManager.GetComponent<NetWorkManager>();
         PlayerRigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         _ChaosEffect = ChaosEffectObj.GetComponent<ParticleSystem>();
         _ThunderEffect = ThunderEffectObj.GetComponent<ParticleSystem>();
         _SelfEffectChaos = SelfEffectChaosObj.GetComponent<ParticleSystem>();
@@ -73,7 +75,7 @@ public class PlayerSkillController : MonoBehaviour
         NetClass.SendDataToServer(UpdateSkillInfo,(int)Protocal.MESSAGE_RELEASESKILL);
         var ReleasePlayer = NetClass.AllPlayerInfo[PalyerId].GetComponent<PlayerSkillController>();
         ReleasePlayer.SuperTime = 10f;
-        if (type == (int)SphereType.SPHERE_YELLOW)
+        if (type == (int)SphereType.SPHERE_RED)
         {
             ReleasePlayer.PlaySkillEffect(type);
             ReleasePlayer.AddSkillTime(type);
@@ -95,13 +97,13 @@ public class PlayerSkillController : MonoBehaviour
     {
         switch (type)
         {
-            case (int)SphereType.SPHERE_RED:
+            case (int)SphereType.SPHERE_PURPLE:
                 ChaosTime = 10f;
                 break;
             case (int)SphereType.SPHERE_BLUE:
                 FreezeTime = 10f;
                 break;
-            case (int)SphereType.SPHERE_YELLOW:
+            case (int)SphereType.SPHERE_RED:
                 ThunderTime = 10f;
                 break;
         }
@@ -113,13 +115,13 @@ public class PlayerSkillController : MonoBehaviour
     {
         switch (type)
         {
-            case (int)SphereType.SPHERE_RED:
+            case (int)SphereType.SPHERE_PURPLE:
                 _ChaosEffect.Play();
                 break;
             case (int)SphereType.SPHERE_BLUE:
-
+                animator.SetBool("iced", true);
                 break;
-            case (int)SphereType.SPHERE_YELLOW:
+            case (int)SphereType.SPHERE_RED:
                 _ThunderEffect.Play();
                 break;
         }
@@ -129,7 +131,7 @@ public class PlayerSkillController : MonoBehaviour
     {
         switch (type)
         {
-            case (int)SphereType.SPHERE_RED:
+            case (int)SphereType.SPHERE_PURPLE:
                 _SelfEffectChaos.Play();
                 break;
             case (int)SphereType.SPHERE_BLUE:

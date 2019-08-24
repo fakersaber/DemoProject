@@ -31,5 +31,5 @@ enum SphereType : int
 {
     SPHERE_RED = 1,
     SPHERE_BLUE = 2,
-    SPHERE_YELLOW = 3
+    SPHERE_PURPLE = 3
 }

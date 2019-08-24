@@ -13,7 +13,7 @@ public class EnergySpherePool : MonoBehaviour
 
     public GameObject RedEnergySphere;
     public GameObject BlueEnergySphere;
-    public GameObject YellowEnergySphere;
+    public GameObject PurpleEnergySphere;
 
 
     public void InitPool(Vector2 Position,int Type,int SphereId)
@@ -27,8 +27,8 @@ public class EnergySpherePool : MonoBehaviour
             case (int)SphereType.SPHERE_BLUE:
                 TempObj = Instantiate(BlueEnergySphere);
                 break;
-            case (int)SphereType.SPHERE_YELLOW:
-                TempObj = Instantiate(YellowEnergySphere);
+            case (int)SphereType.SPHERE_PURPLE:
+                TempObj = Instantiate(PurpleEnergySphere);
                 break;
         }
         TempObj.transform.position = Position;

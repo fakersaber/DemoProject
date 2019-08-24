@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 7990665709500029957}
   - component: {fileID: 5139249132450336570}
   m_Layer: 9
-  m_Name: Player1
+  m_Name: Pink_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -191,7 +191,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: -1.6258383, y: -2.8291438}
       - {x: -0.98546386, y: -1.7373011}
-      - {x: -1.7328274, y: -2.306805}
+      - {x: -1.8309178, y: -2.5450268}
       - {x: -0.9232378, y: -1.0578763}
       - {x: -1.1649251, y: -0.55934477}
       - {x: -0.95966816, y: 0.5639425}
@@ -339,6 +339,16 @@ PrefabInstance:
     - target: {fileID: 4312289234033328, guid: f0c2ec2ec173dfa44833e4947c69600c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199871512026008582, guid: f0c2ec2ec173dfa44833e4947c69600c,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 293294181
+      objectReference: {fileID: 0}
+    - target: {fileID: 199871512026008582, guid: f0c2ec2ec173dfa44833e4947c69600c,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0c2ec2ec173dfa44833e4947c69600c, type: 3}
@@ -667,6 +677,36 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.9
       objectReference: {fileID: 0}
+    - target: {fileID: 4224462717962173380, guid: 7db4000dcdf1ddc41bcb41e93515e5ea,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 293294181
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224462717962173380, guid: 7db4000dcdf1ddc41bcb41e93515e5ea,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314273640772041567, guid: 7db4000dcdf1ddc41bcb41e93515e5ea,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 293294181
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314273640772041567, guid: 7db4000dcdf1ddc41bcb41e93515e5ea,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5103678011090073777, guid: 7db4000dcdf1ddc41bcb41e93515e5ea,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 293294181
+      objectReference: {fileID: 0}
+    - target: {fileID: 5103678011090073777, guid: 7db4000dcdf1ddc41bcb41e93515e5ea,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7db4000dcdf1ddc41bcb41e93515e5ea, type: 3}
 --- !u!4 &6898290135249148972 stripped
@@ -868,6 +908,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6414976027559203598, guid: 7c3242deb761e7d45b01c9062bc6f07e,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 293294181
+      objectReference: {fileID: 0}
+    - target: {fileID: 6414976027559203598, guid: 7c3242deb761e7d45b01c9062bc6f07e,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6086524569542691716, guid: 7c3242deb761e7d45b01c9062bc6f07e,
         type: 3}
       propertyPath: m_Layer
@@ -967,7 +1017,7 @@ PrefabInstance:
     - target: {fileID: 3135381544468082839, guid: 6bee356c3dc18c448b9496017feb6d5c,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3135381544468082838, guid: 6bee356c3dc18c448b9496017feb6d5c,
         type: 3}
