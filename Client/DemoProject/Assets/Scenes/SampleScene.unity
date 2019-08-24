@@ -464,26 +464,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &799327262 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3506417974055313700, guid: 102d981b8b9a8e444bdc197b36dfd3eb,
-    type: 3}
-  m_PrefabInstance: {fileID: 141827408}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &799327267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 799327262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aba2e7e04660cd54db19ddb926d05922, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FogShader: {fileID: 0}
-  FogColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &863681689
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,6 +1372,30 @@ PrefabInstance:
       propertyPath: InitPrefab
       value: 
       objectReference: {fileID: 7990665709500029967, guid: 244ef8b239eadc14e8ec025168c10848,
+        type: 3}
+    - target: {fileID: 4972442427450084615, guid: cb676354caeee2c4f83aafba4149cada,
+        type: 3}
+      propertyPath: PinkPlayer_1
+      value: 
+      objectReference: {fileID: 7990665709500029967, guid: 244ef8b239eadc14e8ec025168c10848,
+        type: 3}
+    - target: {fileID: 4972442427450084615, guid: cb676354caeee2c4f83aafba4149cada,
+        type: 3}
+      propertyPath: RedPlayer_2
+      value: 
+      objectReference: {fileID: 7990665709500029967, guid: 4581b33a0c8916047b20eeb787fd3d7a,
+        type: 3}
+    - target: {fileID: 4972442427450084615, guid: cb676354caeee2c4f83aafba4149cada,
+        type: 3}
+      propertyPath: PurplePlayer_3
+      value: 
+      objectReference: {fileID: 7990665709500029967, guid: 1fe5ca5bd29350040af57e563ac2e5af,
+        type: 3}
+    - target: {fileID: 4972442427450084615, guid: cb676354caeee2c4f83aafba4149cada,
+        type: 3}
+      propertyPath: GreenPlayer_4
+      value: 
+      objectReference: {fileID: 7990665709500029967, guid: 225c4fdc48537dc4688b118a66c2f28c,
         type: 3}
     - target: {fileID: 4972442427450084613, guid: cb676354caeee2c4f83aafba4149cada,
         type: 3}

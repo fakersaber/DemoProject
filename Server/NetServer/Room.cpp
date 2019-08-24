@@ -13,12 +13,33 @@ void Room::CreateObject(SOCKET socket, int index) {
 	char send_buffer[1024] = { 0 };
 	int totalSize = 0;
 	CreateObjInfo SendClass;
-	for (int i = 0; i < Room::RoomSize; ++i) {
-		SendClass.mutable_position()->set_x(i * 5.f);
-		SendClass.mutable_position()->set_y(i * 5.f);
-		SendClass.set_playerid(i + 1);
+	float cur_x = .0f;
+	float cur_y = .0f;
+	for (int i = 1; i <= Room::RoomSize; ++i) {
+
+		switch (i) {
+			case 1:
+				cur_x = -Room::b_width * 0.01f;
+				cur_y = Room::b_height * 0.01f;
+				break;
+			case 2:
+				cur_x = Room::b_width * 0.01f;
+				cur_y = Room::b_height * 0.01f;
+				break;
+			case 3:
+				cur_x = Room::b_width * 0.01f;
+				cur_y = -Room::b_height * 0.01f;
+				break;
+			case 4:
+				cur_x = -Room::b_width * 0.01f;
+				cur_y = -Room::b_height * 0.01f;
+				break;
+		}
+		SendClass.mutable_position()->set_x(cur_x);
+		SendClass.mutable_position()->set_y(cur_y);
+		SendClass.set_playerid(i);
 		SendClass.set_rotation(0.f);
-		index == i + 1 ? SendClass.set_ismanclient(true) : SendClass.set_ismanclient(false);
+		index == i ? SendClass.set_ismanclient(true) : SendClass.set_ismanclient(false);
 		SendClass.SerializeToArray(send_buffer + 2 * sizeof(int) + totalSize, SendClass.ByteSize());
 		Room::Encode(Protocal::MESSAGE_CREATEOBJ, SendClass.ByteSize(), send_buffer + totalSize);
 		totalSize = totalSize + SendClass.ByteSize() + 2 * sizeof(int);
@@ -30,10 +51,12 @@ void Room::CreateObject(SOCKET socket, int index) {
 void Room::InitEnergyShpere(std::list<SOCKET>& UserList) {
 
 	char send_buffer[1024] = { 0 };
+	int SphereGenerator_w = Room::width - 200;
+	int SphereGenerator_h = Room::height - 150;
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> width(-Room::width, Room::width);
-	std::uniform_int_distribution<> height(-Room::height, Room::height);
+	std::uniform_int_distribution<> width(-SphereGenerator_w, SphereGenerator_w);
+	std::uniform_int_distribution<> height(-SphereGenerator_h, SphereGenerator_h);
 
 	EnergySphereInit AllSphereInfo;
 	int32_t SphereID = 1;

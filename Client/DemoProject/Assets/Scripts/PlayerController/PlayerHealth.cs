@@ -18,7 +18,7 @@ public class PlayerHealth : MonoBehaviour
     private NetWorkManager NetClass;
     private Material HealthBar;
     private PlayerEffectsManager EffectsManager;
-
+    private CameraController cameraController;
 
     public int WeaponIndex
     {
@@ -37,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         var GameManager = GameObject.FindWithTag("GameManager");
+        cameraController = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
         NetClass = GameManager.GetComponent<NetWorkManager>();
         EffectsManager = GameManager.GetComponent<PlayerEffectsManager>();
         weaponIndex = gameObject.GetComponents<PolygonCollider2D>()[0].GetHashCode();
@@ -56,6 +57,7 @@ public class PlayerHealth : MonoBehaviour
             if (Health <= 0f)
             {
                 EffectsManager.PlayerDead(_PlayerId, transform.position);
+                cameraController.isDead = true;
                 gameObject.SetActive(false);
             }
         }

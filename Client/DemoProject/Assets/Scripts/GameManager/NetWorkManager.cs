@@ -14,7 +14,10 @@ public class NetWorkManager : MonoBehaviour
     private const int ServerPort = 8000;
     private const string ServerIp = "192.168.124.207";
 
-    public GameObject InitPrefab;
+    public GameObject PinkPlayer_1;
+    public GameObject RedPlayer_2;
+    public GameObject PurplePlayer_3;
+    public GameObject GreenPlayer_4;
     public GameObject InitCamera;
     public int LocalPlayer;
     public Dictionary<int, GameObject> AllPlayerInfo = new Dictionary<int, GameObject>(4);
@@ -127,6 +130,22 @@ public class NetWorkManager : MonoBehaviour
     private void HandleCreateObject(CreateObjInfo message)
     {
         HelperClass.AddDelegate(() => {
+            GameObject InitPrefab = null;
+            switch (message.PlayerId)
+            {
+                case 1:
+                    InitPrefab = PinkPlayer_1;
+                    break;
+                case 2:
+                    InitPrefab = RedPlayer_2;
+                    break;
+                case 3:
+                    InitPrefab = PurplePlayer_3;
+                    break;
+                case 4:
+                    InitPrefab = GreenPlayer_4;
+                    break;
+            }
             GameObject NewObject =  Instantiate(InitPrefab,new Vector3(message.Position.X, message.Position.Y, 0f),Quaternion.Euler(0f,0f,message.Rotation));
             AllPlayerInfo.Add(message.PlayerId, NewObject);   
             EffectsManager.InitPlayerEffects(message.PlayerId);
@@ -366,10 +385,20 @@ public class NetWorkManager : MonoBehaviour
         }
     }
 
-    public void OnDisable()
+    //public void OnDisable()
+    //{
+    //    //if (recvThread != null)
+    //    //    recvThread.Abort();
+    //    LocalSocket.Close();
+    //}
+
+    //private void OnDestroy()
+    //{
+    //    LocalSocket.Close();
+    //}
+
+    private void OnApplicationQuit()
     {
-        //if (recvThread != null)
-        //    recvThread.Abort();
         LocalSocket.Close();
     }
 }
