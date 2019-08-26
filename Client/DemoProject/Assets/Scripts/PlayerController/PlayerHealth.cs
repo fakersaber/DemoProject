@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour
     public const float MaxHealth = 10f;
     public const int NormalDamage = 2;
     public const int ThunderDamage = 5;
-    
+
 
     private NetWorkManager NetClass;
     private Material HealthBar;
@@ -26,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public int BodyIndex
     {
-        get{ return bodyIndex; }
+        get { return bodyIndex; }
     }
     public int PlayerId
     {
@@ -53,11 +53,11 @@ public class PlayerHealth : MonoBehaviour
         if (Damage > 0)
         {
             Health -= Damage;
-            HealthBar.SetFloat("_CurHealth", Health/MaxHealth);
+            HealthBar.SetFloat("_CurHealth", Health / MaxHealth);
             if (Health <= 0f)
             {
                 EffectsManager.PlayerDead(_PlayerId, transform.position);
-                cameraController.isDead = true;
+                cameraController.isDead = _PlayerId == NetClass.LocalPlayer ? true : false;
                 gameObject.SetActive(false);
             }
         }

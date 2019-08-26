@@ -5,7 +5,7 @@ public class LoadingManager : MonoBehaviour
 {
     private int _LocalDownPlayerNum = 0;
     private int _OtherDownPlayerNum = 0;
-    public const int RoomSize = 1;
+    public const int RoomSize = 2;
     private GameObject AllUI;
     private GameObject MainCamera;
     private NetWorkManager NetClass;
