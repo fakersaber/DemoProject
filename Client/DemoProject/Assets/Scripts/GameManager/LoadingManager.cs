@@ -56,8 +56,6 @@ public class LoadingManager : MonoBehaviour
                 }
                 MainCamera.GetComponent<CameraController>().PlayerRidibody = NetClass.AllPlayerRigidy[NetClass.LocalPlayer];
 
-
-                LoadingImage.enabled = false;
                 var Setting = AllUI.GetComponent<CanvasGroup>();
                 Setting.alpha = 1f;
                 Setting.interactable = true;

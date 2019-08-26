@@ -7,6 +7,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float ReflectTime = 0.5f; //反弹变化时间
+    public float ReflectScale = 3f; //反弹系数
+    public float DeltaAngle = 45f;
 
     private NetWorkManager NetClass;
     private PlayerEffectsManager EffectsManager;
@@ -205,7 +207,7 @@ public class PlayerController : MonoBehaviour
             ReflectStartPosition = PlayerRigidbody.position;
             ReflectEndPosition = PlayerRigidbody.position + VelocityDir.normalized;
             ReflectStartRotation = PlayerRigidbody.rotation;
-            ReflectEndRotation = PlayerRigidbody.rotation + (Mathf.Abs(DeltaRotate) < 1e-6 ? 0f : (DeltaRotate < 0f ? 45f : -45f));
+            ReflectEndRotation = PlayerRigidbody.rotation + (Mathf.Abs(DeltaRotate) < 1e-6 ? 0f : (DeltaRotate < 0f ? DeltaAngle : -DeltaAngle));
             ReflectCurScale = 0f;
 
             UpdateClass.PlayerId = PlayerId;
