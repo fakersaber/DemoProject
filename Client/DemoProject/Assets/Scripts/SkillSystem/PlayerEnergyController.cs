@@ -65,7 +65,7 @@ public class PlayerEnergyController : MonoBehaviour
                 CollectSphere(CurSphereInfo);
                 for(int i = 0; i < 3; ++i)
                 {
-                    ConsumeEnergySphere();
+                    ConsumeEnergySphere(true);
                 }
 
                 //忽略小概率事件，确保本地调用
@@ -91,10 +91,10 @@ public class PlayerEnergyController : MonoBehaviour
     }
 
 
-    public bool ConsumeEnergySphere()
+    public bool ConsumeEnergySphere(bool SkillFuncCall)
     {
         //当处于技能时间内不能消耗能量球
-        if (SkillController.SuperTime > 0f)
+        if (SkillController.SuperTime > 0f && !SkillFuncCall)
             return true;
         if (_EnergyList.Count == 0)
             return false;
