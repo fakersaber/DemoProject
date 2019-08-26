@@ -12,6 +12,8 @@ public class LocalPlayerController : MonoBehaviour
     public float InputTime = 0.2f; //输入变化时间
     public float NormalSpeed = 3f; //正常速度
     public float SpurtSpeed = 6f; //冲刺速度
+    public float ReflectScale = 3f; //反弹系数
+    public float DeltaAngle = 45f;
     #endregion
 
     #region
@@ -307,7 +309,7 @@ public class LocalPlayerController : MonoBehaviour
             ReflectStartPosition = PlayerRigidbody.position;
             ReflectEndPosition = PlayerRigidbody.position + VelocityDir.normalized;
             ReflectStartRotation = PlayerRigidbody.rotation;
-            ReflectEndRotation = PlayerRigidbody.rotation + (Mathf.Abs(DeltaRotate) < 1e-6 ? 0f : (DeltaRotate < 0f ? 45f : -45f));
+            ReflectEndRotation = PlayerRigidbody.rotation + (Mathf.Abs(DeltaRotate) < 1e-6 ? 0f : (DeltaRotate < 0f ? DeltaAngle : -DeltaAngle));
             ReflectCurScale = 0f;
             SendData(NetClass.LocalPlayer, ReflectEndPosition, ReflectEndRotation, (int)Protocal.MESSAGE_REFLECTDATA);
         }

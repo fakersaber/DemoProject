@@ -57,7 +57,8 @@ public class PlayerHealth : MonoBehaviour
             if (Health <= 0f)
             {
                 EffectsManager.PlayerDead(_PlayerId, transform.position);
-                cameraController.isDead = _PlayerId == NetClass.LocalPlayer ? true : false;
+                if(!cameraController.isDead)
+                    cameraController.isDead = _PlayerId == NetClass.LocalPlayer ? true : false;
                 gameObject.SetActive(false);
             }
         }

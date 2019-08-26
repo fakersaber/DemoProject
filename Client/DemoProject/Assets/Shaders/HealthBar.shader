@@ -61,8 +61,8 @@
                 fixed4 SampColor = tex2D(_MainTex,i.uv);
                 half healthResult = step(i.uv.x,MappingHealth(_CurHealth));
                 fixed4 healthColor = fixed4(_HealthColor.rgb,SampColor.a) * healthResult + fixed4(_DamageColor.rgb,SampColor.a) * (1-healthResult);
-                half result = step(SampColor.a, 0.4);
-                fixed4 color = (1 - result) * SampColor + healthColor * result;
+                half result = step(SampColor.a, 0.9);
+                fixed4 color = result * SampColor + healthColor * (1 - result);
                 return color;
             }
             ENDCG
