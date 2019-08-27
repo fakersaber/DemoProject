@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 2ce5c308285dbb84090369de2e38bd18
+guid: 2314230383e281248946bd534ecfd425
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6677907888896485384
-    second: Login screen_0
+      213: -1940542623053945810
+    second: UIAni_0
   - first:
-      213: -1000682697251758218
-    second: Login screen_1
+      213: -2756728832709468531
+    second: UIAni_1
   - first:
-      213: 7420063190160343324
-    second: Login screen_2
+      213: -5639674360461356446
+    second: UIAni_2
   - first:
-      213: 4249924400880152084
-    second: Login screen_3
+      213: 8365159753842416894
+    second: UIAni_3
+  - first:
+      213: 5667802262324096679
+    second: UIAni_4
+  - first:
+      213: -3372886616579780723
+    second: UIAni_5
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -72,7 +78,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -84,7 +90,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -98,25 +104,25 @@ TextureImporter:
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 47
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Login screen_0
+      name: UIAni_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1080
-        width: 1920
-        height: 1080
+        y: 512
+        width: 256
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +130,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ecbda1e7806ed6e488ed5c0e306ee660
-      internalID: -6677907888896485384
+      spriteID: 424b98cfb4f6e314bad8c2fe9639dc12
+      internalID: -1940542623053945810
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Login screen_1
+      name: UIAni_1
       rect:
         serializedVersion: 2
-        x: 1920
-        y: 1080
-        width: 1920
-        height: 1080
+        x: 256
+        y: 512
+        width: 256
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +151,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bdcf7f8988f4e0242a2dd18a2f3248cb
-      internalID: -1000682697251758218
+      spriteID: 5d6d2add9f5310642a73ad98877ddce1
+      internalID: -2756728832709468531
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Login screen_2
+      name: UIAni_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bad64d53f05a344f955054d161479bc
+      internalID: -5639674360461356446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UIAni_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1920
-        height: 1080
+        width: 256
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +193,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 578ee1ede4a44ff4592b3525bed18ff5
-      internalID: 7420063190160343324
+      spriteID: c8cb6aba9a930f645a08d2bfb5fa73f7
+      internalID: 8365159753842416894
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Login screen_3
+      name: UIAni_4
       rect:
         serializedVersion: 2
-        x: 1920
+        x: 256
         y: 0
-        width: 1920
-        height: 1080
+        width: 256
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +214,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d60300861fc8a8144a276dc060575359
-      internalID: 4249924400880152084
+      spriteID: badd0365989c62444bd3a2f70338db1b
+      internalID: 5667802262324096679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UIAni_5
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e875b185591920468f1651c54fcc6c1
+      internalID: -3372886616579780723
       vertices: []
       indices: 
       edges: []
