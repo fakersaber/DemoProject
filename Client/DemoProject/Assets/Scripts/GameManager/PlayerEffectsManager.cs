@@ -18,6 +18,11 @@ public class PlayerEffectsManager : MonoBehaviour
     private Dictionary<int, PlayerEffects> AllEffectsInfo = new Dictionary<int, PlayerEffects>(4);
 
 
+    private void Awake()
+    {
+ 
+    }
+
     public void InitPlayerEffects(int PlayerId)
     {
         PlayerEffects CurEffects = new PlayerEffects();

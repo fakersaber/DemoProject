@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class EnergySpherePool : MonoBehaviour
 {
-    //总数守恒
-    public int InitSize = 5;
     private Dictionary<int, GameObject> AllSpherePoll = new Dictionary<int, GameObject>(15);
 
     //cache component

@@ -317,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efcca5681ad67284a8600c8e67f44abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SlowFrame: 0
 --- !u!212 &687357739
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -366,6 +367,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &687357740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687357736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10fe26d543605af4a8de4fd32fdabcd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &690406324 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 585446512811856365, guid: 82f99b829e8f443438070dad58e1f187,
@@ -1499,6 +1512,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Spurt
+      objectReference: {fileID: 0}
+    - target: {fileID: 8911915687212761574, guid: 82f99b829e8f443438070dad58e1f187,
+        type: 3}
+      propertyPath: m_TagString
+      value: CanvasPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195954350189429452, guid: 82f99b829e8f443438070dad58e1f187,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195954350189429452, guid: 82f99b829e8f443438070dad58e1f187,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195954350189429452, guid: 82f99b829e8f443438070dad58e1f187,
+        type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376337862307914036, guid: 82f99b829e8f443438070dad58e1f187,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 687357740}
+    - target: {fileID: 7376337862307914036, guid: 82f99b829e8f443438070dad58e1f187,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToUIScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376337862307914036, guid: 82f99b829e8f443438070dad58e1f187,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82f99b829e8f443438070dad58e1f187, type: 3}

@@ -8,12 +8,12 @@ public class LocalPlayerController : MonoBehaviour
 {
 
     #region 
-    public float ReflectTime = 0.5f; //反弹变化时间
-    public float InputTime = 0.2f; //输入变化时间
-    public float NormalSpeed = 3f; //正常速度
-    public float SpurtSpeed = 6f; //冲刺速度
-    public float ReflectScale = 3f; //反弹系数
-    public float DeltaAngle = 45f;
+    public float ReflectTime = 0.35f; //反弹变化时间
+    public float InputTime = 0.25f; //输入变化时间
+    public float NormalSpeed = 6.5f; //正常速度
+    public float SpurtSpeed = 15f; //冲刺速度
+    public float ReflectScale = 2f; //反弹系数
+    public float DeltaAngle = 15f;
     #endregion
 
     #region
@@ -177,8 +177,6 @@ public class LocalPlayerController : MonoBehaviour
         UpdateCode();
         CheckStatus();
 
-
-
         //反弹插值
         if (ReflectCurScale <= 1f)
         {
@@ -204,6 +202,9 @@ public class LocalPlayerController : MonoBehaviour
                 CurWaitFrame = 0;
                 isOK = true;
             }
+
+
+
 
             #region
             if (isSpurt)

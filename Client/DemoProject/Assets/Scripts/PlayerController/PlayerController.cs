@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float ReflectTime = 0.5f; //反弹变化时间
-    public float ReflectScale = 3f; //反弹系数
-    public float DeltaAngle = 45f;
+    public float ReflectTime = 0.35f; //反弹变化时间
+    public float ReflectScale = 2f; //反弹系数
+    public float DeltaAngle = 15f;
 
     private NetWorkManager NetClass;
     private PlayerEffectsManager EffectsManager;
