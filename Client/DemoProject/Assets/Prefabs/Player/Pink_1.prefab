@@ -374,11 +374,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerBuffPink
       objectReference: {fileID: 0}
-    - target: {fileID: 3852498833306922876, guid: e6401622acddf7640846edc700409303,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 3846342309688076382, guid: e6401622acddf7640846edc700409303,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -432,26 +427,6 @@ PrefabInstance:
     - target: {fileID: 3846342309688076382, guid: e6401622acddf7640846edc700409303,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4021433522801622982, guid: e6401622acddf7640846edc700409303,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4021433522801622982, guid: e6401622acddf7640846edc700409303,
-        type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851560785691452856, guid: e6401622acddf7640846edc700409303,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4013025362135625830, guid: e6401622acddf7640846edc700409303,
-        type: 3}
-      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

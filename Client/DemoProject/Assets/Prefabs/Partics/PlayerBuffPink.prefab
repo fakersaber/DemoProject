@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3846218152050622368}
   - component: {fileID: 4013025362135625830}
   - component: {fileID: 4014258975440439810}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Small flames
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4728,7 +4728,7 @@ GameObject:
   - component: {fileID: 3846342309688076382}
   - component: {fileID: 4021433522801622982}
   - component: {fileID: 4014113114583795142}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerBuffPink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6005,8 +6005,8 @@ ParticleSystem:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
         key1: {r: 0.8078432, g: 0.3921569, b: 0.67058825, a: 1}
-        key2: {r: 0.65882355, g: 0.14901961, b: 0.2901961, a: 1}
-        key3: {r: 0.65882355, g: 0.14901961, b: 0.2901961, a: 0}
+        key2: {r: 0.69803923, g: 0.36078432, b: 0.8352942, a: 1}
+        key3: {r: 0.6901961, g: 0.3529412, b: 0.82745105, a: 0.53333336}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -6022,7 +6022,7 @@ ParticleSystem:
         atime0: 0
         atime1: 6553
         atime2: 31226
-        atime3: 65535
+        atime3: 65342
         atime4: 0
         atime5: 0
         atime6: 0
