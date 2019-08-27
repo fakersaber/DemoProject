@@ -14,11 +14,13 @@ public class PlayerHealth : MonoBehaviour
     public const int NormalDamage = 2;
     public const int ThunderDamage = 5;
 
-
     private NetWorkManager NetClass;
     private Material HealthBar;
     private PlayerEffectsManager EffectsManager;
     private CameraController cameraController;
+    private LoadingManager loadingManager;
+
+
 
     public int WeaponIndex
     {
@@ -38,6 +40,7 @@ public class PlayerHealth : MonoBehaviour
     {
         var GameManager = GameObject.FindWithTag("GameManager");
         cameraController = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
+        loadingManager = GameManager.GetComponent<LoadingManager>();
         NetClass = GameManager.GetComponent<NetWorkManager>();
         EffectsManager = GameManager.GetComponent<PlayerEffectsManager>();
         weaponIndex = gameObject.GetComponents<PolygonCollider2D>()[0].GetHashCode();
@@ -57,11 +60,14 @@ public class PlayerHealth : MonoBehaviour
             if (Health <= 0f)
             {
                 EffectsManager.PlayerDead(_PlayerId, transform.position);
-                if(!cameraController.isDead)
+                loadingManager.AliveSize--;
+                if(loadingManager.AliveSize == 1)
+                    loadingManager.SlowFrame = 50;
+
+                if (!cameraController.isDead)
                     cameraController.isDead = _PlayerId == NetClass.LocalPlayer ? true : false;
                 gameObject.SetActive(false);
             }
         }
     }
-
 }

@@ -385,20 +385,10 @@ public class NetWorkManager : MonoBehaviour
         }
     }
 
-    //public void OnDisable()
-    //{
-    //    //if (recvThread != null)
-    //    //    recvThread.Abort();
-    //    LocalSocket.Close();
-    //}
-
-    //private void OnDestroy()
-    //{
-    //    LocalSocket.Close();
-    //}
-
-    private void OnApplicationQuit()
+    public void OnDisable()
     {
+        //if (recvThread != null)
+        //    recvThread.Abort();
         LocalSocket.Close();
     }
 }

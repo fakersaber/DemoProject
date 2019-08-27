@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    private Camera camera;
     public float Speed  = 3f;
     private Rigidbody2D LocalPlayerRididbody;
     private NetWorkManager NetClass;
@@ -25,6 +26,13 @@ public class CameraController : MonoBehaviour
         get { return _isDead; }
         set { _isDead = value; }
     }
+
+    private void Awake()
+    {
+        camera = GetComponent<Camera>();
+    }
+
+
 
     private void FixedUpdate()
     {

@@ -9,6 +9,7 @@ TagManager:
   - GameManager
   - soldier
   - HealthBar
+  - CanvasPanel
   layers:
   - Default
   - TransparentFX

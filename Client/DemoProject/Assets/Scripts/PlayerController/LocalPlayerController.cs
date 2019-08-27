@@ -177,8 +177,6 @@ public class LocalPlayerController : MonoBehaviour
         UpdateCode();
         CheckStatus();
 
-
-
         //反弹插值
         if (ReflectCurScale <= 1f)
         {
@@ -204,6 +202,9 @@ public class LocalPlayerController : MonoBehaviour
                 CurWaitFrame = 0;
                 isOK = true;
             }
+
+
+
 
             #region
             if (isSpurt)
