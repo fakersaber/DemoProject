@@ -680,6 +680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 943270776}
   - component: {fileID: 943270775}
+  - component: {fileID: 943270777}
   m_Layer: 0
   m_Name: FunctionsNode
   m_TagString: Untagged
@@ -713,6 +714,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &943270777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943270774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0264fad418bde774c889d7dd42d83119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &956621489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,6 +1044,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 943270777}
+        m_MethodName: StartBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 943270775}
         m_MethodName: ToGameScene
         m_Mode: 1
@@ -1201,3 +1225,174 @@ MonoBehaviour:
   optionalRotationMode: 0
   optionalScrambleMode: 0
   optionalString: 
+--- !u!1 &2049642091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2049642093}
+  - component: {fileID: 2049642092}
+  m_Layer: 0
+  m_Name: AudioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2049642092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049642091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1669b0a062dc66842ab1bca41a93ebe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioObjectPrefab: {fileID: 760142000453219755, guid: bc37fb1f5b9e5d748be2d2e647199f72,
+    type: 3}
+  Persistent: 0
+  UnloadAudioClipsOnDestroy: 0
+  UsePooledAudioObjects: 1
+  PlayWithZeroVolume: 0
+  EqualPowerCrossfade: 0
+  musicCrossFadeTime: 0
+  ambienceSoundCrossFadeTime: 0
+  specifyCrossFadeInAndOutSeperately: 0
+  _musicCrossFadeTime_In: 0
+  _musicCrossFadeTime_Out: 0
+  _ambienceSoundCrossFadeTime_In: 0
+  _ambienceSoundCrossFadeTime_Out: 0
+  AudioCategories:
+  - Name: BGM
+    _parentCategoryName: 
+    AudioObjectPrefab: {fileID: 0}
+    AudioItems:
+    - Name: BGM0
+      Loop: 1
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: d0008505f8e78a64e977b77cf165eeac, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    _volume: 1
+    audioMixerGroup: {fileID: 0}
+  - Name: Effect
+    _parentCategoryName: 
+    AudioObjectPrefab: {fileID: 0}
+    AudioItems:
+    - Name: Effect0
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: 51b46a769c9b5714d8ee221fa5e87f94, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    _volume: 1
+    audioMixerGroup: {fileID: 0}
+  musicPlaylists:
+  - name: Default
+    playlistItems: []
+  - name: BGM
+    playlistItems: []
+  - name: Effect
+    playlistItems: []
+  musicPlaylist: []
+  loopPlaylist: 0
+  shufflePlaylist: 0
+  crossfadePlaylist: 0
+  delayBetweenPlaylistTracks: 1
+  _isAdditionalAudioController: 0
+  _audioDisabled: 0
+  _volume: 1
+  _currentInspectorSelection:
+    currentCategoryIndex: 1
+    currentItemIndex: 0
+    currentSubitemIndex: 0
+    currentPlaylistEntryIndex: 0
+    currentPlaylistIndex: 2
+--- !u!4 &2049642093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049642091}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1712.7346, y: 190.97511, z: -369.93964}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

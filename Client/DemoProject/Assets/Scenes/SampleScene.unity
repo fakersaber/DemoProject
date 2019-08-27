@@ -543,6 +543,615 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &923358020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 923358022}
+  - component: {fileID: 923358021}
+  m_Layer: 0
+  m_Name: AudioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &923358021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923358020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1669b0a062dc66842ab1bca41a93ebe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioObjectPrefab: {fileID: 760142000453219755, guid: bc37fb1f5b9e5d748be2d2e647199f72,
+    type: 3}
+  Persistent: 0
+  UnloadAudioClipsOnDestroy: 0
+  UsePooledAudioObjects: 1
+  PlayWithZeroVolume: 0
+  EqualPowerCrossfade: 0
+  musicCrossFadeTime: 0
+  ambienceSoundCrossFadeTime: 0
+  specifyCrossFadeInAndOutSeperately: 0
+  _musicCrossFadeTime_In: 0
+  _musicCrossFadeTime_Out: 0
+  _ambienceSoundCrossFadeTime_In: 0
+  _ambienceSoundCrossFadeTime_Out: 0
+  AudioCategories:
+  - Name: BGM
+    _parentCategoryName: 
+    AudioObjectPrefab: {fileID: 0}
+    AudioItems:
+    - Name: BGM0
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: 3fba09ca412734645b6a3b1b6d8d96c2, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: BGM1
+      Loop: 1
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: d0008505f8e78a64e977b77cf165eeac, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: BGM2
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: 6873840bf6cc731449f9cc0b65751d33, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    _volume: 1
+    audioMixerGroup: {fileID: 0}
+  - Name: Effects
+    _parentCategoryName: 
+    AudioObjectPrefab: {fileID: 0}
+    AudioItems:
+    - Name: Effect0
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: 7d4748b79cd2ffb42b95256989ffae0e, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: Effect1
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: ac75ef5678e2d0944b6e5c511f2ae9bc, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: Effect2
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: 3150d7441a01bbc4cac20b22565adfb4, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: Effect3
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: b79dac46876b8b94fb02cae472f3e41c, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: Effect4
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: 5d289fad624437f448146259f107afbd, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: Effect5
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: 38c6fd533e9f292419153cf83a8dbf2c, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: Effect6
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: a349acb4819845e45b282d3bc8bb9c46, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: Effect7
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: e45ce05a2fef0f545a9652f60217638a, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: Effect8
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: 9cd2ca5e4efe62d4a89f9fde7075544d, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: Effect9
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 0
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: 51b46a769c9b5714d8ee221fa5e87f94, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    _volume: 1
+    audioMixerGroup: {fileID: 0}
+  musicPlaylists:
+  - name: BGM
+    playlistItems: []
+  - name: Effects
+    playlistItems: []
+  musicPlaylist: []
+  loopPlaylist: 0
+  shufflePlaylist: 0
+  crossfadePlaylist: 0
+  delayBetweenPlaylistTracks: 1
+  _isAdditionalAudioController: 0
+  _audioDisabled: 0
+  _volume: 1
+  _currentInspectorSelection:
+    currentCategoryIndex: 1
+    currentItemIndex: 9
+    currentSubitemIndex: 0
+    currentPlaylistEntryIndex: 0
+    currentPlaylistIndex: 1
+--- !u!4 &923358022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923358020}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1712.7346, y: 190.97511, z: -369.93964}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1048903545
 GameObject:
   m_ObjectHideFlags: 0
