@@ -12,7 +12,7 @@ using Google.Protobuf;
 public class NetWorkManager : MonoBehaviour
 {
     private const int ServerPort = 8000;
-    private const string ServerIp = "192.168.124.207";
+    private const string ServerIp = "192.168.124.13";
 
     public GameObject PinkPlayer_1;
     public GameObject RedPlayer_2;

@@ -296,6 +296,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathEffect0
       objectReference: {fileID: 0}
+    - target: {fileID: 1902304290096252, guid: f0c2ec2ec173dfa44833e4947c69600c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4312289234033328, guid: f0c2ec2ec173dfa44833e4947c69600c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -374,6 +378,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3304503545446413694, guid: ef4baf52ee3f41b489816a93989764c0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3490736989586942537, guid: ef4baf52ee3f41b489816a93989764c0,
         type: 3}
@@ -460,6 +469,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnergyRender
+      objectReference: {fileID: 0}
+    - target: {fileID: 2606267549564450792, guid: 7db4000dcdf1ddc41bcb41e93515e5ea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8543550842428955856, guid: 7db4000dcdf1ddc41bcb41e93515e5ea,
         type: 3}
@@ -676,11 +690,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 758423458802167738, guid: 19ee806415379ed45bb2000bc8c78038,
-        type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19ee806415379ed45bb2000bc8c78038, type: 3}
 --- !u!1 &4227143466692141864 stripped
@@ -711,6 +720,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1122808402891199207, guid: 405025e5069f1894ba8998bc6f71e664,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5726196157098469837, guid: 405025e5069f1894ba8998bc6f71e664,
         type: 3}
@@ -817,6 +831,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6414976027545413160, guid: 7c3242deb761e7d45b01c9062bc6f07e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6414976027545155848, guid: 7c3242deb761e7d45b01c9062bc6f07e,
         type: 3}
