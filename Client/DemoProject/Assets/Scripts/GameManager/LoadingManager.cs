@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LoadingManager : MonoBehaviour
 {
-    public const int RoomSize = 4;
+    public const int RoomSize = 3;
     public int SlowFrame = 0;
 
     private int _LocalDownPlayerNum = 0;
@@ -16,6 +16,7 @@ public class LoadingManager : MonoBehaviour
     private CanvasGroup EndSetting;
     private CanvasGroup ControllerSetting;
     private DG.Tweening.DOTweenAnimation ScenesController;
+    //private AudioController audioController;
     private float Radius = 0.707f;
 
     public int LocalDownPlayer
@@ -42,6 +43,7 @@ public class LoadingManager : MonoBehaviour
     private void Awake()
     {
         ControllerSetting = GameObject.Find("EasyTouchControlsCanvas").GetComponent<CanvasGroup>();
+        //audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
         MainCamera = GameObject.FindWithTag("MainCamera");
         NetClass = GetComponent<NetWorkManager>();
         LoadingImage = GetComponent<SpriteRenderer>();
@@ -58,6 +60,7 @@ public class LoadingManager : MonoBehaviour
 
     public IEnumerator CheckStart()
     {
+        AudioController.PlayMusic("BGM0");
         while (true)
         {
             if(_LocalDownPlayerNum == RoomSize && _OtherDownPlayerNum == RoomSize - 1)
@@ -74,6 +77,7 @@ public class LoadingManager : MonoBehaviour
                 ControllerSetting.interactable = true;
                 ControllerSetting.blocksRaycasts = true;
                 LoadingImage.enabled = false;
+                AudioController.PlayMusic("BGM1");
                 yield break;
             }
             yield return null;
@@ -98,6 +102,13 @@ public class LoadingManager : MonoBehaviour
                 ControllerSetting.interactable = false;
                 ControllerSetting.blocksRaycasts = false;
                 ScenesController.DOPlay();
+                AudioController.PlayMusic("BGM2");
+
+                //最后的存活者
+                if (NetClass.AllPlayerInfo[NetClass.LocalPlayer].activeSelf)
+                    AudioController.Play("Effect3");
+                else
+                    AudioController.Play("Effect2");
             }
         }
         else

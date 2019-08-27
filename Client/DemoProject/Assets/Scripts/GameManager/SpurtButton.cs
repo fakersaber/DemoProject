@@ -29,6 +29,7 @@ public class SpurtButton : MonoBehaviour
         if (_SpurtTime <=0f && LocalPlayerEnergy.ConsumeEnergySphere(false))
         {
             _SpurtTime = 0.35f;
+            AudioController.Play("Effect0");
         }
     }
 

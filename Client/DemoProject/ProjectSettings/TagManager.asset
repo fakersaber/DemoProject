@@ -10,6 +10,7 @@ TagManager:
   - soldier
   - HealthBar
   - CanvasPanel
+  - AudioController
   layers:
   - Default
   - TransparentFX

@@ -40,8 +40,8 @@ public:
 	static void InitEnergyShpere(std::list<SOCKET>& UserList);
 	static void Encode(Protocal message_type, int size, char* buffer);
 	static void CreateObject(SOCKET socket, int index);
-	static const uint32_t RoomSize = 4;
-	static const uint32_t SphereSize = 5;
+	static const uint32_t RoomSize = 3;
+	static const uint32_t SphereSize = 4;
 	static const int width = 1920;
 	static const int height = 1080;
 	static const int b_width = 960;

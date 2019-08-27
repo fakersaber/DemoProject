@@ -58,23 +58,36 @@ public class PlayerEnergyController : MonoBehaviour
         {
             if (_EnergyList.Count == 3)
                 return;
+
             SphereInfo CurSphereInfo = collision.gameObject.GetComponent<SphereInfo>();
-            if (_EnergyList.Count == 2 && _EnergyList[0].Type == _EnergyList[1].Type && CurSphereInfo.Type == _EnergyList[0].Type)
+            CollectSphere(CurSphereInfo);
+            if (_playerid == NetClass.LocalPlayer)
             {
-                //注意顺序是先收集当前的球,然后再生成3个，再释放技能
-                CollectSphere(CurSphereInfo);
+                switch (_EnergyList.Count)
+                {
+                    case 1:
+                        AudioController.Play("Effect1");
+                        break;
+                    case 2:
+                        AudioController.Play("Effect11");
+                        break;
+                    case 3:
+                        AudioController.Play("Effect12");
+                        break;
+                }
+            }
+
+            if (_EnergyList.Count == 3 && 
+                _EnergyList[0].Type == _EnergyList[1].Type 
+                && _EnergyList[1].Type == _EnergyList[2].Type)
+            {
                 for(int i = 0; i < 3; ++i)
                 {
                     ConsumeEnergySphere(true);
                 }
-
                 //忽略小概率事件，确保本地调用
                 NetClass.AllPlayerInfo[NetClass.LocalPlayer].GetComponent<PlayerSkillController>().ReleaseSkill(CurSphereInfo.Type, _playerid);
-                return;
             }
-
-            //否则执行普通的收集逻辑
-            CollectSphere(CurSphereInfo);
         }
     }
 

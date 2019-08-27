@@ -74,7 +74,11 @@ public class PlayerSkillController : MonoBehaviour
         UpdateSkillInfo.PlayerId = PalyerId;
         NetClass.SendDataToServer(UpdateSkillInfo,(int)Protocal.MESSAGE_RELEASESKILL);
         var ReleasePlayer = NetClass.AllPlayerInfo[PalyerId].GetComponent<PlayerSkillController>();
-        ReleasePlayer.SuperTime = 10f;
+        ReleasePlayer.SuperTime = 5f;
+
+        if (PalyerId == NetClass.LocalPlayer)
+            PlayerSkillController.PlaySkillAudio(type);
+
         if (type == (int)SphereType.SPHERE_RED)
         {
             ReleasePlayer.PlaySkillEffect(type);
@@ -90,6 +94,7 @@ public class PlayerSkillController : MonoBehaviour
                 NetClass.AllPlayerInfo[i].GetComponent<PlayerSkillController>().PlaySkillEffect(type);
             }
         }
+        
     }
 
 
@@ -136,6 +141,22 @@ public class PlayerSkillController : MonoBehaviour
                 break;
             case (int)SphereType.SPHERE_BLUE:
                 _SelfEffectIce.Play();
+                break;
+        }
+    }
+
+    static public void PlaySkillAudio(int type)
+    {
+        switch (type)
+        {
+            case (int)SphereType.SPHERE_PURPLE:
+                AudioController.Play("Effect6");
+                break;
+            case (int)SphereType.SPHERE_BLUE:
+                AudioController.Play("Effect7");
+                break;
+            case (int)SphereType.SPHERE_RED:
+                AudioController.Play("Effect8");
                 break;
         }
     }

@@ -201,6 +201,10 @@ public class NetWorkManager : MonoBehaviour
             PlayerHealth Player = AllPlayerInfo[message.PlayerId].GetComponent<PlayerHealth>();
             TargetPosition.x = message.Position.X;
             TargetPosition.y = message.Position.Y;
+            if (message.EffectsIndex == (int)SpecialEffects.WEAPONTOWEAPON)
+                AudioController.Play("Effect5");
+            else
+                AudioController.Play("Effect4");
             EffectsManager.PlayerSpecialEffects(message.PlayerId,message.EffectsIndex, TargetPosition);
             Player.SubHp(message.Damage);
         });
@@ -254,6 +258,21 @@ public class NetWorkManager : MonoBehaviour
             CurPlayer.EnergyList.Add(SpherePoll.GetSphereInfo(message.SphereId));
             CurPlayer.uIManager.CollectSphere(message.Type);
             SpherePoll.Collect(message.SphereId);
+            if (message.PlayerId == LocalPlayer)
+            {
+                switch (CurPlayer.EnergyList.Count)
+                {
+                    case 1:
+                        AudioController.Play("Effect1");
+                        break;
+                    case 2:
+                        AudioController.Play("Effect11");
+                        break;
+                    case 3:
+                        AudioController.Play("Effect12");
+                        break;
+                }
+            }
         });
     }
 
@@ -273,7 +292,9 @@ public class NetWorkManager : MonoBehaviour
     {
         HelperClass.AddDelegate(() => {
             var ReleasePlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerSkillController>();
-            ReleasePlayer.SuperTime = 10f;
+            ReleasePlayer.SuperTime = 5f;
+            if (message.PlayerId == LocalPlayer)
+                PlayerSkillController.PlaySkillAudio(message.Type);
             if (message.Type == (int)SphereType.SPHERE_RED)
             {
                 ReleasePlayer.PlaySkillEffect(message.Type);

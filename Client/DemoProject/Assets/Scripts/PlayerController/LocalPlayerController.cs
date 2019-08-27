@@ -284,11 +284,13 @@ public class LocalPlayerController : MonoBehaviour
                 if (Health.WeaponIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
                 {
                     SendAttackInfo((int)SpecialEffects.WEAPONTOWEAPON, 0, collision.contacts[0].point);
+                    AudioController.Play("Effect5");
                     EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer,(int)SpecialEffects.WEAPONTOWEAPON, collision.contacts[0].point);
                 }
                 else if (Health.BodyIndex == SelfIndex && otherHealth.BodyIndex == otherIndex)
                 {
                     SendAttackInfo((int)SpecialEffects.BADYTOBADY, 0, collision.contacts[0].point);
+                    AudioController.Play("Effect4");
                     EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer,(int)SpecialEffects.BADYTOBADY, collision.contacts[0].point);
                 }
                 else if (Health.BodyIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
@@ -297,6 +299,7 @@ public class LocalPlayerController : MonoBehaviour
                     if (collision.gameObject.GetComponent<PlayerSkillController>().ThunderTime > 0f)
                         CurDamage = PlayerHealth.ThunderDamage;
                     SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, CurDamage, collision.contacts[0].point);
+                    AudioController.Play("Effect4");
                     EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer, (int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
                     Health.SubHp(CurDamage);
                 }
