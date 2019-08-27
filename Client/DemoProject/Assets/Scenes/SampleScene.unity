@@ -2232,6 +2232,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 585446513162245680, guid: 82f99b829e8f443438070dad58e1f187,
+        type: 3}
+      propertyPath: joystickArea
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7376337862307914036, guid: 82f99b829e8f443438070dad58e1f187,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
