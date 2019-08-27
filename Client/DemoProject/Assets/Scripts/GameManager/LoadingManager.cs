@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LoadingManager : MonoBehaviour
 {
-    public const int RoomSize = 2;
+    public const int RoomSize = 4;
     public int SlowFrame = 0;
 
     private int _LocalDownPlayerNum = 0;

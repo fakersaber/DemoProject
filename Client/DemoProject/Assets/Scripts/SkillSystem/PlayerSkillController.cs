@@ -98,13 +98,13 @@ public class PlayerSkillController : MonoBehaviour
         switch (type)
         {
             case (int)SphereType.SPHERE_PURPLE:
-                ChaosTime = 10f;
+                ChaosTime = 5f;
                 break;
             case (int)SphereType.SPHERE_BLUE:
-                FreezeTime = 10f;
+                FreezeTime = 5f;
                 break;
             case (int)SphereType.SPHERE_RED:
-                ThunderTime = 10f;
+                ThunderTime = 5f;
                 break;
         }
     }

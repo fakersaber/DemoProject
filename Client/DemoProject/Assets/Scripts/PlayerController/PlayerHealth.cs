@@ -9,8 +9,8 @@ public class PlayerHealth : MonoBehaviour
     private int weaponIndex;
     private int bodyIndex;
     private int _PlayerId;
-    private float Health = 10;
-    public const float MaxHealth = 10f;
+    private float Health = 20;
+    public const float MaxHealth = 20f;
     public const int NormalDamage = 2;
     public const int ThunderDamage = 5;
 
@@ -62,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
                 EffectsManager.PlayerDead(_PlayerId, transform.position);
                 loadingManager.AliveSize--;
                 if(loadingManager.AliveSize == 1)
-                    loadingManager.SlowFrame = 50;
+                    loadingManager.SlowFrame = 25;
 
                 if (!cameraController.isDead)
                     cameraController.isDead = _PlayerId == NetClass.LocalPlayer ? true : false;
