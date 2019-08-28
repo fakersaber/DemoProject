@@ -153,12 +153,12 @@ public class PlayerController : MonoBehaviour
 
             if (NetCurScale <= 1f)
             {
-                NetCurScale += 0.2f;
+                NetCurScale += 0.4f;
                 PlayerRigidbody.MoveRotation(Mathf.LerpAngle(StartSynchronizerot, EndSynchronizerot, NetCurScale));
             }
             if (NetPositionScale <= 1f)
             {
-                NetPositionScale += 0.35f;
+                NetPositionScale += 0.5f;
                 PlayerRigidbody.MovePosition(Vector2.Lerp(StartSynchronizepos, EndSynchronizepos, NetPositionScale));
             }
         }

@@ -77,13 +77,13 @@ public class PlayerEnergyController : MonoBehaviour
                 }
             }
 
-            if (_EnergyList.Count == 3 && 
-                _EnergyList[0].Type == _EnergyList[1].Type 
+            if (_EnergyList.Count == 3
+                && _EnergyList[0].Type == _EnergyList[1].Type 
                 && _EnergyList[1].Type == _EnergyList[2].Type)
             {
                 for(int i = 0; i < 3; ++i)
                 {
-                    ConsumeEnergySphere(true);
+                    ConsumeEnergySphere();
                 }
                 //忽略小概率事件，确保本地调用
                 NetClass.AllPlayerInfo[NetClass.LocalPlayer].GetComponent<PlayerSkillController>().ReleaseSkill(CurSphereInfo.Type, _playerid);
@@ -94,6 +94,9 @@ public class PlayerEnergyController : MonoBehaviour
 
     private void CollectSphere(SphereInfo CurSphereInfo)
     {
+        //当处于技能时间内不能收集能量球
+        if (SkillController.SuperTime > 0f)
+            return;
         _EnergyList.Add(CurSphereInfo);
         CacheEnergySphere.PlayerId = _playerid;
         CacheEnergySphere.SphereId = CurSphereInfo.SphereId;
@@ -104,10 +107,10 @@ public class PlayerEnergyController : MonoBehaviour
     }
 
 
-    public bool ConsumeEnergySphere(bool SkillFuncCall)
+    public bool ConsumeEnergySphere()
     {
         //当处于技能时间内不能消耗能量球
-        if (SkillController.SuperTime > 0f && !SkillFuncCall)
+        if (SkillController.SuperTime > 0f)
             return true;
         if (_EnergyList.Count == 0)
             return false;

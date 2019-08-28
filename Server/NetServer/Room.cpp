@@ -143,25 +143,3 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 	}
 }
 
-//if (*reinterpret_cast<int*>(RevData) == static_cast<int>(Protocal::MESSAGE_GENERATORENERGY)) {
-//	EnergySphere NewSphere;
-//	uint32_t offset = 0;
-//	while (RetVal != 0) {
-//		int realsize = *reinterpret_cast<int*>(RevData + offset + sizeof(int));
-//		NewSphere.ParseFromArray(RevData + sizeof(int) * 2 + offset, realsize);
-//		NewSphere.mutable_position()->set_x(width(gen)* 0.01f);
-//		NewSphere.mutable_position()->set_y(height(gen)* 0.01f);
-//		RetVal = RetVal - realsize - 2 * sizeof(int);
-//		offset = offset + realsize + sizeof(int);
-//		NewSphere.SerializeToArray(SendBuffer + sizeof(int) * 2, NewSphere.ByteSize());
-//		Room::Encode(Protocal::MESSAGE_GENERATORENERGY, NewSphere.ByteSize(), SendBuffer);
-//		for (auto client : UserList) {
-//			if (client != AllSocketSet.fd_array[i]) {
-//				send(client, SendBuffer, NewSphere.ByteSize() + 2 * sizeof(int), 0);
-//			}
-//		}
-//	}
-//}
-//else {
-	//开始同步数据，仅仅转发
-
