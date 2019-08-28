@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LoadingManager : MonoBehaviour
 {
-    public const int RoomSize = 3;
+    public const int RoomSize = 1;
     public int SlowFrame = 0;
 
     private int _LocalDownPlayerNum = 0;
@@ -102,7 +102,7 @@ public class LoadingManager : MonoBehaviour
                 ControllerSetting.interactable = false;
                 ControllerSetting.blocksRaycasts = false;
                 ScenesController.DOPlay();
-                AudioController.PlayMusic("BGM2");
+                AudioController.StopMusic();
 
                 //最后的存活者
                 if (NetClass.AllPlayerInfo[NetClass.LocalPlayer].activeSelf)

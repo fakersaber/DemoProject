@@ -63,6 +63,9 @@
                 float dis = distance(i.uv, _Center.xy);
                 half result = step(dis, _Radius);
                 texcol.a = result * texcol.a + (1 - result) * 0;
+
+
+                
                 return texcol;
             }
             ENDCG
