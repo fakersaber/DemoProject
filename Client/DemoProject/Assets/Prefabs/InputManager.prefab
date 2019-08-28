@@ -170,14 +170,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.41509432, g: 0.05678178, b: 0.05678178, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: -1661508637701066994, guid: 4e86061bd2d28894abb96713cfbd97e2,
+  m_Sprite: {fileID: -1240302718329243541, guid: 0b4210dba3f885e4bbf15ccb55d47e65,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 1
@@ -339,7 +339,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -318, y: -167}
-  m_SizeDelta: {x: 100, y: 99.0991}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &585446513162245680
 MonoBehaviour:
@@ -388,7 +388,7 @@ MonoBehaviour:
   showSpriteInspector: 0
   showEventInspector: 0
   showBehaviourInspector: 0
-  showAxesInspector: 0
+  showAxesInspector: 1
   showTouchEventInspector: 0
   showDownEventInspector: 0
   showPressEventInspector: 0
@@ -598,7 +598,7 @@ MonoBehaviour:
     showInertiaInspector: 0
     showSimulatinInspector: 0
   thumb: {fileID: 585446512374589079}
-  joystickArea: 8
+  joystickArea: 1
   userArea: {fileID: 0}
   isTurnAndMove: 0
   tmSpeed: 10
@@ -670,7 +670,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: -4024710785952163994, guid: 4e86061bd2d28894abb96713cfbd97e2,
+  m_Sprite: {fileID: 2507692434633713130, guid: 0b4210dba3f885e4bbf15ccb55d47e65,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 1
@@ -741,14 +741,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.22932571, g: 0.6226415, b: 0.11454255, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 75f91f92a64d1bb49998fada4b1d85c8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a5b55200ce154b4c95a476fc9d1ffee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -776,7 +776,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -943,6 +943,26 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6809926246993201948, guid: 4c43b71aaef319345b16a31114432e31,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6809926246993201948, guid: 4c43b71aaef319345b16a31114432e31,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6809926246993201948, guid: 4c43b71aaef319345b16a31114432e31,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117681229039016338, guid: 4c43b71aaef319345b16a31114432e31,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1376717508787838186, guid: 4c43b71aaef319345b16a31114432e31,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -971,18 +991,30 @@ PrefabInstance:
     - target: {fileID: 1376717508787838186, guid: 4c43b71aaef319345b16a31114432e31,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 164.2
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1376717508787838186, guid: 4c43b71aaef319345b16a31114432e31,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 47
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3689165411791510200, guid: 4c43b71aaef319345b16a31114432e31,
         type: 3}
       propertyPath: m_TagString
       value: CanvasPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 3369242589307959914, guid: 4c43b71aaef319345b16a31114432e31,
+        type: 3}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 9210481096845207310, guid: c360c8a9200f05048977d889079b2c97,
+        type: 3}
+    - target: {fileID: 3735303788743788253, guid: 4c43b71aaef319345b16a31114432e31,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3632722053881764015, guid: c360c8a9200f05048977d889079b2c97,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c43b71aaef319345b16a31114432e31, type: 3}
 --- !u!224 &883477452733061347 stripped
