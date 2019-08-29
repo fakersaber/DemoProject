@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class SceneChange : MonoBehaviour
 {
@@ -16,11 +17,13 @@ public class SceneChange : MonoBehaviour
     ////public string nextSceneName;
 
     private AsyncOperation async = null;
-    private SpriteRenderer LoadingImage;
+    private SpriteRenderer[] LoadingImages;
     private Button StartGame;
+    private DOTweenAnimation doTweenAnimation;
     private void Awake()
     {
-        LoadingImage = GetComponent<SpriteRenderer>();
+        LoadingImages = GetComponentsInChildren<SpriteRenderer>();
+        doTweenAnimation = GetComponent<DOTweenAnimation>();
     }
 
     //IEnumerator LoadScene()
@@ -51,7 +54,11 @@ public class SceneChange : MonoBehaviour
 
     public void ToGameScene()
     {
-        LoadingImage.enabled = true;
+        for(int i= 0;i<LoadingImages.Length;i++)
+        {
+            LoadingImages[i].enabled = true;
+        } 
+        doTweenAnimation.DORestartAllById("start");
         GameObject.FindWithTag("StartGameButton").GetComponent<Button>().interactable = false;
         SceneManager.LoadSceneAsync("SampleScene");
     }

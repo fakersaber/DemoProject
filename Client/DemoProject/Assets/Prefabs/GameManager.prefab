@@ -11,9 +11,13 @@ GameObject:
   - component: {fileID: 4972442427450084612}
   - component: {fileID: 4972442427450084615}
   - component: {fileID: 4972442427450084613}
+  - component: {fileID: 687357739}
+  - component: {fileID: 687357737}
+  - component: {fileID: 687357738}
+  - component: {fileID: 687357740}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 4972442427450084614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1.6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -44,7 +48,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ce16051207a9d40b9e5da98439a52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitPrefab: {fileID: 468873750542192829, guid: 2346a0b332f1bb44f82e2ab4679dc97f,
+  PinkPlayer_1: {fileID: 7990665709500029967, guid: 244ef8b239eadc14e8ec025168c10848,
+    type: 3}
+  RedPlayer_2: {fileID: 7990665709500029967, guid: 4581b33a0c8916047b20eeb787fd3d7a,
+    type: 3}
+  PurplePlayer_3: {fileID: 7990665709500029967, guid: 1fe5ca5bd29350040af57e563ac2e5af,
+    type: 3}
+  GreenPlayer_4: {fileID: 7990665709500029967, guid: 225c4fdc48537dc4688b118a66c2f28c,
     type: 3}
   InitCamera: {fileID: 3506417974055313700, guid: 102d981b8b9a8e444bdc197b36dfd3eb,
     type: 3}
@@ -61,10 +71,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00a186999ea6384facc9f2bc110751d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitSize: 5
-  RedEnergySphere: {fileID: 2782167100430168387, guid: 480e16b2fdc20d048bca545edccbf8eb,
+  RedEnergySphere: {fileID: 7788923766092821253, guid: 10ab26373bedf544ba6f5ab92eb4c880,
     type: 3}
-  BlueEnergySphere: {fileID: 8763991897205619649, guid: 8a49a8d40d334a94093dd7c3248bd657,
+  BlueEnergySphere: {fileID: 7667145098564098441, guid: aebe739c590356e4ca57b50fdc899b79,
     type: 3}
-  YellowEnergySphere: {fileID: 9221476910471732743, guid: 712e0ca97e15ebe45916cefa92f29e68,
+  PurpleEnergySphere: {fileID: 2457481187780732727, guid: 00bb97f119d453a45894e289227739e1,
     type: 3}
+--- !u!212 &687357739
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972442427450084614}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0039f04a5341ebe4bb16b3b6891f2ac6, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -551313747
+  m_SortingLayer: 7
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 3fe882820d7f97d45811c513d96633be, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 19.2, y: 10.8}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &687357737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972442427450084614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de4c7c34d27d431469b8b67f20016028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponEffect: {fileID: 4984496284847400982, guid: f885a0453f864d645a45807038445ad2,
+    type: 3}
+  AttackedEffect: {fileID: 6238629987195960487, guid: f002c658188d2a544a319ac5004d328d,
+    type: 3}
+  PlayerCollidEffct: {fileID: 4855370516559374766, guid: 8e88a8c18b545ef43b49ed7a8ece7818,
+    type: 3}
+  PlayerDeathEffct: {fileID: 1902304290096252, guid: f0c2ec2ec173dfa44833e4947c69600c,
+    type: 3}
+--- !u!114 &687357738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972442427450084614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efcca5681ad67284a8600c8e67f44abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SlowFrame: 0
+--- !u!114 &687357740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972442427450084614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10fe26d543605af4a8de4fd32fdabcd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
