@@ -12,7 +12,8 @@ public class CameraController : MonoBehaviour
     private Vector3 CacheVec;
     private Vector2 direct;
     private bool _isDead = false;
-
+    private float width_value = 0f;
+    private float height_value = 0f;
 
 
     public Rigidbody2D PlayerRidibody
@@ -32,6 +33,12 @@ public class CameraController : MonoBehaviour
         camera = GetComponent<Camera>();
     }
 
+    private void Start()
+    {
+        width_value = 19.2f - camera.orthographicSize * camera.aspect;
+        height_value = 10.8f - camera.orthographicSize;
+    }
+
 
 
     private void FixedUpdate()
@@ -41,6 +48,8 @@ public class CameraController : MonoBehaviour
             Vector2 currentVelocity = Vector2.zero;
             Vector2 position = transform.position;
             CacheVec = Vector2.SmoothDamp(transform.position, position + direct * Time.fixedDeltaTime * Speed, ref currentVelocity, MoveTime);
+            CacheVec.x = Mathf.Clamp(CacheVec.x, -width_value, width_value);
+            CacheVec.y = Mathf.Clamp(CacheVec.y,-height_value,height_value);
             CacheVec.z = -10f;
             transform.position = CacheVec;
         }
@@ -48,6 +57,8 @@ public class CameraController : MonoBehaviour
         {
             Vector2 currentVelocity = Vector2.zero;
             CacheVec = Vector2.SmoothDamp(transform.position, LocalPlayerRididbody.position, ref currentVelocity, MoveTime);
+            CacheVec.x = Mathf.Clamp(CacheVec.x, -width_value, width_value);
+            CacheVec.y = Mathf.Clamp(CacheVec.y, -height_value, height_value);
             CacheVec.z = -10f;
             transform.position = CacheVec;
         }

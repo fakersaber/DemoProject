@@ -943,58 +943,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1376717508787838186, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1376717508787838186, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1376717508787838186, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1376717508787838186, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 1376717508787838186, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 86
-      objectReference: {fileID: 0}
-    - target: {fileID: 1376717508787838186, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1376717508787838186, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 3689165411791510200, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_TagString
-      value: CanvasPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 3369242589307959914, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_SpriteState.m_PressedSprite
-      value: 
-      objectReference: {fileID: 6355853238090766505, guid: ffab3933d146e25488f72d6ae8990fda,
-        type: 3}
-    - target: {fileID: 3735303788743788253, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -6465863096726196495, guid: ffab3933d146e25488f72d6ae8990fda,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c43b71aaef319345b16a31114432e31, type: 3}
 --- !u!224 &883477452733061347 stripped

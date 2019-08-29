@@ -81,10 +81,10 @@ public class PlayerEnergyController : MonoBehaviour
                 && _EnergyList[0].Type == _EnergyList[1].Type 
                 && _EnergyList[1].Type == _EnergyList[2].Type)
             {
-                for(int i = 0; i < 3; ++i)
-                {
-                    ConsumeEnergySphere();
-                }
+                //for(int i = 0; i < 3; ++i)
+                //{
+                //    ConsumeEnergySphere();
+                //}
                 //忽略小概率事件，确保本地调用
                 NetClass.AllPlayerInfo[NetClass.LocalPlayer].GetComponent<PlayerSkillController>().ReleaseSkill(CurSphereInfo.Type, _playerid);
             }

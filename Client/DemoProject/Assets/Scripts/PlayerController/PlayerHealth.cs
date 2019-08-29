@@ -59,14 +59,25 @@ public class PlayerHealth : MonoBehaviour
             HealthBar.SetFloat("_CurHealth", Health / MaxHealth);
             if (Health <= 0f)
             {
-                EffectsManager.PlayerDead(_PlayerId, transform.position);
-                loadingManager.AliveSize--;
-                if(loadingManager.AliveSize == 1)
-                    loadingManager.SlowFrame = 25;
-
+                EffectsManager.PlayerDead(_PlayerId, transform.position);                   
                 if (!cameraController.isDead)
                     cameraController.isDead = _PlayerId == NetClass.LocalPlayer ? true : false;
                 gameObject.SetActive(false);
+                loadingManager.RankList.Add(_PlayerId);
+                loadingManager.AliveSize--;
+                if (loadingManager.AliveSize == 1)
+                {
+                    //最后两个人Add最后一个
+                    for (int i = 1; i <= 4; ++i)
+                    {
+                        if (NetClass.AllPlayerInfo[i].activeSelf)
+                        {
+                            loadingManager.RankList.Add(i);
+                            break;
+                        }
+                    }
+                    loadingManager.SlowFrame = 25;
+                }
             }
         }
     }

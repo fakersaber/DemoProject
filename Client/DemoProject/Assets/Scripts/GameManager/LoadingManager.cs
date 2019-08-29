@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LoadingManager : MonoBehaviour
 {
-    public const int RoomSize = 1;
+    public const int RoomSize = 2;
     public int SlowFrame = 0;
 
+    
     private int _LocalDownPlayerNum = 0;
     private int _OtherDownPlayerNum = 0;
     private int _AliveSize = RoomSize;
@@ -15,8 +18,24 @@ public class LoadingManager : MonoBehaviour
     private Material LoadMaterial;
     private CanvasGroup EndSetting;
     private CanvasGroup ControllerSetting;
+    //private GameObject EndScenes;
     private DG.Tweening.DOTweenAnimation ScenesController;
-    //private AudioController audioController;
+
+    #region //结算页面UI
+    private Image[] EndScenesUI = new Image[16];
+    private Sprite[] EndWordResource;
+    private Sprite[] EndBackResource;
+    private Sprite[] EndRankResource;
+    private Sprite[] EndHeadResource;
+    private Sprite[] HeroBackResource;
+    private Sprite[] HeroResource;
+    #endregion
+
+    //本次游戏排名数据
+    public List<int> RankList = new List<int>();
+
+
+
     private float Radius = 0.707f;
 
     public int LocalDownPlayer
@@ -50,7 +69,19 @@ public class LoadingManager : MonoBehaviour
         LoadMaterial = LoadingImage.material;
         LoadMaterial.SetFloat("_Radius", Radius);
         EndSetting = GameObject.Find("Canvas_End").GetComponent<CanvasGroup>();
+        //EndScenes = GameObject.FindWithTag("CanvasPanel");
         ScenesController = GameObject.FindWithTag("CanvasPanel").GetComponent<DG.Tweening.DOTweenAnimation>();
+        var UIArray = ScenesController.GetComponentsInChildren<Image>();
+        for(int i = 0; i < 16; ++i)
+        {
+            EndScenesUI[i] = UIArray[i+1];
+        }
+        EndWordResource = Resources.LoadAll<Sprite>("EndWord");
+        EndBackResource = Resources.LoadAll<Sprite>("EndBack");
+        EndRankResource = Resources.LoadAll<Sprite>("EndRank");
+        EndHeadResource = Resources.LoadAll<Sprite>("EndHead");
+        HeroBackResource = Resources.LoadAll<Sprite>("HeroBack");
+        HeroResource = Resources.LoadAll<Sprite>("Hero");
     }
 
     private void Start()
@@ -101,7 +132,6 @@ public class LoadingManager : MonoBehaviour
                 ControllerSetting.alpha = 0f;
                 ControllerSetting.interactable = false;
                 ControllerSetting.blocksRaycasts = false;
-                ScenesController.DOPlay();
                 AudioController.StopMusic();
 
                 //最后的存活者
@@ -109,6 +139,11 @@ public class LoadingManager : MonoBehaviour
                     AudioController.Play("Effect3");
                 else
                     AudioController.Play("Effect2");
+
+                //设置对应结算页面
+                SetEndScenes();
+
+                ScenesController.DOPlay();
             }
         }
         else
@@ -116,4 +151,103 @@ public class LoadingManager : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
+
+
+    private void SetEndScenes()
+    {
+        //hero类型与排名无关单独处理
+        switch (NetClass.LocalPlayer)
+        {
+            case 1:
+                EndScenesUI[14].sprite = HeroResource[1];
+                break;
+            case 2:
+                EndScenesUI[14].sprite = HeroResource[2];
+                break;
+            case 3:
+                EndScenesUI[14].sprite = HeroResource[0];
+                break;
+            case 4:
+                EndScenesUI[14].sprite = HeroResource[3];
+                break;
+        }
+
+        //i与排名的映射函数  Rank = -i + RoomSize
+        for (int i = RoomSize - 1; i >=0; i--)
+        {
+            //从当前名次的Player类型找到对应Resource中Sprite，对应Head位置均为-i + RoomSize + 2 * 4
+            switch (RankList[i])
+            {
+                case 1:
+                    EndScenesUI[-i + RoomSize + 2 * 4].sprite = EndHeadResource[3];
+                    break;
+                case 2:
+                    EndScenesUI[-i + RoomSize + 2 * 4].sprite = EndHeadResource[0];
+                    break;
+                case 3:
+                    EndScenesUI[-i + RoomSize + 2 * 4].sprite = EndHeadResource[1];
+                    break;
+                case 4:
+                    EndScenesUI[-i + RoomSize + 2 * 4].sprite = EndHeadResource[2];
+                    break;
+            }
+
+
+            //Rank映射，Rank是固定的可注释
+            //EndScenesUI[-i + RoomSize + 1 * 4].sprite = EndRankResource[-i + RoomSize - 1];
+
+            //自身处理back与hero_back的类型
+            if (RankList[i] == NetClass.LocalPlayer)
+            {
+                if(i == RoomSize - 1)
+                {
+                    EndScenesUI[13].sprite = HeroBackResource[0];
+                    EndScenesUI[15].sprite = HeroBackResource[1];
+                }
+                else
+                {
+                    EndScenesUI[13].sprite = HeroBackResource[2]; 
+                    EndScenesUI[15].sprite = HeroBackResource[3]; 
+                }
+
+                EndScenesUI[-i + RoomSize].sprite = EndBackResource[0];
+                //EndWord只跟排名有关
+                EndScenesUI[0].sprite = EndWordResource[-i + RoomSize - 1];
+                continue;
+            }
+            //Back映射
+            EndScenesUI[-i + RoomSize + 0 * 4].sprite = EndBackResource[1];
+        }
+
+    }
 }
+
+
+
+
+//switch (i)  // y = -x + 4
+//{
+//    case 3:
+//        //EndScenesUI[0].sprite = EndWordResource[0];
+//        //EndScenesUI[5].sprite = EndRankResource[0];
+//        //EndScenesUI[9].sprite = EndHeadResource[0];
+//        EndScenesUI[1].sprite = EndBackResource[0];
+//        EndScenesUI[13].sprite = HeroBackResource[0];  
+//        EndScenesUI[15].sprite = HeroBackResource[1];  
+//        break;
+//    case 2:
+//        EndScenesUI[2].sprite = EndBackResource[0];
+//        EndScenesUI[13].sprite = EndBackResource[2];  //0 2
+//        EndScenesUI[15].sprite = EndBackResource[3];  //1 3
+//        break;
+//    case 1:
+//        EndScenesUI[3].sprite = EndBackResource[0];
+//        EndScenesUI[13].sprite = EndBackResource[2];  //0 2
+//        EndScenesUI[15].sprite = EndBackResource[3];  //1 3
+//        break;
+//    case 0:
+//        EndScenesUI[4].sprite = EndBackResource[0];
+//        EndScenesUI[13].sprite = EndBackResource[2];  //0 2
+//        EndScenesUI[15].sprite = EndBackResource[3];  //1 3
+//        break;
+//}

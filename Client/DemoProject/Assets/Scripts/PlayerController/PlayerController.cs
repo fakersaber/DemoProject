@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private PlayerEffectsManager EffectsManager;
     private Rigidbody2D PlayerRigidbody;
     private PlayerSkillController SkillController;
+    private PlayerEnergyController EnergyController;
     private PlayerHealth Health;
     private Animator animator;
     private bool isOK = true;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
         PlayerRigidbody = GetComponent<Rigidbody2D>();
         Health = GetComponent<PlayerHealth>();
         SkillController = GetComponent<PlayerSkillController>();
+        EnergyController = GetComponent<PlayerEnergyController>();
         var GameManager = GameObject.FindWithTag("GameManager");
         NetClass = GameManager.GetComponent<NetWorkManager>();
         EffectsManager = GameManager.GetComponent<PlayerEffectsManager>();
@@ -108,7 +110,17 @@ public class PlayerController : MonoBehaviour
 
 
         if (SkillController.SuperTime > 0f)
+        {
             SkillController.SuperTime -= Time.fixedDeltaTime;
+            if (NetClass.LocalPlayer == 1 && SkillController.SuperTime < 0f)
+            {
+                for (int i = 0; i < 3; ++i)
+                {
+                    EnergyController.ConsumeEnergySphere();
+                }
+            }
+        }
+
         else
         {
             if (SkillController.SelfEffectChaos.isPlaying)

@@ -39,6 +39,7 @@ public class LocalPlayerController : MonoBehaviour
     private Rigidbody2D PlayerRigidbody;
     private PlayerHealth Health;
     private PlayerSkillController SkillController;
+    private PlayerEnergyController EnergyController;
     private NetWorkManager NetClass;
     private PlayerEffectsManager EffectsManager;
     private Animator animator;
@@ -68,6 +69,27 @@ public class LocalPlayerController : MonoBehaviour
     private Transform FakeCenter;
     private Vector3 OffsetHealth;
     private Vector3 OffsetEnergy;
+
+    private void Awake()
+    {
+        PlayerRigidbody = GetComponent<Rigidbody2D>();
+        Health = GetComponent<PlayerHealth>();
+        ReflectLerpScaleDelta = Time.fixedDeltaTime / ReflectTime;
+        InputLerpScaleDelta = Time.fixedDeltaTime / InputTime;
+        var GameManager = GameObject.FindWithTag("GameManager");
+        NetClass = GameManager.GetComponent<NetWorkManager>();
+        EffectsManager = GameManager.GetComponent<PlayerEffectsManager>();
+        SpurtTouch = GameObject.FindWithTag("Spurt").GetComponent<SpurtButton>();
+        SkillController = GetComponent<PlayerSkillController>();
+        EnergyController = GetComponent<PlayerEnergyController>();
+        WallLayer = LayerMask.NameToLayer("Wall");
+        PlayerLayer = LayerMask.NameToLayer("Player");
+        HealthBarTrans = GetComponentsInChildren<Transform>()[5];
+        FakeCenter = GetComponentsInChildren<Transform>()[6];
+        EnergyRenderTrans = GetComponentsInChildren<Transform>()[7];
+        animator = GetComponent<Animator>();
+    }
+
 
     #region
     private void CheckStatus()
@@ -117,8 +139,18 @@ public class LocalPlayerController : MonoBehaviour
             isThunder = false;
         }
 
-        if(SkillController.SuperTime > 0f)
+        if (SkillController.SuperTime > 0f)
+        {
             SkillController.SuperTime -= Time.fixedDeltaTime;
+            //Debug.Log(SkillController.SuperTime);
+            if(NetClass.LocalPlayer == 1 && SkillController.SuperTime < 0f )
+            {
+                for (int i = 0; i < 3; ++i)
+                {
+                    EnergyController.ConsumeEnergySphere();
+                }
+            }
+        }
         else
         {
             if (SkillController.SelfEffectChaos.isPlaying)
@@ -129,24 +161,7 @@ public class LocalPlayerController : MonoBehaviour
     }
     #endregion
 
-    private void Awake()
-    {
-        PlayerRigidbody = GetComponent<Rigidbody2D>();
-        Health = GetComponent<PlayerHealth>();
-        ReflectLerpScaleDelta = Time.fixedDeltaTime / ReflectTime;
-        InputLerpScaleDelta = Time.fixedDeltaTime / InputTime;
-        var GameManager = GameObject.FindWithTag("GameManager");
-        NetClass = GameManager.GetComponent<NetWorkManager>();
-        EffectsManager = GameManager.GetComponent<PlayerEffectsManager>();
-        SpurtTouch = GameObject.FindWithTag("Spurt").GetComponent<SpurtButton>();
-        SkillController = GetComponent<PlayerSkillController>();
-        WallLayer = LayerMask.NameToLayer("Wall");
-        PlayerLayer = LayerMask.NameToLayer("Player");
-        HealthBarTrans = GetComponentsInChildren<Transform>()[5];
-        FakeCenter = GetComponentsInChildren<Transform>()[6];
-        EnergyRenderTrans = GetComponentsInChildren<Transform>()[7];
-        animator = GetComponent<Animator>();
-    }
+
 
     private void Start()
     {
