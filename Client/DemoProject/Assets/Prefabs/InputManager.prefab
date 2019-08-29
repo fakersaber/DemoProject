@@ -598,7 +598,7 @@ MonoBehaviour:
     showInertiaInspector: 0
     showSimulatinInspector: 0
   thumb: {fileID: 585446512374589079}
-  joystickArea: 1
+  joystickArea: 2
   userArea: {fileID: 0}
   isTurnAndMove: 0
   tmSpeed: 10
@@ -717,8 +717,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -175, y: 113}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: -100, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1880764760983733578
 CanvasRenderer:
@@ -776,11 +776,11 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5882353}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -943,26 +943,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6809926246993201948, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809926246993201948, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809926246993201948, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117681229039016338, guid: 4c43b71aaef319345b16a31114432e31,
-        type: 3}
-      propertyPath: m_Alpha
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1376717508787838186, guid: 4c43b71aaef319345b16a31114432e31,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -1007,13 +987,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
-      objectReference: {fileID: 9210481096845207310, guid: c360c8a9200f05048977d889079b2c97,
+      objectReference: {fileID: 6355853238090766505, guid: ffab3933d146e25488f72d6ae8990fda,
         type: 3}
     - target: {fileID: 3735303788743788253, guid: 4c43b71aaef319345b16a31114432e31,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -3632722053881764015, guid: c360c8a9200f05048977d889079b2c97,
+      objectReference: {fileID: -6465863096726196495, guid: ffab3933d146e25488f72d6ae8990fda,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c43b71aaef319345b16a31114432e31, type: 3}
