@@ -14,7 +14,7 @@ public class LoadingManager : MonoBehaviour
     private int _AliveSize = RoomSize;
     private GameObject MainCamera;
     private NetWorkManager NetClass;
-    private RawImage rawImage;
+    private Image image;
    // private SpriteRenderer LoadingImage;
     private Material LoadMaterial;
     private CanvasGroup EndSetting;
@@ -66,8 +66,8 @@ public class LoadingManager : MonoBehaviour
         //audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
         MainCamera = GameObject.FindWithTag("MainCamera");
         NetClass = GetComponent<NetWorkManager>();
-        rawImage = GetComponentInChildren<RawImage>();
-        LoadMaterial = rawImage.material;
+        image = GameObject.FindWithTag("LoadingImage").GetComponentInChildren<Image>();
+        LoadMaterial = image.material;
         //LoadingImage = GetComponent<SpriteRenderer>();
         //LoadMaterial = LoadingImage.material;
         LoadMaterial.SetFloat("_Radius", Radius);
@@ -110,7 +110,7 @@ public class LoadingManager : MonoBehaviour
                 ControllerSetting.alpha = 1f;
                 ControllerSetting.interactable = true;
                 ControllerSetting.blocksRaycasts = true;
-                rawImage.enabled = false;
+                image.enabled = false;
                 AudioController.PlayMusic("BGM1");
                 yield break;
             }

@@ -11,6 +11,8 @@ TagManager:
   - HealthBar
   - CanvasPanel
   - StartGameButton
+  - AudioController
+  - LoadingImage
   layers:
   - Default
   - TransparentFX
