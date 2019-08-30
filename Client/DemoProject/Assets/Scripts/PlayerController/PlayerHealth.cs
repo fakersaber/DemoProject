@@ -8,10 +8,12 @@ public class PlayerHealth : MonoBehaviour
 {
     private int weaponIndex;
     private int bodyIndex;
+    private int headIndex;
     private int _PlayerId;
-    private float Health = 20;
+    private int Health = 20;
     public const float MaxHealth = 20f;
     public const int NormalDamage = 2;
+    public const int CriticalDamage = 4;
     public const int ThunderDamage = 5;
 
     private NetWorkManager NetClass;
@@ -30,6 +32,13 @@ public class PlayerHealth : MonoBehaviour
     {
         get { return bodyIndex; }
     }
+
+    public int HeadIndex
+    {
+        get { return headIndex; }
+    }
+
+
     public int PlayerId
     {
         get { return _PlayerId; }
@@ -45,6 +54,7 @@ public class PlayerHealth : MonoBehaviour
         EffectsManager = GameManager.GetComponent<PlayerEffectsManager>();
         weaponIndex = gameObject.GetComponents<PolygonCollider2D>()[0].GetHashCode();
         bodyIndex = gameObject.GetComponents<PolygonCollider2D>()[1].GetHashCode();
+        headIndex = gameObject.GetComponents<PolygonCollider2D>()[2].GetHashCode();
         HealthBar = GetComponentsInChildren<SpriteRenderer>()[1].material;
         HealthBar.SetFloat("_CurHealth", Health / MaxHealth);
     }
@@ -53,11 +63,11 @@ public class PlayerHealth : MonoBehaviour
 
     public void SubHp(int Damage)
     {
-        if (Damage > 0)
+        if (Damage > 0 && Health > 0)
         {
             Health -= Damage;
             HealthBar.SetFloat("_CurHealth", Health / MaxHealth);
-            if (Health <= 0f)
+            if (Health <= 0)
             {
                 EffectsManager.PlayerDead(_PlayerId, transform.position);                   
                 if (!cameraController.isDead)
@@ -76,7 +86,7 @@ public class PlayerHealth : MonoBehaviour
                             break;
                         }
                     }
-                    loadingManager.SlowFrame = 25;
+                    loadingManager.SlowFrame = 50;
                 }
             }
         }

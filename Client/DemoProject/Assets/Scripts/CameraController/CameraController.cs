@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     private Camera camera;
-    public float Speed  = 3f;
+    public float Speed  = 6f;
     private Rigidbody2D LocalPlayerRididbody;
     private NetWorkManager NetClass;
     private float MoveTime = 0f;

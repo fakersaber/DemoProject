@@ -70,7 +70,7 @@ public class NetWorkManager : MonoBehaviour
     //可优化为函数表
     private void RecvThread()
     {
-        byte[] readBuff = new byte[4096];
+        byte[] readBuff = new byte[1024 * 8];
         while (true)
         {
             try

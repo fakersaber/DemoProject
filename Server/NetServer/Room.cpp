@@ -102,7 +102,7 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 	FD_ZERO(&AllSocketSet);
 	for (auto UserSock : UserList)
 		FD_SET(UserSock, &AllSocketSet);
-	char RevData[4096] = { 0 };
+	char RevData[1024 * 8] = { 0 };
 	int RetVal = 0;
 	while (true) {
 		ReadFd = AllSocketSet;
@@ -114,12 +114,10 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 		for (uint32_t i = 0; i < AllSocketSet.fd_count; ++i) {
 			//有数据可读
 			if (FD_ISSET(AllSocketSet.fd_array[i], &ReadFd)) {
-				RetVal = recv(AllSocketSet.fd_array[i], RevData, 4096, 0);
+				RetVal = recv(AllSocketSet.fd_array[i], RevData, 8192, 0);
 				//连接异常
 				{
 					if (RetVal == SOCKET_ERROR || !RetVal) {
-						closesocket(AllSocketSet.fd_array[i]);
-						FD_CLR(AllSocketSet.fd_array[i], &AllSocketSet);
 						if (!RetVal) 
 						{ 
 							printf("Client closes normally\n"); 
@@ -129,6 +127,8 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 							if (err == WSAECONNRESET) { printf("Client is forced to close\n"); }
 							else { printf("unkown error %d \n", err); }
 						}
+						closesocket(AllSocketSet.fd_array[i]);
+						FD_CLR(AllSocketSet.fd_array[i], &AllSocketSet);
 						continue;
 					}
 				}

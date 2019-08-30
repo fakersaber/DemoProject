@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float ReflectTime = 0.35f; //反弹变化时间
+    public float ReflectTime = 0.5f; //反弹变化时间
     public float ReflectScale = 2f; //反弹系数
-    public float DeltaAngle = 15f;
+    public float DeltaAngle = 30f;
 
     private NetWorkManager NetClass;
     private PlayerEffectsManager EffectsManager;
@@ -211,6 +211,16 @@ public class PlayerController : MonoBehaviour
                     SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, CurDamage, collision.contacts[0].point);
                     AudioController.Play("Effect4");
                     EffectsManager.PlayerSpecialEffects(PlayerId,(int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
+                    Health.SubHp(CurDamage);
+                }
+                else if (Health.HeadIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
+                {
+                    int CurDamage = PlayerHealth.NormalDamage * PlayerHealth.CriticalDamage;
+                    if (collision.gameObject.GetComponent<PlayerSkillController>().ThunderTime > 0f)
+                        CurDamage = PlayerHealth.ThunderDamage * PlayerHealth.CriticalDamage;
+                    SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, CurDamage, collision.contacts[0].point);
+                    AudioController.Play("Effect4");
+                    EffectsManager.PlayerSpecialEffects(PlayerId, (int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
                     Health.SubHp(CurDamage);
                 }
             }

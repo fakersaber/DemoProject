@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class LoadingManager : MonoBehaviour
 {
-    public const int RoomSize = 1;
+    public const int RoomSize = 4;
     public int SlowFrame = 0;
 
     

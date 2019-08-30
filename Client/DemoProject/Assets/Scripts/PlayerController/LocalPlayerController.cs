@@ -212,7 +212,7 @@ public class LocalPlayerController : MonoBehaviour
             if (!isOK)
             {
                 CurWaitFrame++;
-                if (CurWaitFrame < 3)
+                if (CurWaitFrame < 2)
                     return;
                 CurWaitFrame = 0;
                 isOK = true;
@@ -312,7 +312,17 @@ public class LocalPlayerController : MonoBehaviour
                 {
                     int CurDamage = PlayerHealth.NormalDamage;
                     if (collision.gameObject.GetComponent<PlayerSkillController>().ThunderTime > 0f)
-                        CurDamage = PlayerHealth.ThunderDamage;
+                        CurDamage *= PlayerHealth.CriticalDamage;
+                    SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, CurDamage, collision.contacts[0].point);
+                    AudioController.Play("Effect4");
+                    EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer, (int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
+                    Health.SubHp(CurDamage);
+                }
+                else if (Health.HeadIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
+                {
+                    int CurDamage = PlayerHealth.NormalDamage * PlayerHealth.CriticalDamage;
+                    //if (collision.gameObject.GetComponent<PlayerSkillController>().ThunderTime > 0f)
+                    //    CurDamage *= PlayerHealth.CriticalDamage;
                     SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, CurDamage, collision.contacts[0].point);
                     AudioController.Play("Effect4");
                     EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer, (int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
