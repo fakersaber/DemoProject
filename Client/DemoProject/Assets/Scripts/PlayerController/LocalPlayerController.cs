@@ -9,11 +9,11 @@ public class LocalPlayerController : MonoBehaviour
 
     #region 
     public float ReflectTime = 0.35f; //反弹变化时间
-    public float InputTime = 0.25f; //输入变化时间
+    public float InputTime = 0.2f; //输入变化时间
     public float NormalSpeed = 6.5f; //正常速度
     public float SpurtSpeed = 15f; //冲刺速度
-    public float ReflectScale = 2f; //反弹系数
-    public float DeltaAngle = 15f;
+    public float ReflectScale = 1.5f; //反弹系数
+    public float DeltaAngle = 30f;
     #endregion
 
     #region
@@ -312,7 +312,7 @@ public class LocalPlayerController : MonoBehaviour
                 {
                     int CurDamage = PlayerHealth.NormalDamage;
                     if (collision.gameObject.GetComponent<PlayerSkillController>().ThunderTime > 0f)
-                        CurDamage *= PlayerHealth.CriticalDamage;
+                        CurDamage = PlayerHealth.ThunderDamage;
                     SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, CurDamage, collision.contacts[0].point);
                     AudioController.Play("Effect4");
                     EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer, (int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
@@ -321,8 +321,8 @@ public class LocalPlayerController : MonoBehaviour
                 else if (Health.HeadIndex == SelfIndex && otherHealth.WeaponIndex == otherIndex)
                 {
                     int CurDamage = PlayerHealth.NormalDamage * PlayerHealth.CriticalDamage;
-                    //if (collision.gameObject.GetComponent<PlayerSkillController>().ThunderTime > 0f)
-                    //    CurDamage *= PlayerHealth.CriticalDamage;
+                    if (collision.gameObject.GetComponent<PlayerSkillController>().ThunderTime > 0f)
+                        CurDamage = PlayerHealth.ThunderDamage * PlayerHealth.CriticalDamage;
                     SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, CurDamage, collision.contacts[0].point);
                     AudioController.Play("Effect4");
                     EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer, (int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
@@ -336,7 +336,7 @@ public class LocalPlayerController : MonoBehaviour
             }
 
             ReflectStartPosition = PlayerRigidbody.position;
-            ReflectEndPosition = PlayerRigidbody.position + VelocityDir.normalized;
+            ReflectEndPosition = PlayerRigidbody.position + VelocityDir.normalized * ReflectScale;
             ReflectStartRotation = PlayerRigidbody.rotation;
             ReflectEndRotation = PlayerRigidbody.rotation + (Mathf.Abs(DeltaRotate) < 1e-6 ? 0f : (DeltaRotate < 0f ? DeltaAngle : -DeltaAngle));
             ReflectCurScale = 0f;

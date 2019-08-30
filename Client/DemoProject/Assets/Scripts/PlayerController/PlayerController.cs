@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float ReflectTime = 0.5f; //反弹变化时间
-    public float ReflectScale = 2f; //反弹系数
+    public float ReflectTime = 0.35f; //反弹变化时间
+    public float ReflectScale = 1.5f; //反弹系数
     public float DeltaAngle = 30f;
 
     private NetWorkManager NetClass;
@@ -230,7 +230,7 @@ public class PlayerController : MonoBehaviour
                     VelocityDir += (collision.otherRigidbody.worldCenterOfMass - collision.contacts[i].point).normalized;
             }
             ReflectStartPosition = PlayerRigidbody.position;
-            ReflectEndPosition = PlayerRigidbody.position + VelocityDir.normalized;
+            ReflectEndPosition = PlayerRigidbody.position + VelocityDir.normalized * ReflectScale;
             ReflectStartRotation = PlayerRigidbody.rotation;
             ReflectEndRotation = PlayerRigidbody.rotation + (Mathf.Abs(DeltaRotate) < 1e-6 ? 0f : (DeltaRotate < 0f ? DeltaAngle : -DeltaAngle));
             ReflectCurScale = 0f;

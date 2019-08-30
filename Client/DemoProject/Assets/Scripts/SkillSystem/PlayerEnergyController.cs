@@ -54,12 +54,16 @@ public class PlayerEnergyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //存在一个球两次进入OnTriggerEnter2D函数..
         if (NetClass.LocalPlayer == 1)
         {
             if (_EnergyList.Count == 3)
                 return;
 
             SphereInfo CurSphereInfo = collision.gameObject.GetComponent<SphereInfo>();
+            if (!SphereManager._AllSpherePoll[CurSphereInfo.SphereId].activeSelf)
+                return;
+
             CollectSphere(CurSphereInfo);
             if (_playerid == NetClass.LocalPlayer)
             {
@@ -81,12 +85,7 @@ public class PlayerEnergyController : MonoBehaviour
                 && _EnergyList[0].Type == _EnergyList[1].Type 
                 && _EnergyList[1].Type == _EnergyList[2].Type)
             {
-                //for(int i = 0; i < 3; ++i)
-                //{
-                //    ConsumeEnergySphere();
-                //}
-                //忽略小概率事件，确保本地调用
-                NetClass.AllPlayerInfo[NetClass.LocalPlayer].GetComponent<PlayerSkillController>().ReleaseSkill(CurSphereInfo.Type, _playerid);
+                NetClass.AllPlayerInfo[_playerid].GetComponent<PlayerSkillController>().ReleaseSkill(CurSphereInfo.Type, _playerid);
             }
         }
     }

@@ -13,6 +13,11 @@ public class EnergySpherePool : MonoBehaviour
     public GameObject BlueEnergySphere;
     public GameObject PurpleEnergySphere;
 
+    public Dictionary<int, GameObject> _AllSpherePoll
+    {
+        get { return AllSpherePoll; }
+    }
+
 
     public void InitPool(Vector2 Position,int Type,int SphereId)
     {

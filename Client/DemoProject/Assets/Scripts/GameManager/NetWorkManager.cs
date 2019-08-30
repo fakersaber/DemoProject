@@ -56,7 +56,6 @@ public class NetWorkManager : MonoBehaviour
             LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPEndPoint point = new IPEndPoint(IPAddress.Parse(ServerIp), ServerPort);
             LocalSocket.Connect(point);
-            Debug.Log("Connect Success");
             recvThread = new Thread(new ThreadStart(RecvThread));
             recvThread.Start();
         }
@@ -71,6 +70,18 @@ public class NetWorkManager : MonoBehaviour
     private void RecvThread()
     {
         byte[] readBuff = new byte[1024 * 8];
+        //发送初始化请求，服务器收到后再初始化
+        //try
+        //{
+        //    byte[] sendbuffer = new byte[16];
+        //    LocalSocket.Send(sendbuffer);
+        //}
+        //catch (Exception e)
+        //{
+        //    Debug.Log("Send init data failed");
+        //    return;
+        //}
+
         while (true)
         {
             try
