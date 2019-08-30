@@ -17,14 +17,7 @@ public class SceneChange : MonoBehaviour
     ////public string nextSceneName;
 
     private AsyncOperation async = null;
-    private SpriteRenderer[] LoadingImages;
     private Button StartGame;
-    private DOTweenAnimation doTweenAnimation;
-    private void Awake()
-    {
-        LoadingImages = GetComponentsInChildren<SpriteRenderer>();
-        doTweenAnimation = GetComponent<DOTweenAnimation>();
-    }
 
     //IEnumerator LoadScene()
     //{
@@ -54,11 +47,6 @@ public class SceneChange : MonoBehaviour
 
     public void ToGameScene()
     {
-        for(int i= 0;i<LoadingImages.Length;i++)
-        {
-            LoadingImages[i].enabled = true;
-        } 
-        doTweenAnimation.DORestartAllById("start");
         GameObject.FindWithTag("StartGameButton").GetComponent<Button>().interactable = false;
         SceneManager.LoadSceneAsync("SampleScene");
     }
