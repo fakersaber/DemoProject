@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class LoadingManager : MonoBehaviour
 {
-    public const int RoomSize = 4;
+    public const int RoomSize = 2;
     public int SlowFrame = 0;
 
 
@@ -14,8 +14,6 @@ public class LoadingManager : MonoBehaviour
     private int _AliveSize = RoomSize;
     private GameObject MainCamera;
     private NetWorkManager NetClass;
-    private Image image;
-    private Image[] imagePoints;
     // private SpriteRenderer LoadingImage;
     private Material LoadMaterial;
     private CanvasGroup EndSetting;
@@ -38,7 +36,7 @@ public class LoadingManager : MonoBehaviour
 
 
 
-    private float Radius = 0.8f;
+    private float Radius = 0.707f;
 
     public int LocalDownPlayer
     {
@@ -67,19 +65,10 @@ public class LoadingManager : MonoBehaviour
         //audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
         MainCamera = GameObject.FindWithTag("MainCamera");
         NetClass = GetComponent<NetWorkManager>();
-        image = GameObject.FindWithTag("LoadingImage").GetComponent<Image>();  
-        LoadMaterial = image.material;
+        LoadMaterial = GameObject.FindWithTag("LoadingImage").GetComponent<Image>().material;
         LoadMaterial.SetFloat("_Radius", Radius);
-        imagePoints = GameObject.FindWithTag("LoadingPoint").GetComponentsInChildren<Image>();
-        for (int i=0;i<imagePoints.Length;i++)
-        {
-            imagePoints[i].material.SetFloat("_Radius", Radius);
-        }
-        //LoadingImage = GetComponent<SpriteRenderer>();
-        //LoadMaterial = LoadingImage.material;
-
         EndSetting = GameObject.Find("Canvas_End").GetComponent<CanvasGroup>();
-        //EndScenes = GameObject.FindWithTag("CanvasPanel");
+
         ScenesController = GameObject.FindWithTag("CanvasPanel").GetComponent<DG.Tweening.DOTweenAnimation>();
         var UIArray = ScenesController.GetComponentsInChildren<Image>();
         for (int i = 0; i < 16; ++i)
@@ -108,13 +97,8 @@ public class LoadingManager : MonoBehaviour
             {
                 while (Radius > 0f)
                 {
-                    Radius -= 0.04f;
-                    image.material.SetFloat("_Radius", Radius);
-                    for (int i = 0; i < imagePoints.Length; i++)
-                    {
-                        imagePoints[i].material.SetFloat("_Radius", Radius-0.3f);
-                    }
-
+                    Radius -= 0.02f;
+                    LoadMaterial.SetFloat("_Radius", Radius);
                     yield return null;
                 }
                 MainCamera.GetComponent<CameraController>().PlayerRidibody = NetClass.AllPlayerRigidy[NetClass.LocalPlayer];
@@ -122,8 +106,6 @@ public class LoadingManager : MonoBehaviour
                 ControllerSetting.alpha = 1f;
                 ControllerSetting.interactable = true;
                 ControllerSetting.blocksRaycasts = true;
-                image.gameObject.SetActive(false);
-
                 AudioController.PlayMusic("BGM1");
                 yield break;
             }
