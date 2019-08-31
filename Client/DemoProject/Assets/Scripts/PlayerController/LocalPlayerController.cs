@@ -9,7 +9,7 @@ public class LocalPlayerController : MonoBehaviour
 
     #region 
     public float ReflectTime = 0.35f; //反弹变化时间
-    public float InputTime = 0.2f; //输入变化时间
+    public float InputTime = 0.15f; //输入变化时间
     public float NormalSpeed = 6.5f; //正常速度
     public float SpurtSpeed = 15f; //冲刺速度
     public float ReflectScale = 1.5f; //反弹系数
