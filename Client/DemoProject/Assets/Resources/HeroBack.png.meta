@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: df5508a16411d4e49a4b4e8609976d98
+guid: b77b9b09cc2b4234b9077eb6205a8c0c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4243961083421835846
-    second: "\u7ED3\u7B97-08_0"
+      213: -3332378840809928132
+    second: HeroBack 1_0
   - first:
-      213: -8293403764790046848
-    second: "\u7ED3\u7B97-08_1"
+      213: 6267632829328902707
+    second: HeroBack 1_1
   - first:
-      213: -485772116893744534
-    second: "\u7ED3\u7B97-08_2"
+      213: -4156416672159897689
+    second: HeroBack 1_2
   - first:
-      213: 1728182920368016540
-    second: "\u7ED3\u7B97-08_3"
+      213: -3188346273408812053
+    second: HeroBack 1_3
+  - first:
+      213: -5278650999834623291
+    second: HeroBack 1_4
+  - first:
+      213: 7514280133994670451
+    second: HeroBack 1_5
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -96,27 +102,27 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 47
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u7ED3\u7B97-08_0"
+      name: HeroBack 1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1024
-        width: 1024
-        height: 1024
+        y: 512
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +130,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ef47197a56a7af4489ba7e156c11100
-      internalID: -4243961083421835846
+      spriteID: a7c1ce8d990302047a3416e402cf99b1
+      internalID: -3332378840809928132
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\u7ED3\u7B97-08_1"
+      name: HeroBack 1_1
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 1024
-        width: 1024
-        height: 1024
+        x: 512
+        y: 512
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +151,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b770f852d3ad5024ebce291f4d22c2c9
-      internalID: -8293403764790046848
+      spriteID: 1edd30ca606aad74ca6862770adc54a8
+      internalID: 6267632829328902707
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\u7ED3\u7B97-08_2"
+      name: HeroBack 1_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 1024
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +172,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44036316ff84c834595055b31632ff7c
-      internalID: -485772116893744534
+      spriteID: d2f4018d06bfacf4daa1ed832175f2aa
+      internalID: -4156416672159897689
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\u7ED3\u7B97-08_3"
+      name: HeroBack 1_3
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 512
         y: 0
-        width: 1024
-        height: 1024
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +193,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb76ab3ae5a0b824ba8e6423c6a90349
-      internalID: 1728182920368016540
+      spriteID: df43497b9d3a9554ba6cb36118468968
+      internalID: -3188346273408812053
       vertices: []
       indices: 
       edges: []

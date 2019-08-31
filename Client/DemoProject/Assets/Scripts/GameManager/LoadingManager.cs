@@ -8,14 +8,15 @@ public class LoadingManager : MonoBehaviour
     public const int RoomSize = 4;
     public int SlowFrame = 0;
 
-    
+
     private int _LocalDownPlayerNum = 0;
     private int _OtherDownPlayerNum = 0;
     private int _AliveSize = RoomSize;
     private GameObject MainCamera;
     private NetWorkManager NetClass;
     private Image image;
-   // private SpriteRenderer LoadingImage;
+    private Image[] imagePoints;
+    // private SpriteRenderer LoadingImage;
     private Material LoadMaterial;
     private CanvasGroup EndSetting;
     private CanvasGroup ControllerSetting;
@@ -37,7 +38,7 @@ public class LoadingManager : MonoBehaviour
 
 
 
-    private float Radius = 0.707f;
+    private float Radius = 0.8f;
 
     public int LocalDownPlayer
     {
@@ -66,18 +67,24 @@ public class LoadingManager : MonoBehaviour
         //audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
         MainCamera = GameObject.FindWithTag("MainCamera");
         NetClass = GetComponent<NetWorkManager>();
-        image = GameObject.FindWithTag("LoadingImage").GetComponentInChildren<Image>();
+        image = GameObject.FindWithTag("LoadingImage").GetComponent<Image>();  
         LoadMaterial = image.material;
+        LoadMaterial.SetFloat("_Radius", Radius);
+        imagePoints = GameObject.FindWithTag("LoadingPoint").GetComponentsInChildren<Image>();
+        for (int i=0;i<imagePoints.Length;i++)
+        {
+            imagePoints[i].material.SetFloat("_Radius", Radius);
+        }
         //LoadingImage = GetComponent<SpriteRenderer>();
         //LoadMaterial = LoadingImage.material;
-        LoadMaterial.SetFloat("_Radius", Radius);
+
         EndSetting = GameObject.Find("Canvas_End").GetComponent<CanvasGroup>();
         //EndScenes = GameObject.FindWithTag("CanvasPanel");
         ScenesController = GameObject.FindWithTag("CanvasPanel").GetComponent<DG.Tweening.DOTweenAnimation>();
         var UIArray = ScenesController.GetComponentsInChildren<Image>();
-        for(int i = 0; i < 16; ++i)
+        for (int i = 0; i < 16; ++i)
         {
-            EndScenesUI[i] = UIArray[i+1];
+            EndScenesUI[i] = UIArray[i + 1];
         }
         EndWordResource = Resources.LoadAll<Sprite>("EndWord");
         EndBackResource = Resources.LoadAll<Sprite>("EndBack");
@@ -97,12 +104,17 @@ public class LoadingManager : MonoBehaviour
         AudioController.PlayMusic("BGM0");
         while (true)
         {
-            if(_LocalDownPlayerNum == RoomSize && _OtherDownPlayerNum == RoomSize - 1)
+            if (_LocalDownPlayerNum == RoomSize && _OtherDownPlayerNum == RoomSize - 1)
             {
                 while (Radius > 0f)
                 {
-                    Radius -= 0.02f;
-                    LoadMaterial.SetFloat("_Radius", Radius);
+                    Radius -= 0.04f;
+                    image.material.SetFloat("_Radius", Radius);
+                    for (int i = 0; i < imagePoints.Length; i++)
+                    {
+                        imagePoints[i].material.SetFloat("_Radius", Radius-0.3f);
+                    }
+
                     yield return null;
                 }
                 MainCamera.GetComponent<CameraController>().PlayerRidibody = NetClass.AllPlayerRigidy[NetClass.LocalPlayer];
@@ -110,13 +122,14 @@ public class LoadingManager : MonoBehaviour
                 ControllerSetting.alpha = 1f;
                 ControllerSetting.interactable = true;
                 ControllerSetting.blocksRaycasts = true;
-                image.enabled = false;
+                image.gameObject.SetActive(false);
+
                 AudioController.PlayMusic("BGM1");
                 yield break;
             }
             yield return null;
         }
-        
+
     }
 
 
@@ -176,7 +189,7 @@ public class LoadingManager : MonoBehaviour
         }
 
         //i与排名的映射函数  Rank = -i + RoomSize
-        for (int i = RoomSize - 1; i >=0; i--)
+        for (int i = RoomSize - 1; i >= 0; i--)
         {
             //从当前名次的Player类型找到对应Resource中Sprite，对应Head位置均为-i + RoomSize + 2 * 4
             switch (RankList[i])
@@ -202,15 +215,15 @@ public class LoadingManager : MonoBehaviour
             //自身处理back与hero_back的类型
             if (RankList[i] == NetClass.LocalPlayer)
             {
-                if(i == RoomSize - 1)
+                if (i == RoomSize - 1)
                 {
                     EndScenesUI[13].sprite = HeroBackResource[0];
                     EndScenesUI[15].sprite = HeroBackResource[1];
                 }
                 else
                 {
-                    EndScenesUI[13].sprite = HeroBackResource[2]; 
-                    EndScenesUI[15].sprite = HeroBackResource[3]; 
+                    EndScenesUI[13].sprite = HeroBackResource[2];
+                    EndScenesUI[15].sprite = HeroBackResource[3];
                 }
 
                 EndScenesUI[-i + RoomSize].sprite = EndBackResource[0];

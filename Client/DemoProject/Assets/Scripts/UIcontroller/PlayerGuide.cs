@@ -39,9 +39,9 @@ public class PlayerGuide : MonoBehaviour
     public void ToRight()
     {
         tag += 1;
-        if (tag > 2)
+        if (tag > 3)
         {
-            tag = 2;
+            tag = 3;
             return;
         }
         else

@@ -13,6 +13,7 @@ TagManager:
   - StartGameButton
   - AudioController
   - LoadingImage
+  - LoadingPoint
   layers:
   - Default
   - TransparentFX
