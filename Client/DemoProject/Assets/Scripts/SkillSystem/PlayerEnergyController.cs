@@ -113,6 +113,13 @@ public class PlayerEnergyController : MonoBehaviour
             return true;
         if (_EnergyList.Count == 0)
             return false;
+        ConsumeEnergySphere2();
+        return true;
+    }
+
+
+    public void ConsumeEnergySphere2()
+    {
         SphereInfo CustomSphere = _EnergyList[_EnergyList.Count - 1];
         CacheEnergySphere.PlayerId = _playerid;
         CacheEnergySphere.SphereId = CustomSphere.SphereId;
@@ -125,6 +132,5 @@ public class PlayerEnergyController : MonoBehaviour
         SphereManager.GeneratorNewSphere(CustomSphere.SphereId, LocalVec);
         _EnergyList.RemoveAt(_EnergyList.Count - 1);
         _uIManager.ConsumeSphere();
-        return true;
     }
 }

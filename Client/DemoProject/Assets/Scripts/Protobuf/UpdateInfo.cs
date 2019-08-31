@@ -496,6 +496,9 @@ public sealed partial class SkillInfo : pb::IMessage<SkillInfo> {
   /// <summary>Field number for the "PlayerId" field.</summary>
   public const int PlayerIdFieldNumber = 1;
   private int playerId_;
+  /// <summary>
+  ///释放者
+  /// </summary>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int PlayerId {
     get { return playerId_; }

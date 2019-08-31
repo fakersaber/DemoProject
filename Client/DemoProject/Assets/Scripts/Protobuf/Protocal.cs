@@ -22,7 +22,8 @@ enum SpecialEffects : int
     WEAPONTOWEAPON = 1,
     BADYTOWEAPON = 2,
     BADYTOBADY = 3,
-    PLAYERDEAD = 4
+    PLAYERDEAD = 4,
+    WEAKTOWEAPON = 5
 }
 
 

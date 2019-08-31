@@ -273,6 +273,11 @@ PrefabInstance:
       propertyPath: m_ClearFlags
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3506417974055313696, guid: 102d981b8b9a8e444bdc197b36dfd3eb,
+        type: 3}
+      propertyPath: orthographic size
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 102d981b8b9a8e444bdc197b36dfd3eb, type: 3}
 --- !u!20 &577733907 stripped
@@ -573,7 +578,7 @@ MonoBehaviour:
         Probability: 1
         DisableOtherSubitems: 0
         ItemModeAudioID: 
-        Clip: {fileID: 8300000, guid: 3150d7441a01bbc4cac20b22565adfb4, type: 3}
+        Clip: {fileID: 8300000, guid: 50fd29b2370d9b74bb44cb6c9a5fc408, type: 3}
         Volume: 1
         PitchShift: 0
         Pan2D: 0
@@ -1021,8 +1026,8 @@ MonoBehaviour:
   _audioDisabled: 0
   _volume: 1
   _currentInspectorSelection:
-    currentCategoryIndex: 0
-    currentItemIndex: 0
+    currentCategoryIndex: 1
+    currentItemIndex: 2
     currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0
     currentPlaylistIndex: 0
@@ -1376,21 +1381,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972442427450084612, guid: cb676354caeee2c4f83aafba4149cada,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.8646904
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972442427450084612, guid: cb676354caeee2c4f83aafba4149cada,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.8646904
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972442427450084612, guid: cb676354caeee2c4f83aafba4149cada,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.8646904
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb676354caeee2c4f83aafba4149cada, type: 3}

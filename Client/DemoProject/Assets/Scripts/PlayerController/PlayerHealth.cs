@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
     private PlayerEffectsManager EffectsManager;
     private CameraController cameraController;
     private LoadingManager loadingManager;
-
+    private PlayerEnergyController SelfEnergyController;
 
 
     public int WeaponIndex
@@ -57,6 +57,7 @@ public class PlayerHealth : MonoBehaviour
         headIndex = gameObject.GetComponents<PolygonCollider2D>()[2].GetHashCode();
         HealthBar = GetComponentsInChildren<SpriteRenderer>()[1].material;
         HealthBar.SetFloat("_CurHealth", Health / MaxHealth);
+        SelfEnergyController = GetComponent<PlayerEnergyController>();
     }
 
 
@@ -69,6 +70,16 @@ public class PlayerHealth : MonoBehaviour
             HealthBar.SetFloat("_CurHealth", Health / MaxHealth);
             if (Health <= 0)
             {
+                //主端判断是否有多余的球
+                if (NetClass.LocalPlayer == 1)
+                {
+                    int count = SelfEnergyController.EnergyList.Count;
+                    for (int i = 0; i < count; ++i)
+                    {
+                        SelfEnergyController.ConsumeEnergySphere2();
+                    }
+                }
+
                 EffectsManager.PlayerDead(_PlayerId, transform.position);                   
                 if (!cameraController.isDead)
                     cameraController.isDead = _PlayerId == NetClass.LocalPlayer ? true : false;

@@ -8,12 +8,14 @@ public class PlayerEffectsManager : MonoBehaviour
     public GameObject AttackedEffect;
     public GameObject PlayerCollidEffct;
     public GameObject PlayerDeathEffct;
+    public GameObject WeakEffect;
     private class PlayerEffects
     {
         public ParticleSystem WeaponToWeapon;
         public ParticleSystem BodyToBody;
         public ParticleSystem BodyToWeapon;
         public ParticleSystem PlayerDeath;
+        public ParticleSystem WeakToWeapon;
     }
     private Dictionary<int, PlayerEffects> AllEffectsInfo = new Dictionary<int, PlayerEffects>(4);
 
@@ -25,6 +27,7 @@ public class PlayerEffectsManager : MonoBehaviour
         CurEffects.BodyToWeapon = Instantiate(AttackedEffect).GetComponent<ParticleSystem>();
         CurEffects.BodyToBody = Instantiate(PlayerCollidEffct).GetComponent<ParticleSystem>();
         CurEffects.PlayerDeath = Instantiate(PlayerDeathEffct).GetComponent<ParticleSystem>();
+        CurEffects.WeakToWeapon = Instantiate(WeakEffect).GetComponent<ParticleSystem>();
         AllEffectsInfo.Add(PlayerId, CurEffects);
     }
 
@@ -47,6 +50,11 @@ public class PlayerEffectsManager : MonoBehaviour
                 var BodyToWeapon = AllEffectsInfo[PlayerId].BodyToWeapon;
                 BodyToWeapon.transform.position = PlayPosition;
                 BodyToWeapon.Play();
+                break;
+            case (int)SpecialEffects.WEAKTOWEAPON:
+                var WeakToWeapon = AllEffectsInfo[PlayerId].WeakToWeapon;
+                WeakToWeapon.transform.position = PlayPosition;
+                WeakToWeapon.Play();
                 break;
         }
     }

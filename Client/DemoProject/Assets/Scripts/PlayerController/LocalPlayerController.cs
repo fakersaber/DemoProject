@@ -323,9 +323,9 @@ public class LocalPlayerController : MonoBehaviour
                     int CurDamage = PlayerHealth.NormalDamage * PlayerHealth.CriticalDamage;
                     if (collision.gameObject.GetComponent<PlayerSkillController>().ThunderTime > 0f)
                         CurDamage = PlayerHealth.ThunderDamage * PlayerHealth.CriticalDamage;
-                    SendAttackInfo((int)SpecialEffects.BADYTOWEAPON, CurDamage, collision.contacts[0].point);
+                    SendAttackInfo((int)SpecialEffects.WEAKTOWEAPON, CurDamage, collision.contacts[0].point);
                     AudioController.Play("Effect4");
-                    EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer, (int)SpecialEffects.BADYTOWEAPON, collision.contacts[0].point);
+                    EffectsManager.PlayerSpecialEffects(NetClass.LocalPlayer, (int)SpecialEffects.WEAKTOWEAPON, collision.contacts[0].point);
                     Health.SubHp(CurDamage);
                 }
             }

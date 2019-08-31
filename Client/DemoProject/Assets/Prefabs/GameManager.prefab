@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4972442427450084614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 93.4054, y: 93.4054, z: 93.4054}
+  m_LocalScale: {x: 0.8646904, y: 0.8646904, z: 0.8646904}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -95,6 +95,8 @@ MonoBehaviour:
   PlayerCollidEffct: {fileID: 4855370516559374766, guid: 8e88a8c18b545ef43b49ed7a8ece7818,
     type: 3}
   PlayerDeathEffct: {fileID: 1902304290096252, guid: f0c2ec2ec173dfa44833e4947c69600c,
+    type: 3}
+  WeakEffect: {fileID: 6238629987195960487, guid: d61f5faa94e2c9f49ba4ef5c3873089a,
     type: 3}
 --- !u!114 &687357738
 MonoBehaviour:

@@ -22,18 +22,18 @@ public static partial class CreateObjectInfoReflection {
   static CreateObjectInfoReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "ChZDcmVhdGVPYmplY3RJbmZvLnByb3RvImUKDUNyZWF0ZU9iakluZm8SEwoL",
-          "aXNNYW5jbGllbnQYASABKAgSEAoIUGxheWVySWQYAiABKAUSGwoIUG9zaXRp",
-          "b24YAyABKAsyCS5ZVmVjdG9yMhIQCghSb3RhdGlvbhgEIAEoAiI4ChBFbmVy",
-          "Z3lTcGhlcmVJbml0EiQKDUFsbFNwaGVyZVBvbGwYASADKAsyDS5FbmVyZ3lT",
-          "cGhlcmUiXQoMRW5lcmd5U3BoZXJlEhAKCFBsYXllcklkGAEgASgFEhAKCFNw",
-          "aGVyZUlkGAIgASgFEgwKBHR5cGUYAyABKAUSGwoIUG9zaXRpb24YBCABKAsy",
-          "CS5ZVmVjdG9yMiIgCghZVmVjdG9yMhIJCgF4GAEgASgCEgkKAXkYAiABKAJi",
-          "BnByb3RvMw=="));
+          "ChZDcmVhdGVPYmplY3RJbmZvLnByb3RvIngKDUNyZWF0ZU9iakluZm8SEwoL",
+          "aXNNYW5jbGllbnQYASABKAgSEQoJaXNPYnNlcnZlGAIgASgIEhAKCFBsYXll",
+          "cklkGAMgASgFEhsKCFBvc2l0aW9uGAQgASgLMgkuWVZlY3RvcjISEAoIUm90",
+          "YXRpb24YBSABKAIiOAoQRW5lcmd5U3BoZXJlSW5pdBIkCg1BbGxTcGhlcmVQ",
+          "b2xsGAEgAygLMg0uRW5lcmd5U3BoZXJlIl0KDEVuZXJneVNwaGVyZRIQCghQ",
+          "bGF5ZXJJZBgBIAEoBRIQCghTcGhlcmVJZBgCIAEoBRIMCgR0eXBlGAMgASgF",
+          "EhsKCFBvc2l0aW9uGAQgASgLMgkuWVZlY3RvcjIiIAoIWVZlY3RvcjISCQoB",
+          "eBgBIAEoAhIJCgF5GAIgASgCYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::CreateObjInfo), global::CreateObjInfo.Parser, new[]{ "IsManclient", "PlayerId", "Position", "Rotation" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::CreateObjInfo), global::CreateObjInfo.Parser, new[]{ "IsManclient", "IsObserve", "PlayerId", "Position", "Rotation" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::EnergySphereInit), global::EnergySphereInit.Parser, new[]{ "AllSpherePoll" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::EnergySphere), global::EnergySphere.Parser, new[]{ "PlayerId", "SphereId", "Type", "Position" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::YVector2), global::YVector2.Parser, new[]{ "X", "Y" }, null, null, null, null)
@@ -69,6 +69,7 @@ public sealed partial class CreateObjInfo : pb::IMessage<CreateObjInfo> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public CreateObjInfo(CreateObjInfo other) : this() {
     isManclient_ = other.isManclient_;
+    isObserve_ = other.isObserve_;
     playerId_ = other.playerId_;
     position_ = other.position_ != null ? other.position_.Clone() : null;
     rotation_ = other.rotation_;
@@ -91,8 +92,19 @@ public sealed partial class CreateObjInfo : pb::IMessage<CreateObjInfo> {
     }
   }
 
+  /// <summary>Field number for the "isObserve" field.</summary>
+  public const int IsObserveFieldNumber = 2;
+  private bool isObserve_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool IsObserve {
+    get { return isObserve_; }
+    set {
+      isObserve_ = value;
+    }
+  }
+
   /// <summary>Field number for the "PlayerId" field.</summary>
-  public const int PlayerIdFieldNumber = 2;
+  public const int PlayerIdFieldNumber = 3;
   private int playerId_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int PlayerId {
@@ -103,7 +115,7 @@ public sealed partial class CreateObjInfo : pb::IMessage<CreateObjInfo> {
   }
 
   /// <summary>Field number for the "Position" field.</summary>
-  public const int PositionFieldNumber = 3;
+  public const int PositionFieldNumber = 4;
   private global::YVector2 position_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public global::YVector2 Position {
@@ -114,7 +126,7 @@ public sealed partial class CreateObjInfo : pb::IMessage<CreateObjInfo> {
   }
 
   /// <summary>Field number for the "Rotation" field.</summary>
-  public const int RotationFieldNumber = 4;
+  public const int RotationFieldNumber = 5;
   private float rotation_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public float Rotation {
@@ -138,6 +150,7 @@ public sealed partial class CreateObjInfo : pb::IMessage<CreateObjInfo> {
       return true;
     }
     if (IsManclient != other.IsManclient) return false;
+    if (IsObserve != other.IsObserve) return false;
     if (PlayerId != other.PlayerId) return false;
     if (!object.Equals(Position, other.Position)) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Rotation, other.Rotation)) return false;
@@ -148,6 +161,7 @@ public sealed partial class CreateObjInfo : pb::IMessage<CreateObjInfo> {
   public override int GetHashCode() {
     int hash = 1;
     if (IsManclient != false) hash ^= IsManclient.GetHashCode();
+    if (IsObserve != false) hash ^= IsObserve.GetHashCode();
     if (PlayerId != 0) hash ^= PlayerId.GetHashCode();
     if (position_ != null) hash ^= Position.GetHashCode();
     if (Rotation != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Rotation);
@@ -168,16 +182,20 @@ public sealed partial class CreateObjInfo : pb::IMessage<CreateObjInfo> {
       output.WriteRawTag(8);
       output.WriteBool(IsManclient);
     }
-    if (PlayerId != 0) {
+    if (IsObserve != false) {
       output.WriteRawTag(16);
+      output.WriteBool(IsObserve);
+    }
+    if (PlayerId != 0) {
+      output.WriteRawTag(24);
       output.WriteInt32(PlayerId);
     }
     if (position_ != null) {
-      output.WriteRawTag(26);
+      output.WriteRawTag(34);
       output.WriteMessage(Position);
     }
     if (Rotation != 0F) {
-      output.WriteRawTag(37);
+      output.WriteRawTag(45);
       output.WriteFloat(Rotation);
     }
     if (_unknownFields != null) {
@@ -189,6 +207,9 @@ public sealed partial class CreateObjInfo : pb::IMessage<CreateObjInfo> {
   public int CalculateSize() {
     int size = 0;
     if (IsManclient != false) {
+      size += 1 + 1;
+    }
+    if (IsObserve != false) {
       size += 1 + 1;
     }
     if (PlayerId != 0) {
@@ -213,6 +234,9 @@ public sealed partial class CreateObjInfo : pb::IMessage<CreateObjInfo> {
     }
     if (other.IsManclient != false) {
       IsManclient = other.IsManclient;
+    }
+    if (other.IsObserve != false) {
+      IsObserve = other.IsObserve;
     }
     if (other.PlayerId != 0) {
       PlayerId = other.PlayerId;
@@ -242,17 +266,21 @@ public sealed partial class CreateObjInfo : pb::IMessage<CreateObjInfo> {
           break;
         }
         case 16: {
+          IsObserve = input.ReadBool();
+          break;
+        }
+        case 24: {
           PlayerId = input.ReadInt32();
           break;
         }
-        case 26: {
+        case 34: {
           if (position_ == null) {
             Position = new global::YVector2();
           }
           input.ReadMessage(Position);
           break;
         }
-        case 37: {
+        case 45: {
           Rotation = input.ReadFloat();
           break;
         }

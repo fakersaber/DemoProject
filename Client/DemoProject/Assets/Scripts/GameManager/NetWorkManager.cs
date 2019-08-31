@@ -33,7 +33,7 @@ public class NetWorkManager : MonoBehaviour
     private EnergySpherePool SpherePoll;
     private PlayerEffectsManager EffectsManager;
     private LoadingManager LocalLoadingManager;
-
+    private CameraController cameraController;
 
     //cache component
 
@@ -44,6 +44,7 @@ public class NetWorkManager : MonoBehaviour
         SpherePoll = GetComponent<EnergySpherePool>();
         EffectsManager = GetComponent<PlayerEffectsManager>();
         LocalLoadingManager = GetComponent<LoadingManager>();
+        cameraController = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
         HelperClass = AccrossThreadHelper.Instance;
         Connect();
     }
@@ -70,18 +71,6 @@ public class NetWorkManager : MonoBehaviour
     private void RecvThread()
     {
         byte[] readBuff = new byte[1024 * 8];
-        //发送初始化请求，服务器收到后再初始化
-        //try
-        //{
-        //    byte[] sendbuffer = new byte[16];
-        //    LocalSocket.Send(sendbuffer);
-        //}
-        //catch (Exception e)
-        //{
-        //    Debug.Log("Send init data failed");
-        //    return;
-        //}
-
         while (true)
         {
             try
@@ -141,6 +130,24 @@ public class NetWorkManager : MonoBehaviour
     private void HandleCreateObject(CreateObjInfo message)
     {
         HelperClass.AddDelegate(() => {
+            #region
+            if (message.PlayerId == 5)
+            {
+                if (message.IsObserve)
+                {
+                    //去掉一个
+                    LocalLoadingManager.OtherDownPlayerNum--;
+                    var curCamera = cameraController.gameObject.GetComponent<Camera>();
+                    curCamera.orthographicSize = 10.8f;
+                    curCamera.aspect = 1.7777f;
+                    LocalPlayer = 5;
+                    cameraController.isDead = true;
+                }
+                    
+                return;
+            }   
+            #endregion
+
             GameObject InitPrefab = null;
             switch (message.PlayerId)
             {
@@ -157,7 +164,7 @@ public class NetWorkManager : MonoBehaviour
                     InitPrefab = GreenPlayer_4;
                     break;
             }
-            GameObject NewObject =  Instantiate(InitPrefab,new Vector3(message.Position.X, message.Position.Y, 0f),Quaternion.Euler(0f,0f,message.Rotation));
+            GameObject NewObject = Instantiate(InitPrefab,new Vector3(message.Position.X, message.Position.Y, 0f),Quaternion.Euler(0f,0f,message.Rotation));
             AllPlayerInfo.Add(message.PlayerId, NewObject);   
             EffectsManager.InitPlayerEffects(message.PlayerId);
             if (message.IsManclient)
@@ -175,13 +182,16 @@ public class NetWorkManager : MonoBehaviour
             NewObject.GetComponent<PlayerHealth>().PlayerId = message.PlayerId;
             AllPlayerRigidy.Add(message.PlayerId, NewObject.GetComponent<Rigidbody2D>());
             AllPlayerController.Add(message.PlayerId, NewObject.GetComponent<PlayerController>());
-
             LocalLoadingManager.LocalDownPlayer++;
-            if (LocalLoadingManager.LocalDownPlayer == LoadingManager.RoomSize)
+
+            if (!message.IsObserve)
             {
-                //任意一个结构，反正为空
-                UpdateInfo SendClass = new UpdateInfo() { PlayerId = LocalPlayer };
-                SendDataToServer(SendClass,(int)Protocal.MESSAGE_LOADING);
+                if (LocalLoadingManager.LocalDownPlayer == LoadingManager.RoomSize)
+                {
+                    //任意一个结构，反正为空
+                    UpdateInfo SendClass = new UpdateInfo() { PlayerId = LocalPlayer };
+                    SendDataToServer(SendClass, (int)Protocal.MESSAGE_LOADING);
+                }
             }
         }); 
     }
