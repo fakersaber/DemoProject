@@ -219,7 +219,10 @@ public class LocalPlayerController : MonoBehaviour
             }
 
 
-
+            #region
+            if (isFreeze)
+                return;
+            #endregion
 
             #region
             if (isSpurt)
@@ -232,10 +235,7 @@ public class LocalPlayerController : MonoBehaviour
             }
             #endregion
 
-            #region
-            if (isFreeze)
-                return;
-            #endregion
+
 
             if (direct.sqrMagnitude > 1e-7)
             {

@@ -103,6 +103,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_CreateObjectInfo_2eproto::offs
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::CreateObjInfo, ismanclient_),
+  PROTOBUF_FIELD_OFFSET(::CreateObjInfo, isobserve_),
   PROTOBUF_FIELD_OFFSET(::CreateObjInfo, playerid_),
   PROTOBUF_FIELD_OFFSET(::CreateObjInfo, position_),
   PROTOBUF_FIELD_OFFSET(::CreateObjInfo, rotation_),
@@ -131,9 +132,9 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_CreateObjectInfo_2eproto::offs
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::CreateObjInfo)},
-  { 9, -1, sizeof(::EnergySphereInit)},
-  { 15, -1, sizeof(::EnergySphere)},
-  { 24, -1, sizeof(::YVector2)},
+  { 10, -1, sizeof(::EnergySphereInit)},
+  { 16, -1, sizeof(::EnergySphere)},
+  { 25, -1, sizeof(::YVector2)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -144,15 +145,15 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_CreateObjectInfo_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\026CreateObjectInfo.proto\"e\n\rCreateObjInf"
-  "o\022\023\n\013isManclient\030\001 \001(\010\022\020\n\010PlayerId\030\002 \001(\005"
-  "\022\033\n\010Position\030\003 \001(\0132\t.YVector2\022\020\n\010Rotatio"
-  "n\030\004 \001(\002\"8\n\020EnergySphereInit\022$\n\rAllSphere"
-  "Poll\030\001 \003(\0132\r.EnergySphere\"]\n\014EnergySpher"
-  "e\022\020\n\010PlayerId\030\001 \001(\005\022\020\n\010SphereId\030\002 \001(\005\022\014\n"
-  "\004type\030\003 \001(\005\022\033\n\010Position\030\004 \001(\0132\t.YVector2"
-  "\" \n\010YVector2\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002b\006prot"
-  "o3"
+  "\n\026CreateObjectInfo.proto\"x\n\rCreateObjInf"
+  "o\022\023\n\013isManclient\030\001 \001(\010\022\021\n\tisObserve\030\002 \001("
+  "\010\022\020\n\010PlayerId\030\003 \001(\005\022\033\n\010Position\030\004 \001(\0132\t."
+  "YVector2\022\020\n\010Rotation\030\005 \001(\002\"8\n\020EnergySphe"
+  "reInit\022$\n\rAllSpherePoll\030\001 \003(\0132\r.EnergySp"
+  "here\"]\n\014EnergySphere\022\020\n\010PlayerId\030\001 \001(\005\022\020"
+  "\n\010SphereId\030\002 \001(\005\022\014\n\004type\030\003 \001(\005\022\033\n\010Positi"
+  "on\030\004 \001(\0132\t.YVector2\" \n\010YVector2\022\t\n\001x\030\001 \001"
+  "(\002\022\t\n\001y\030\002 \001(\002b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_CreateObjectInfo_2eproto_deps[1] = {
 };
@@ -165,7 +166,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_Cre
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_CreateObjectInfo_2eproto_once;
 static bool descriptor_table_CreateObjectInfo_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_CreateObjectInfo_2eproto = {
-  &descriptor_table_CreateObjectInfo_2eproto_initialized, descriptor_table_protodef_CreateObjectInfo_2eproto, "CreateObjectInfo.proto", 322,
+  &descriptor_table_CreateObjectInfo_2eproto_initialized, descriptor_table_protodef_CreateObjectInfo_2eproto, "CreateObjectInfo.proto", 341,
   &descriptor_table_CreateObjectInfo_2eproto_once, descriptor_table_CreateObjectInfo_2eproto_sccs, descriptor_table_CreateObjectInfo_2eproto_deps, 4, 0,
   schemas, file_default_instances, TableStruct_CreateObjectInfo_2eproto::offsets,
   file_level_metadata_CreateObjectInfo_2eproto, 4, file_level_enum_descriptors_CreateObjectInfo_2eproto, file_level_service_descriptors_CreateObjectInfo_2eproto,
@@ -265,23 +266,30 @@ const char* CreateObjInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 PlayerId = 2;
+      // bool isObserve = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          isobserve_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 PlayerId = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           playerid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .YVector2 Position = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+      // .YVector2 Position = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           ptr = ctx->ParseMessage(mutable_position(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // float Rotation = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
+      // float Rotation = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
           rotation_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
@@ -329,9 +337,22 @@ bool CreateObjInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // int32 PlayerId = 2;
+      // bool isObserve = 2;
       case 2: {
         if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (16 & 0xFF)) {
+
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &isobserve_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 PlayerId = 3;
+      case 3: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (24 & 0xFF)) {
 
           DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
                    ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32>(
@@ -342,9 +363,9 @@ bool CreateObjInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // .YVector2 Position = 3;
-      case 3: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (26 & 0xFF)) {
+      // .YVector2 Position = 4;
+      case 4: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (34 & 0xFF)) {
           DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
                input, mutable_position()));
         } else {
@@ -353,9 +374,9 @@ bool CreateObjInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // float Rotation = 4;
-      case 4: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (37 & 0xFF)) {
+      // float Rotation = 5;
+      case 5: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (45 & 0xFF)) {
 
           DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
                    float, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_FLOAT>(
@@ -398,20 +419,25 @@ void CreateObjInfo::SerializeWithCachedSizes(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBool(1, this->ismanclient(), output);
   }
 
-  // int32 PlayerId = 2;
-  if (this->playerid() != 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32(2, this->playerid(), output);
+  // bool isObserve = 2;
+  if (this->isobserve() != 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBool(2, this->isobserve(), output);
   }
 
-  // .YVector2 Position = 3;
+  // int32 PlayerId = 3;
+  if (this->playerid() != 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32(3, this->playerid(), output);
+  }
+
+  // .YVector2 Position = 4;
   if (this->has_position()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, _Internal::position(this), output);
+      4, _Internal::position(this), output);
   }
 
-  // float Rotation = 4;
+  // float Rotation = 5;
   if (!(this->rotation() <= 0 && this->rotation() >= 0)) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloat(4, this->rotation(), output);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloat(5, this->rotation(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -432,21 +458,26 @@ void CreateObjInfo::SerializeWithCachedSizes(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->ismanclient(), target);
   }
 
-  // int32 PlayerId = 2;
-  if (this->playerid() != 0) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->playerid(), target);
+  // bool isObserve = 2;
+  if (this->isobserve() != 0) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->isobserve(), target);
   }
 
-  // .YVector2 Position = 3;
+  // int32 PlayerId = 3;
+  if (this->playerid() != 0) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->playerid(), target);
+  }
+
+  // .YVector2 Position = 4;
   if (this->has_position()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        3, _Internal::position(this), target);
+        4, _Internal::position(this), target);
   }
 
-  // float Rotation = 4;
+  // float Rotation = 5;
   if (!(this->rotation() <= 0 && this->rotation() >= 0)) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->rotation(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->rotation(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -470,7 +501,7 @@ size_t CreateObjInfo::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .YVector2 Position = 3;
+  // .YVector2 Position = 4;
   if (this->has_position()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -482,14 +513,19 @@ size_t CreateObjInfo::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  // int32 PlayerId = 2;
+  // bool isObserve = 2;
+  if (this->isobserve() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // int32 PlayerId = 3;
   if (this->playerid() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->playerid());
   }
 
-  // float Rotation = 4;
+  // float Rotation = 5;
   if (!(this->rotation() <= 0 && this->rotation() >= 0)) {
     total_size += 1 + 4;
   }
@@ -527,6 +563,9 @@ void CreateObjInfo::MergeFrom(const CreateObjInfo& from) {
   if (from.ismanclient() != 0) {
     set_ismanclient(from.ismanclient());
   }
+  if (from.isobserve() != 0) {
+    set_isobserve(from.isobserve());
+  }
   if (from.playerid() != 0) {
     set_playerid(from.playerid());
   }
@@ -558,6 +597,7 @@ void CreateObjInfo::InternalSwap(CreateObjInfo* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(position_, other->position_);
   swap(ismanclient_, other->ismanclient_);
+  swap(isobserve_, other->isobserve_);
   swap(playerid_, other->playerid_);
   swap(rotation_, other->rotation_);
 }

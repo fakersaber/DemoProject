@@ -15,8 +15,8 @@ void Room::CreateObject(SOCKET socket, int index) {
 	CreateObjInfo SendClass;
 	float cur_x = .0f;
 	float cur_y = .0f;
+	index == 5 ? SendClass.set_isobserve(true) : SendClass.set_isobserve(false);
 	for (int i = 1; i <= Room::RoomSize; ++i) {
-
 		switch (i) {
 			case 1:
 				cur_x = -Room::b_width * 0.01f;

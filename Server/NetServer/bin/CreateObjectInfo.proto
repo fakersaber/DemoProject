@@ -3,9 +3,10 @@ syntax = "proto3";
 
 message CreateObjInfo{
     bool isManclient = 1;
-    int32 PlayerId = 2;
-    YVector2 Position = 3;
-    float Rotation = 4;
+    bool isObserve = 2;
+    int32 PlayerId = 3;
+    YVector2 Position = 4;
+    float Rotation = 5;
 }
 
 

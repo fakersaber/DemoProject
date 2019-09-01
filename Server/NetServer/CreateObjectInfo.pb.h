@@ -188,12 +188,13 @@ class CreateObjInfo :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPositionFieldNumber = 3,
+    kPositionFieldNumber = 4,
     kIsManclientFieldNumber = 1,
-    kPlayerIdFieldNumber = 2,
-    kRotationFieldNumber = 4,
+    kIsObserveFieldNumber = 2,
+    kPlayerIdFieldNumber = 3,
+    kRotationFieldNumber = 5,
   };
-  // .YVector2 Position = 3;
+  // .YVector2 Position = 4;
   bool has_position() const;
   void clear_position();
   const ::YVector2& position() const;
@@ -206,12 +207,17 @@ class CreateObjInfo :
   bool ismanclient() const;
   void set_ismanclient(bool value);
 
-  // int32 PlayerId = 2;
+  // bool isObserve = 2;
+  void clear_isobserve();
+  bool isobserve() const;
+  void set_isobserve(bool value);
+
+  // int32 PlayerId = 3;
   void clear_playerid();
   ::PROTOBUF_NAMESPACE_ID::int32 playerid() const;
   void set_playerid(::PROTOBUF_NAMESPACE_ID::int32 value);
 
-  // float Rotation = 4;
+  // float Rotation = 5;
   void clear_rotation();
   float rotation() const;
   void set_rotation(float value);
@@ -223,6 +229,7 @@ class CreateObjInfo :
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::YVector2* position_;
   bool ismanclient_;
+  bool isobserve_;
   ::PROTOBUF_NAMESPACE_ID::int32 playerid_;
   float rotation_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -683,7 +690,21 @@ inline void CreateObjInfo::set_ismanclient(bool value) {
   // @@protoc_insertion_point(field_set:CreateObjInfo.isManclient)
 }
 
-// int32 PlayerId = 2;
+// bool isObserve = 2;
+inline void CreateObjInfo::clear_isobserve() {
+  isobserve_ = false;
+}
+inline bool CreateObjInfo::isobserve() const {
+  // @@protoc_insertion_point(field_get:CreateObjInfo.isObserve)
+  return isobserve_;
+}
+inline void CreateObjInfo::set_isobserve(bool value) {
+  
+  isobserve_ = value;
+  // @@protoc_insertion_point(field_set:CreateObjInfo.isObserve)
+}
+
+// int32 PlayerId = 3;
 inline void CreateObjInfo::clear_playerid() {
   playerid_ = 0;
 }
@@ -697,7 +718,7 @@ inline void CreateObjInfo::set_playerid(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:CreateObjInfo.PlayerId)
 }
 
-// .YVector2 Position = 3;
+// .YVector2 Position = 4;
 inline bool CreateObjInfo::has_position() const {
   return this != internal_default_instance() && position_ != nullptr;
 }
@@ -748,7 +769,7 @@ inline void CreateObjInfo::set_allocated_position(::YVector2* position) {
   // @@protoc_insertion_point(field_set_allocated:CreateObjInfo.Position)
 }
 
-// float Rotation = 4;
+// float Rotation = 5;
 inline void CreateObjInfo::clear_rotation() {
   rotation_ = 0;
 }

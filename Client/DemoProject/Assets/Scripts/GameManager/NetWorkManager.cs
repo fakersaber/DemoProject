@@ -46,6 +46,7 @@ public class NetWorkManager : MonoBehaviour
         LocalLoadingManager = GetComponent<LoadingManager>();
         cameraController = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
         HelperClass = AccrossThreadHelper.Instance;
+        //Screen.SetResolution(1920, 1080, true);
         Connect();
     }
 
@@ -130,23 +131,23 @@ public class NetWorkManager : MonoBehaviour
     private void HandleCreateObject(CreateObjInfo message)
     {
         HelperClass.AddDelegate(() => {
-            #region
-            if (message.PlayerId == 5)
-            {
-                if (message.IsObserve)
-                {
-                    //去掉一个
-                    LocalLoadingManager.OtherDownPlayerNum--;
-                    var curCamera = cameraController.gameObject.GetComponent<Camera>();
-                    curCamera.orthographicSize = 10.8f;
-                    curCamera.aspect = 1.7777f;
-                    LocalPlayer = 5;
-                    cameraController.isDead = true;
-                }
+            //#region
+            //if (message.PlayerId == 5)
+            //{
+            //    if (message.IsObserve)
+            //    {
+            //        //去掉一个
+            //        LocalLoadingManager.OtherDownPlayerNum--;
+            //        var curCamera = cameraController.gameObject.GetComponent<Camera>();
+            //        curCamera.orthographicSize = 10.8f;
+            //        curCamera.aspect = 1.7777f;
+            //        LocalPlayer = 5;
+            //        cameraController.isDead = true;
+            //    }
                     
-                return;
-            }   
-            #endregion
+            //    return;
+            //}   
+            //#endregion
 
             GameObject InitPrefab = null;
             switch (message.PlayerId)
@@ -183,16 +184,15 @@ public class NetWorkManager : MonoBehaviour
             AllPlayerRigidy.Add(message.PlayerId, NewObject.GetComponent<Rigidbody2D>());
             AllPlayerController.Add(message.PlayerId, NewObject.GetComponent<PlayerController>());
             LocalLoadingManager.LocalDownPlayer++;
-
-            if (!message.IsObserve)
+            if (LocalLoadingManager.LocalDownPlayer == LoadingManager.RoomSize)
             {
-                if (LocalLoadingManager.LocalDownPlayer == LoadingManager.RoomSize)
-                {
-                    //任意一个结构，反正为空
-                    UpdateInfo SendClass = new UpdateInfo() { PlayerId = LocalPlayer };
-                    SendDataToServer(SendClass, (int)Protocal.MESSAGE_LOADING);
-                }
+                //任意一个结构，反正为空
+                UpdateInfo SendClass = new UpdateInfo() { PlayerId = LocalPlayer };
+                SendDataToServer(SendClass, (int)Protocal.MESSAGE_LOADING);
             }
+            //if (!message.IsObserve)
+            //{
+            //}
         }); 
     }
 
