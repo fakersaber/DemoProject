@@ -1036,9 +1036,9 @@ MonoBehaviour:
         Probability: 1
         DisableOtherSubitems: 0
         ItemModeAudioID: 
-        Clip: {fileID: 8300000, guid: 79d1f0f5401bc9c49a84e5e2eb0bc69a, type: 3}
+        Clip: {fileID: 8300000, guid: 3a86e4d7012a8ac4aaa57de98782d970, type: 3}
         Volume: 1
-        PitchShift: 0
+        PitchShift: 4
         Pan2D: 0
         Delay: 0
         RandomPitch: 0
@@ -1049,7 +1049,8 @@ MonoBehaviour:
         FadeIn: 0
         FadeOut: 0
         RandomStartPosition: 0
-        individualSettings: []
+        individualSettings:
+        - PitchShift
     _volume: 1
     audioMixerGroup: {fileID: 0}
   musicPlaylists:
