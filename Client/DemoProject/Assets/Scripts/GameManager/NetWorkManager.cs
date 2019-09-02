@@ -141,7 +141,8 @@ public class NetWorkManager : MonoBehaviour
 
     private void HandleCreateObject(CreateObjInfo message)
     {
-        HelperClass.AddDelegate(() => {
+        HelperClass.AddDelegate(() =>
+        {
             //#region
             //if (message.PlayerId == 5)
             //{
@@ -155,7 +156,7 @@ public class NetWorkManager : MonoBehaviour
             //        LocalPlayer = 5;
             //        cameraController.isDead = true;
             //    }
-                    
+
             //    return;
             //}   
             //#endregion
@@ -176,8 +177,8 @@ public class NetWorkManager : MonoBehaviour
                     InitPrefab = GreenPlayer_4;
                     break;
             }
-            GameObject NewObject = Instantiate(InitPrefab,new Vector3(message.Position.X, message.Position.Y, 0f),Quaternion.Euler(0f,0f,message.Rotation));
-            AllPlayerInfo.Add(message.PlayerId, NewObject);   
+            GameObject NewObject = Instantiate(InitPrefab, new Vector3(message.Position.X, message.Position.Y, 0f), Quaternion.Euler(0f, 0f, message.Rotation));
+            AllPlayerInfo.Add(message.PlayerId, NewObject);
             EffectsManager.InitPlayerEffects(message.PlayerId);
             if (message.IsManclient)
             {
@@ -204,15 +205,22 @@ public class NetWorkManager : MonoBehaviour
             //if (!message.IsObserve)
             //{
             //}
-        }); 
+        });
     }
 
     private void HandleUpdateData(UpdateInfo message)
     {
         //更新
-        HelperClass.AddDelegate(() =>{
+        HelperClass.AddDelegate(() =>
+        {
+
             PlayerController Controller = AllPlayerController[message.PlayerId];
             Rigidbody2D TargetRigidbody = AllPlayerRigidy[message.PlayerId];
+            if (Controller == null || TargetRigidbody == null)
+            {
+                Debug.Log("Controller or TargetRigidbody is null");
+               return;
+            }
             TargetPosition.x = message.Position.X;
             TargetPosition.y = message.Position.Y;
             //TargetRigidbody.position = TargetPosition;
@@ -223,12 +231,15 @@ public class NetWorkManager : MonoBehaviour
             Controller.EndSynchronizerot = message.Rotation;
             Controller.NetCurScale = 0f;
             Controller.NetPositionScale = 0f;
+
+
         });
     }
 
     private void HandleAttakeInfo(AttakeInfo message)
     {
-        HelperClass.AddDelegate(() => {
+        HelperClass.AddDelegate(() =>
+        {
             //每次同步位置时，若在反弹状态中，直接丢弃包
             PlayerHealth Player = AllPlayerInfo[message.PlayerId].GetComponent<PlayerHealth>();
             TargetPosition.x = message.Position.X;
@@ -237,7 +248,7 @@ public class NetWorkManager : MonoBehaviour
                 AudioController.Play("Effect5");
             else
                 AudioController.Play("Effect4");
-            EffectsManager.PlayerSpecialEffects(message.PlayerId,message.EffectsIndex, TargetPosition);
+            EffectsManager.PlayerSpecialEffects(message.PlayerId, message.EffectsIndex, TargetPosition);
             Player.SubHp(message.Damage);
         });
     }
@@ -245,11 +256,12 @@ public class NetWorkManager : MonoBehaviour
     private void HandleReflectData(UpdateInfo message)
     {
         //同步该端所有内容
-        HelperClass.AddDelegate(() =>{
+        HelperClass.AddDelegate(() =>
+        {
             Rigidbody2D TargetRigidbody = AllPlayerRigidy[message.PlayerId];
-            
+
             //getcomponent的gc只有在没有对应组件时才会产生
-            if(message.PlayerId == LocalPlayer)
+            if (message.PlayerId == LocalPlayer)
             {
                 LocalPlayerController LocalPlayer = AllPlayerInfo[message.PlayerId].GetComponent<LocalPlayerController>();
                 LocalPlayer.ReflectCurScale = 0f;
@@ -272,7 +284,8 @@ public class NetWorkManager : MonoBehaviour
 
     private void HandleInitEnergySphere(EnergySphereInit message)
     {
-        HelperClass.AddDelegate(() =>{
+        HelperClass.AddDelegate(() =>
+        {
             var AllSphereInfo = message.AllSpherePoll;
             for (int i = 0; i < AllSphereInfo.Count; ++i)
             {
@@ -285,7 +298,8 @@ public class NetWorkManager : MonoBehaviour
 
     private void HandleCollectSphere(EnergySphere message)
     {
-        HelperClass.AddDelegate(() =>{
+        HelperClass.AddDelegate(() =>
+        {
             var CurPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>();
             CurPlayer.EnergyList.Add(SpherePoll.GetSphereInfo(message.SphereId));
             CurPlayer.uIManager.CollectSphere(message.Type);
@@ -310,7 +324,8 @@ public class NetWorkManager : MonoBehaviour
 
     private void HandleGeneratorSphere(EnergySphere message)
     {
-        HelperClass.AddDelegate(() => {
+        HelperClass.AddDelegate(() =>
+        {
             var CurPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>();
             CurPlayer.EnergyList.RemoveAt(CurPlayer.EnergyList.Count - 1);
             CurPlayer.uIManager.ConsumeSphere();
@@ -322,7 +337,8 @@ public class NetWorkManager : MonoBehaviour
 
     private void HandleReleaseSkill(SkillInfo message)
     {
-        HelperClass.AddDelegate(() => {
+        HelperClass.AddDelegate(() =>
+        {
             var ReleasePlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerSkillController>();
             ReleasePlayer.SuperTime = 5f;
             if (message.PlayerId == LocalPlayer)
@@ -372,15 +388,15 @@ public class NetWorkManager : MonoBehaviour
                 TargetPosition.y = message.Position.Y;
                 SpherePoll.GeneratorNewSphere(message.SphereId, TargetPosition);
                 //冲刺数据仅仅针对player == local
-                if(message.PlayerId == LocalPlayer)
-                {   
+                if (message.PlayerId == LocalPlayer)
+                {
                     SpurtTouch.SpurtTime = 0.35f;
                     AudioController.Play("Effect0");
                 }
             }
 
             //当前为主端且为请求
-            else if(LocalPlayer == 1 && message.Request == 1)
+            else if (LocalPlayer == 1 && message.Request == 1)
             {
                 if (CurPlayer.EnergyList.Count > 0)
                 {
@@ -391,7 +407,7 @@ public class NetWorkManager : MonoBehaviour
                     TargetPosition.x = message.Position.X;
                     TargetPosition.y = message.Position.Y;
                     SpherePoll.GeneratorNewSphere(message.SphereId, TargetPosition);
-                    SendDataToServer(message,(int)Protocal.MESSAGE_SPURT);
+                    SendDataToServer(message, (int)Protocal.MESSAGE_SPURT);
                 }
             }
         });
@@ -420,7 +436,7 @@ public class NetWorkManager : MonoBehaviour
 
     }
 
-    public void SendDataToServer(AttakeInfo SendClass,int protocal)
+    public void SendDataToServer(AttakeInfo SendClass, int protocal)
     {
         try
         {
@@ -441,7 +457,7 @@ public class NetWorkManager : MonoBehaviour
         }
     }
 
-    public void SendDataToServer(EnergySphere SendClass,int protocal)
+    public void SendDataToServer(EnergySphere SendClass, int protocal)
     {
         try
         {
@@ -483,7 +499,7 @@ public class NetWorkManager : MonoBehaviour
         }
     }
 
-    public void SendDataToServer(SpurtInfo SendClass,int protocal)
+    public void SendDataToServer(SpurtInfo SendClass, int protocal)
     {
         try
         {
