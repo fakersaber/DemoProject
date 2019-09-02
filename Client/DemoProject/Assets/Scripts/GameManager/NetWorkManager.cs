@@ -308,6 +308,9 @@ public class NetWorkManager : MonoBehaviour
     {
         HelperClass.AddDelegate(() => {
             var CurPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>();
+            //已经清理完毕了
+            if (CurPlayer.EnergyList.Count == 0)
+                return;
             CurPlayer.EnergyList.RemoveAt(CurPlayer.EnergyList.Count - 1);
             CurPlayer.uIManager.ConsumeSphere();
             TargetPosition.x = message.Position.X;

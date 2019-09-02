@@ -99,6 +99,16 @@ void Room::InitEnergyShpere(std::list<SOCKET>& UserList) {
 }
 
 void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
+	int index = 1;
+	int init_num = 0;
+	for (auto iter = UserList.begin(); iter != UserList.end(); ++iter, ++index) {
+		Room::CreateObject(*iter, index);
+	}
+	std::unordered_map<SOCKET, bool> init_table;
+	for (auto client : UserList) {
+		init_table.insert(std::make_pair(client, false));
+	}
+
 
 	//select模型  
 	fd_set AllSocketSet;
@@ -119,23 +129,35 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 			//有数据可读
 			if (FD_ISSET(AllSocketSet.fd_array[i], &ReadFd)) {
 				RetVal = recv(AllSocketSet.fd_array[i], RevData, 8192, 0);
+
 				//连接异常
-				{
-					if (RetVal == SOCKET_ERROR || !RetVal) {
-						if (!RetVal) 
-						{ 
-							printf("Client closes normally\n"); 
-						}
-						else {
-							auto err = WSAGetLastError();
-							if (err == WSAECONNRESET) { printf("Client is forced to close\n"); }
-							else { printf("unkown error %d \n", err); }
-						}
-						closesocket(AllSocketSet.fd_array[i]);
-						FD_CLR(AllSocketSet.fd_array[i], &AllSocketSet);
-						continue;
+				if (RetVal == SOCKET_ERROR || !RetVal) {
+					if (!RetVal)
+					{
+						printf("Client closes normally\n");
 					}
+					else {
+						auto err = WSAGetLastError();
+						if (err == WSAECONNRESET) { printf("Client is forced to close\n"); }
+						else { printf("unkown error %d \n", err); }
+					}
+					closesocket(AllSocketSet.fd_array[i]);
+					FD_CLR(AllSocketSet.fd_array[i], &AllSocketSet);
+					continue;
 				}
+
+				//玩家创建完毕信息
+				if (!init_table[AllSocketSet.fd_array[i]]) {
+					init_table[AllSocketSet.fd_array[i]] = true;
+					init_num++;
+				}
+
+				if (init_num == RoomSize) {
+					Room::InitEnergyShpere(UserList);
+					init_num = 0;
+				}
+
+
 				for (auto client : UserList) {
 					if (client != AllSocketSet.fd_array[i]) {
 						auto ret = send(client, RevData, RetVal, 0);
@@ -145,6 +167,7 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 						}
 					}
 				}
+
 
 			}
 		}

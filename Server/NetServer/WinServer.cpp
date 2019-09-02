@@ -56,12 +56,6 @@ void WinServer::Run() {
 		SOCKET sockClient = accept(sockSrv, reinterpret_cast<SOCKADDR*>(&addrClt), &len);
 		RankList.emplace_back(sockClient);
 		if (RankList.size() == Room::RoomSize) {
-			//初始化能量球以及玩家
-			Room::InitEnergyShpere(RankList);
-			int index = 1;
-			for (auto iter = RankList.begin(); iter != RankList.end(); ++iter, ++index) {
-				Room::CreateObject(*iter, index);
-			}
 			new std::thread(std::bind(&Room::CreateRoom, RankList,0));
 			RankList.clear();
 		}
