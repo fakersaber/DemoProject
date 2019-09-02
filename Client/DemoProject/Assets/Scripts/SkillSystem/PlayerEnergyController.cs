@@ -13,16 +13,10 @@ public class PlayerEnergyController : MonoBehaviour
     private PlayerSkillController SkillController;
     private EnergyUIManager _uIManager;
     private EnergySphere CacheEnergySphere = new EnergySphere();
-
+    private SpurtInfo CacheSpurtInfo = new SpurtInfo();
+    private SpurtButton SpurtTouch;
     private int _playerid;
     private List<SphereInfo> _EnergyList = new List<SphereInfo>(3);
-    private float _SpurtTime = 0f;
-
-    public float SpurtTime
-    {
-        get { return _SpurtTime; }
-        set { _SpurtTime = value; }
-    }
 
     public List<SphereInfo> EnergyList
     {
@@ -44,6 +38,7 @@ public class PlayerEnergyController : MonoBehaviour
     private void Awake()
     {
         GameObject GameManager = GameObject.FindWithTag("GameManager");
+        SpurtTouch = GameObject.FindWithTag("Spurt").GetComponent<SpurtButton>();
         NetClass = GameManager.GetComponent<NetWorkManager>();
         SphereManager = GameManager.GetComponent<EnergySpherePool>();
         SkillController = GetComponent<PlayerSkillController>();
@@ -120,6 +115,7 @@ public class PlayerEnergyController : MonoBehaviour
 
     public void ConsumeEnergySphere2()
     {
+        //该函数保证主端调用
         SphereInfo CustomSphere = _EnergyList[_EnergyList.Count - 1];
         CacheEnergySphere.PlayerId = _playerid;
         CacheEnergySphere.SphereId = CustomSphere.SphereId;
@@ -132,5 +128,33 @@ public class PlayerEnergyController : MonoBehaviour
         SphereManager.GeneratorNewSphere(CustomSphere.SphereId, LocalVec);
         _EnergyList.RemoveAt(_EnergyList.Count - 1);
         _uIManager.ConsumeSphere();
+    }
+
+
+
+
+    public void NonMainClientConsume()
+    {
+        if(SpurtTouch.SpurtTime <= 0f)
+        {
+            if(SkillController.SuperTime > 0f)
+            {
+                SpurtTouch.SpurtTime = 0.35f;
+                AudioController.Play("Effect0");
+                return;
+            }
+            if (_EnergyList.Count == 0)
+                return;
+            SphereInfo CustomSphere = _EnergyList[_EnergyList.Count - 1];
+            CacheSpurtInfo.PlayerId = _playerid;
+            CacheSpurtInfo.SphereId = CustomSphere.SphereId;
+            UpdateVec.X = Random.Range(-width, width);
+            UpdateVec.Y = Random.Range(-height, height);
+            LocalVec.x = UpdateVec.X;
+            LocalVec.y = UpdateVec.Y;
+            CacheSpurtInfo.Position = UpdateVec;
+            CacheSpurtInfo.Request = 1;
+            NetClass.SendDataToServer(CacheSpurtInfo, (int)Protocal.MESSAGE_SPURT);
+        }
     }
 }

@@ -32,12 +32,20 @@ public class SpurtButton : MonoBehaviour
 
     public void SetSpurtTime()
     {
-        if (_SpurtTime <=0f && _LocalPlayerEnergy.ConsumeEnergySphere())
+        if(NetClass.LocalPlayer == 1)
         {
-            _SpurtTime = 0.35f;
-
-            AudioController.Play("Effect0");
+            //主端直接冲刺
+            if(_SpurtTime <=0f && _LocalPlayerEnergy.ConsumeEnergySphere())
+            {
+                _SpurtTime = 0.35f;
+                AudioController.Play("Effect0");
+            }
+            return;
         }
+
+        //非主端需要将请求发送给主端,不直接操作容器
+        _LocalPlayerEnergy.NonMainClientConsume();
+
     }
 
 

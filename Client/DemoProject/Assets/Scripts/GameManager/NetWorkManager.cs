@@ -34,7 +34,7 @@ public class NetWorkManager : MonoBehaviour
     private PlayerEffectsManager EffectsManager;
     private LoadingManager LocalLoadingManager;
     private CameraController cameraController;
-
+    private SpurtButton SpurtTouch;
     //cache component
 
 
@@ -45,6 +45,7 @@ public class NetWorkManager : MonoBehaviour
         EffectsManager = GetComponent<PlayerEffectsManager>();
         LocalLoadingManager = GetComponent<LoadingManager>();
         cameraController = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
+        SpurtTouch = GameObject.FindWithTag("Spurt").GetComponent<SpurtButton>();
         HelperClass = AccrossThreadHelper.Instance;
         Debug.Log("scenes come");
     }
@@ -102,6 +103,9 @@ public class NetWorkManager : MonoBehaviour
                             break;
                         case (int)Protocal.MESSAGE_COLLECT:
                             HandleCollectSphere(EnergySphere.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
+                            break;
+                        case (int)Protocal.MESSAGE_SPURT:
+                            HandleSpurtRequest(SpurtInfo.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
                             break;
                         case (int)Protocal.MESSAGE_GENERATORENERGY:
                             HandleGeneratorSphere(EnergySphere.Parser.ParseFrom(readBuff, offset + sizeof(int) * 2, size));
@@ -308,9 +312,6 @@ public class NetWorkManager : MonoBehaviour
     {
         HelperClass.AddDelegate(() => {
             var CurPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>();
-            //已经清理完毕了
-            if (CurPlayer.EnergyList.Count == 0)
-                return;
             CurPlayer.EnergyList.RemoveAt(CurPlayer.EnergyList.Count - 1);
             CurPlayer.uIManager.ConsumeSphere();
             TargetPosition.x = message.Position.X;
@@ -352,6 +353,50 @@ public class NetWorkManager : MonoBehaviour
             LocalLoadingManager.OtherDownPlayerNum++;
         });
     }
+
+
+    private void HandleSpurtRequest(SpurtInfo message)
+    {
+        //1表示请求，2表示回复
+        HelperClass.AddDelegate(() =>
+        {
+            var CurPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>();
+
+            //没有通过不会收到回复，所以收到均可以直接操作容器
+            if (message.Request == 2 && LocalPlayer != 1)
+            {
+                //收到回复首先设置能量球数据，所有端均需要设置
+                CurPlayer.EnergyList.RemoveAt(CurPlayer.EnergyList.Count - 1);
+                CurPlayer.uIManager.ConsumeSphere();
+                TargetPosition.x = message.Position.X;
+                TargetPosition.y = message.Position.Y;
+                SpherePoll.GeneratorNewSphere(message.SphereId, TargetPosition);
+                //冲刺数据仅仅针对player == local
+                if(message.PlayerId == LocalPlayer)
+                {   
+                    SpurtTouch.SpurtTime = 0.35f;
+                    AudioController.Play("Effect0");
+                }
+            }
+
+            //当前为主端且为请求
+            else if(LocalPlayer == 1 && message.Request == 1)
+            {
+                if (CurPlayer.EnergyList.Count > 0)
+                {
+                    //同步其他玩家在主端上的操作
+                    message.Request = 2; //设置为回复
+                    CurPlayer.EnergyList.RemoveAt(CurPlayer.EnergyList.Count - 1);
+                    CurPlayer.uIManager.ConsumeSphere();
+                    TargetPosition.x = message.Position.X;
+                    TargetPosition.y = message.Position.Y;
+                    SpherePoll.GeneratorNewSphere(message.SphereId, TargetPosition);
+                    SendDataToServer(message,(int)Protocal.MESSAGE_SPURT);
+                }
+            }
+        });
+    }
+
 
     public void SendDataToServer(UpdateInfo SendClass, int protocal)
     {
@@ -437,6 +482,29 @@ public class NetWorkManager : MonoBehaviour
             Debug.Log("Send Error");
         }
     }
+
+    public void SendDataToServer(SpurtInfo SendClass,int protocal)
+    {
+        try
+        {
+            byte[] sendbuffer;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                stream.Write(System.BitConverter.GetBytes(protocal), 0, sizeof(int));
+                stream.Write(System.BitConverter.GetBytes(SendClass.CalculateSize()), 0, sizeof(int)); //原始数据长度
+                stream.Write(SendClass.ToByteArray(), 0, SendClass.CalculateSize());
+                sendbuffer = stream.ToArray();
+            }
+            LocalSocket.Send(sendbuffer);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            Debug.Log("Send Error");
+        }
+    }
+
+
 
     public void OnDisable()
     {

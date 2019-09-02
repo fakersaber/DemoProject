@@ -48,7 +48,7 @@ struct TableStruct_UpdateInfo_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -61,12 +61,16 @@ extern AttakeInfoDefaultTypeInternal _AttakeInfo_default_instance_;
 class SkillInfo;
 class SkillInfoDefaultTypeInternal;
 extern SkillInfoDefaultTypeInternal _SkillInfo_default_instance_;
+class SpurtInfo;
+class SpurtInfoDefaultTypeInternal;
+extern SpurtInfoDefaultTypeInternal _SpurtInfo_default_instance_;
 class UpdateInfo;
 class UpdateInfoDefaultTypeInternal;
 extern UpdateInfoDefaultTypeInternal _UpdateInfo_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::AttakeInfo* Arena::CreateMaybeMessage<::AttakeInfo>(Arena*);
 template<> ::SkillInfo* Arena::CreateMaybeMessage<::SkillInfo>(Arena*);
+template<> ::SpurtInfo* Arena::CreateMaybeMessage<::SpurtInfo>(Arena*);
 template<> ::UpdateInfo* Arena::CreateMaybeMessage<::UpdateInfo>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
@@ -521,6 +525,168 @@ class SkillInfo :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_UpdateInfo_2eproto;
 };
+// -------------------------------------------------------------------
+
+class SpurtInfo :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SpurtInfo) */ {
+ public:
+  SpurtInfo();
+  virtual ~SpurtInfo();
+
+  SpurtInfo(const SpurtInfo& from);
+  SpurtInfo(SpurtInfo&& from) noexcept
+    : SpurtInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline SpurtInfo& operator=(const SpurtInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SpurtInfo& operator=(SpurtInfo&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SpurtInfo& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SpurtInfo* internal_default_instance() {
+    return reinterpret_cast<const SpurtInfo*>(
+               &_SpurtInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(SpurtInfo& a, SpurtInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SpurtInfo* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SpurtInfo* New() const final {
+    return CreateMaybeMessage<SpurtInfo>(nullptr);
+  }
+
+  SpurtInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SpurtInfo>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SpurtInfo& from);
+  void MergeFrom(const SpurtInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SpurtInfo* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SpurtInfo";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_UpdateInfo_2eproto);
+    return ::descriptor_table_UpdateInfo_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPositionFieldNumber = 5,
+    kPlayerIdFieldNumber = 1,
+    kRequestFieldNumber = 2,
+    kSphereIdFieldNumber = 3,
+    kTypeFieldNumber = 4,
+  };
+  // .YVector2 Position = 5;
+  bool has_position() const;
+  void clear_position();
+  const ::YVector2& position() const;
+  ::YVector2* release_position();
+  ::YVector2* mutable_position();
+  void set_allocated_position(::YVector2* position);
+
+  // int32 PlayerId = 1;
+  void clear_playerid();
+  ::PROTOBUF_NAMESPACE_ID::int32 playerid() const;
+  void set_playerid(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // int32 Request = 2;
+  void clear_request();
+  ::PROTOBUF_NAMESPACE_ID::int32 request() const;
+  void set_request(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // int32 SphereId = 3;
+  void clear_sphereid();
+  ::PROTOBUF_NAMESPACE_ID::int32 sphereid() const;
+  void set_sphereid(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // int32 type = 4;
+  void clear_type();
+  ::PROTOBUF_NAMESPACE_ID::int32 type() const;
+  void set_type(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // @@protoc_insertion_point(class_scope:SpurtInfo)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::YVector2* position_;
+  ::PROTOBUF_NAMESPACE_ID::int32 playerid_;
+  ::PROTOBUF_NAMESPACE_ID::int32 request_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sphereid_;
+  ::PROTOBUF_NAMESPACE_ID::int32 type_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_UpdateInfo_2eproto;
+};
 // ===================================================================
 
 
@@ -773,9 +939,116 @@ inline void SkillInfo::set_allocated_position(::YVector2* position) {
   // @@protoc_insertion_point(field_set_allocated:SkillInfo.Position)
 }
 
+// -------------------------------------------------------------------
+
+// SpurtInfo
+
+// int32 PlayerId = 1;
+inline void SpurtInfo::clear_playerid() {
+  playerid_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 SpurtInfo::playerid() const {
+  // @@protoc_insertion_point(field_get:SpurtInfo.PlayerId)
+  return playerid_;
+}
+inline void SpurtInfo::set_playerid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  playerid_ = value;
+  // @@protoc_insertion_point(field_set:SpurtInfo.PlayerId)
+}
+
+// int32 Request = 2;
+inline void SpurtInfo::clear_request() {
+  request_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 SpurtInfo::request() const {
+  // @@protoc_insertion_point(field_get:SpurtInfo.Request)
+  return request_;
+}
+inline void SpurtInfo::set_request(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  request_ = value;
+  // @@protoc_insertion_point(field_set:SpurtInfo.Request)
+}
+
+// int32 SphereId = 3;
+inline void SpurtInfo::clear_sphereid() {
+  sphereid_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 SpurtInfo::sphereid() const {
+  // @@protoc_insertion_point(field_get:SpurtInfo.SphereId)
+  return sphereid_;
+}
+inline void SpurtInfo::set_sphereid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  sphereid_ = value;
+  // @@protoc_insertion_point(field_set:SpurtInfo.SphereId)
+}
+
+// int32 type = 4;
+inline void SpurtInfo::clear_type() {
+  type_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 SpurtInfo::type() const {
+  // @@protoc_insertion_point(field_get:SpurtInfo.type)
+  return type_;
+}
+inline void SpurtInfo::set_type(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  type_ = value;
+  // @@protoc_insertion_point(field_set:SpurtInfo.type)
+}
+
+// .YVector2 Position = 5;
+inline bool SpurtInfo::has_position() const {
+  return this != internal_default_instance() && position_ != nullptr;
+}
+inline const ::YVector2& SpurtInfo::position() const {
+  const ::YVector2* p = position_;
+  // @@protoc_insertion_point(field_get:SpurtInfo.Position)
+  return p != nullptr ? *p : *reinterpret_cast<const ::YVector2*>(
+      &::_YVector2_default_instance_);
+}
+inline ::YVector2* SpurtInfo::release_position() {
+  // @@protoc_insertion_point(field_release:SpurtInfo.Position)
+  
+  ::YVector2* temp = position_;
+  position_ = nullptr;
+  return temp;
+}
+inline ::YVector2* SpurtInfo::mutable_position() {
+  
+  if (position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::YVector2>(GetArenaNoVirtual());
+    position_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:SpurtInfo.Position)
+  return position_;
+}
+inline void SpurtInfo::set_allocated_position(::YVector2* position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
+  }
+  if (position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, position, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  position_ = position;
+  // @@protoc_insertion_point(field_set_allocated:SpurtInfo.Position)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

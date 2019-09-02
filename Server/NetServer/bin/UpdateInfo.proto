@@ -24,3 +24,13 @@ message SkillInfo
     YVector2 Position = 3; //释放位置
 }
 
+
+message SpurtInfo
+{
+    int32 PlayerId = 1; //请求释放冲刺的玩家
+    int32 Request = 2; //1表示请求，2表示回复
+    int32 SphereId = 3;
+    int32 type = 4; //能量球类型
+    YVector2 Position = 5;
+}
+
