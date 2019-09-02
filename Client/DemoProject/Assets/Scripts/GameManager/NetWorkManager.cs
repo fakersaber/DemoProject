@@ -219,7 +219,7 @@ public class NetWorkManager : MonoBehaviour
             if (Controller == null || TargetRigidbody == null)
             {
                 Debug.Log("Controller or TargetRigidbody is null");
-               return;
+                return;
             }
             TargetPosition.x = message.Position.X;
             TargetPosition.y = message.Position.Y;
@@ -242,6 +242,11 @@ public class NetWorkManager : MonoBehaviour
         {
             //每次同步位置时，若在反弹状态中，直接丢弃包
             PlayerHealth Player = AllPlayerInfo[message.PlayerId].GetComponent<PlayerHealth>();
+            if (Player == null)
+            {
+                Debug.Log("PlayerHealth is null");
+                return;
+            }
             TargetPosition.x = message.Position.X;
             TargetPosition.y = message.Position.Y;
             if (message.EffectsIndex == (int)SpecialEffects.WEAPONTOWEAPON)
@@ -259,11 +264,20 @@ public class NetWorkManager : MonoBehaviour
         HelperClass.AddDelegate(() =>
         {
             Rigidbody2D TargetRigidbody = AllPlayerRigidy[message.PlayerId];
-
+            if (TargetRigidbody == null)
+            {
+                Debug.Log("HandleReflectData is null");
+                return;
+            }
             //getcomponent的gc只有在没有对应组件时才会产生
             if (message.PlayerId == LocalPlayer)
             {
                 LocalPlayerController LocalPlayer = AllPlayerInfo[message.PlayerId].GetComponent<LocalPlayerController>();
+                if (LocalPlayer == null)
+                {
+                    Debug.Log("HandleReflectData is null");
+                    return;
+                }
                 LocalPlayer.ReflectCurScale = 0f;
                 LocalPlayer.ReflectStartPosition = TargetRigidbody.position;
                 LocalPlayer.ReflectEndPosition = new Vector2(message.Position.X, message.Position.Y);
@@ -273,6 +287,11 @@ public class NetWorkManager : MonoBehaviour
             else
             {
                 PlayerController OtherPlayer = AllPlayerController[message.PlayerId];
+                if (OtherPlayer == null)
+                {
+                    Debug.Log("HandleReflectData is null");
+                    return;
+                }
                 OtherPlayer.ReflectCurScale = 0f;
                 OtherPlayer.ReflectStartPosition = TargetRigidbody.position;
                 OtherPlayer.ReflectEndPosition = new Vector2(message.Position.X, message.Position.Y);
@@ -301,6 +320,11 @@ public class NetWorkManager : MonoBehaviour
         HelperClass.AddDelegate(() =>
         {
             var CurPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>();
+            if (CurPlayer == null)
+            {
+                Debug.Log("HandleCollectSphere is null");
+                return;
+            }
             CurPlayer.EnergyList.Add(SpherePoll.GetSphereInfo(message.SphereId));
             CurPlayer.uIManager.CollectSphere(message.Type);
             SpherePoll.Collect(message.SphereId);
@@ -327,6 +351,12 @@ public class NetWorkManager : MonoBehaviour
         HelperClass.AddDelegate(() =>
         {
             var CurPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>();
+            if (CurPlayer == null)
+            {
+                Debug.Log("PlayerEnergyController is null");
+                return;
+            }
+
             CurPlayer.EnergyList.RemoveAt(CurPlayer.EnergyList.Count - 1);
             CurPlayer.uIManager.ConsumeSphere();
             TargetPosition.x = message.Position.X;
@@ -340,6 +370,13 @@ public class NetWorkManager : MonoBehaviour
         HelperClass.AddDelegate(() =>
         {
             var ReleasePlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerSkillController>();
+            if(ReleasePlayer == null)
+            {
+                Debug.Log("PlayerSkillController is null");
+                return;
+            }
+
+
             ReleasePlayer.SuperTime = 5f;
             if (message.PlayerId == LocalPlayer)
                 PlayerSkillController.PlaySkillAudio(message.Type);
@@ -377,7 +414,11 @@ public class NetWorkManager : MonoBehaviour
         HelperClass.AddDelegate(() =>
         {
             var CurPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>();
-
+            if (CurPlayer == null)
+            {
+                Debug.Log("SpurtRequest is null");
+                return;
+            }
             //没有通过不会收到回复，所以收到均可以直接操作容器
             if (message.Request == 2 && LocalPlayer != 1)
             {

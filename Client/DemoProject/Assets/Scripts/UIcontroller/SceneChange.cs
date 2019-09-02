@@ -53,7 +53,6 @@ public class SceneChange : MonoBehaviour
 
     public void ToUIScene()
     {
-        AudioController.Play("Effect");
         SceneManager.LoadScene("UI");
     }
 }
