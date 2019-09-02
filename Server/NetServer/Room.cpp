@@ -44,7 +44,11 @@ void Room::CreateObject(SOCKET socket, int index) {
 		Room::Encode(Protocal::MESSAGE_CREATEOBJ, SendClass.ByteSize(), send_buffer + totalSize);
 		totalSize = totalSize + SendClass.ByteSize() + 2 * sizeof(int);
 	}
-	send(socket, send_buffer, totalSize, 0);
+	auto ret = send(socket, send_buffer, totalSize, 0);
+	if (!ret || ret == SOCKET_ERROR) {
+		auto err = WSAGetLastError();
+		printf("send error %d \n", err);
+	}
 }
 
 
@@ -83,19 +87,19 @@ void Room::InitEnergyShpere(std::list<SOCKET>& UserList) {
 	Room::Encode(Protocal::MESSAGE_INITENERGYSPHERE, AllSphereInfo.ByteSize(), send_buffer);
 
 	for (auto client : UserList) {
-		send(client, send_buffer, AllSphereInfo.ByteSize() + 2 * sizeof(int), 0);
+		auto ret = send(client, send_buffer, AllSphereInfo.ByteSize() + 2 * sizeof(int), 0);
+		if (!ret || ret == SOCKET_ERROR) {
+			auto err = WSAGetLastError();
+			printf("send error %d \n", err);
+		}
+		
 	}
 
 
 }
 
 void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
-	//初始化能量球以及玩家
-	InitEnergyShpere(UserList);
-	int index = 1;
-	for (auto iter = UserList.begin(); iter != UserList.end(); ++iter, ++index) {
-		CreateObject(*iter, index);
-	}
+
 	//select模型  
 	fd_set AllSocketSet;
 	fd_set ReadFd;
@@ -134,7 +138,11 @@ void Room::CreateRoom(std::list<SOCKET> UserList, int64_t EndTime) {
 				}
 				for (auto client : UserList) {
 					if (client != AllSocketSet.fd_array[i]) {
-						send(client, RevData, RetVal, 0);
+						auto ret = send(client, RevData, RetVal, 0);
+						if (!ret || ret == SOCKET_ERROR) {
+							auto err = WSAGetLastError();
+							printf("send error %d \n", err);
+						}
 					}
 				}
 

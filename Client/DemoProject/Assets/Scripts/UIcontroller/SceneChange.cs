@@ -47,8 +47,8 @@ public class SceneChange : MonoBehaviour
 
     public void ToGameScene()
     {
-        GameObject.FindWithTag("StartGameButton").GetComponent<Button>().interactable = false;
-        SceneManager.LoadSceneAsync("SampleScene");
+        //GameObject.FindWithTag("StartGameButton").GetComponent<Button>().interactable = false;
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void ToUIScene()

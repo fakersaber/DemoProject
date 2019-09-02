@@ -46,10 +46,14 @@ public class NetWorkManager : MonoBehaviour
         LocalLoadingManager = GetComponent<LoadingManager>();
         cameraController = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
         HelperClass = AccrossThreadHelper.Instance;
-        //Screen.SetResolution(1920, 1080, true);
-        Connect();
+        Debug.Log("scenes come");
     }
 
+
+    private void Start()
+    {
+        Connect();
+    }
 
     public void Connect()
     {
@@ -82,6 +86,9 @@ public class NetWorkManager : MonoBehaviour
                 {
                     int protocal = System.BitConverter.ToInt32(readBuff, offset);
                     int size = System.BitConverter.ToInt32(readBuff, offset + sizeof(int));
+                    Debug.Log("recvsize: " + len);
+                    Debug.Log("protocal: " + protocal);
+                    Debug.Log("size: " + size);
                     switch (protocal)
                     {
                         case (int)Protocal.MESSAGE_UPDATEDATA:
@@ -356,7 +363,8 @@ public class NetWorkManager : MonoBehaviour
                 sendbuffer = stream.ToArray();
             }
             LocalSocket.Send(sendbuffer);
-        }catch(Exception e)
+        }
+        catch (Exception e)
         {
             Debug.Log(e);
             Debug.Log("Send Error");
@@ -432,5 +440,6 @@ public class NetWorkManager : MonoBehaviour
         //if (recvThread != null)
         //    recvThread.Abort();
         LocalSocket.Close();
+        //Application.Quit();
     }
 }
