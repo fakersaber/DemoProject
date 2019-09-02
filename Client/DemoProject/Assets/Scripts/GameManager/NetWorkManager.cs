@@ -251,6 +251,8 @@ public class NetWorkManager : MonoBehaviour
             TargetPosition.y = message.Position.Y;
             if (message.EffectsIndex == (int)SpecialEffects.WEAPONTOWEAPON)
                 AudioController.Play("Effect5");
+            else if(message.EffectsIndex == (int)SpecialEffects.WEAKTOWEAPON)
+                AudioController.Play("Effect13");
             else
                 AudioController.Play("Effect4");
             EffectsManager.PlayerSpecialEffects(message.PlayerId, message.EffectsIndex, TargetPosition);
