@@ -47,7 +47,6 @@ public class NetWorkManager : MonoBehaviour
         cameraController = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
         SpurtTouch = GameObject.FindWithTag("Spurt").GetComponent<SpurtButton>();
         HelperClass = AccrossThreadHelper.Instance;
-        Debug.Log("scenes come");
     }
 
 
@@ -83,13 +82,19 @@ public class NetWorkManager : MonoBehaviour
             {
                 int len = LocalSocket.Receive(readBuff);
                 int offset = 0;
-                while (len != 0)
+                while (len > 0)
                 {
+                    if(len <= 8)
+                    {
+                        len = 0;
+                        continue;
+                    }
                     int protocal = System.BitConverter.ToInt32(readBuff, offset);
                     int size = System.BitConverter.ToInt32(readBuff, offset + sizeof(int));
-                    Debug.Log("recvsize: " + len);
-                    Debug.Log("protocal: " + protocal);
-                    Debug.Log("size: " + size);
+
+                    //Debug.Log("recvsize: " + len);
+                    //Debug.Log("protocal: " + protocal);
+                    //Debug.Log("size: " + size);
                     switch (protocal)
                     {
                         case (int)Protocal.MESSAGE_UPDATEDATA:
@@ -469,7 +474,7 @@ public class NetWorkManager : MonoBehaviour
                 stream.Write(SendClass.ToByteArray(), 0, SendClass.CalculateSize());
                 sendbuffer = stream.ToArray();
             }
-            LocalSocket.Send(sendbuffer);
+            LocalSocket.Send(sendbuffer, sizeof(int) * 2 + SendClass.CalculateSize(), SocketFlags.None);
         }
         catch (Exception e)
         {
@@ -491,7 +496,7 @@ public class NetWorkManager : MonoBehaviour
                 stream.Write(SendClass.ToByteArray(), 0, SendClass.CalculateSize());
                 sendbuffer = stream.ToArray();
             }
-            LocalSocket.Send(sendbuffer);
+            LocalSocket.Send(sendbuffer, sizeof(int) * 2 + SendClass.CalculateSize(), SocketFlags.None);
         }
         catch (Exception e)
         {
@@ -512,7 +517,7 @@ public class NetWorkManager : MonoBehaviour
                 stream.Write(SendClass.ToByteArray(), 0, SendClass.CalculateSize());
                 sendbuffer = stream.ToArray();
             }
-            LocalSocket.Send(sendbuffer);
+            LocalSocket.Send(sendbuffer, sizeof(int) * 2 + SendClass.CalculateSize(), SocketFlags.None);
         }
         catch (Exception e)
         {
@@ -533,7 +538,7 @@ public class NetWorkManager : MonoBehaviour
                 stream.Write(SendClass.ToByteArray(), 0, SendClass.CalculateSize());
                 sendbuffer = stream.ToArray();
             }
-            LocalSocket.Send(sendbuffer);
+            LocalSocket.Send(sendbuffer, sizeof(int) * 2 + SendClass.CalculateSize(), SocketFlags.None);
         }
         catch (Exception e)
         {
@@ -554,7 +559,7 @@ public class NetWorkManager : MonoBehaviour
                 stream.Write(SendClass.ToByteArray(), 0, SendClass.CalculateSize());
                 sendbuffer = stream.ToArray();
             }
-            LocalSocket.Send(sendbuffer);
+            LocalSocket.Send(sendbuffer, sizeof(int) * 2 + SendClass.CalculateSize(), SocketFlags.None);
         }
         catch (Exception e)
         {

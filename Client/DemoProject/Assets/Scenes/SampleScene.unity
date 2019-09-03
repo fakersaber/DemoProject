@@ -1507,5 +1507,15 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 585446513162245680, guid: 82f99b829e8f443438070dad58e1f187,
+        type: 3}
+      propertyPath: showEventInspector
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 585446513162245680, guid: 82f99b829e8f443438070dad58e1f187,
+        type: 3}
+      propertyPath: axisX.showGeneralInspector
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82f99b829e8f443438070dad58e1f187, type: 3}
