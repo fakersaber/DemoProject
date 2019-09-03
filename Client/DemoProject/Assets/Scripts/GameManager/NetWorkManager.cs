@@ -91,10 +91,9 @@ public class NetWorkManager : MonoBehaviour
                     }
                     int protocal = System.BitConverter.ToInt32(readBuff, offset);
                     int size = System.BitConverter.ToInt32(readBuff, offset + sizeof(int));
-
-                    //Debug.Log("recvsize: " + len);
-                    //Debug.Log("protocal: " + protocal);
-                    //Debug.Log("size: " + size);
+                    Debug.Log("recvsize: " + len);
+                    Debug.Log("protocal: " + protocal);
+                    Debug.Log("size: " + size);
                     switch (protocal)
                     {
                         case (int)Protocal.MESSAGE_UPDATEDATA:
@@ -148,24 +147,6 @@ public class NetWorkManager : MonoBehaviour
     {
         HelperClass.AddDelegate(() =>
         {
-            //#region
-            //if (message.PlayerId == 5)
-            //{
-            //    if (message.IsObserve)
-            //    {
-            //        //去掉一个
-            //        LocalLoadingManager.OtherDownPlayerNum--;
-            //        var curCamera = cameraController.gameObject.GetComponent<Camera>();
-            //        curCamera.orthographicSize = 10.8f;
-            //        curCamera.aspect = 1.7777f;
-            //        LocalPlayer = 5;
-            //        cameraController.isDead = true;
-            //    }
-
-            //    return;
-            //}   
-            //#endregion
-
             GameObject InitPrefab = null;
             switch (message.PlayerId)
             {
@@ -203,13 +184,9 @@ public class NetWorkManager : MonoBehaviour
             LocalLoadingManager.LocalDownPlayer++;
             if (LocalLoadingManager.LocalDownPlayer == LoadingManager.RoomSize)
             {
-                //任意一个结构，反正为空
                 UpdateInfo SendClass = new UpdateInfo() { PlayerId = LocalPlayer };
                 SendDataToServer(SendClass, (int)Protocal.MESSAGE_LOADING);
             }
-            //if (!message.IsObserve)
-            //{
-            //}
         });
     }
 
@@ -475,6 +452,7 @@ public class NetWorkManager : MonoBehaviour
                 sendbuffer = stream.ToArray();
             }
             LocalSocket.Send(sendbuffer, sizeof(int) * 2 + SendClass.CalculateSize(), SocketFlags.None);
+            Debug.Log("send size: " + sizeof(int) * 2 + SendClass.CalculateSize());
         }
         catch (Exception e)
         {
