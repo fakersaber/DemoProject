@@ -87,7 +87,7 @@ public class NetWorkManager : MonoBehaviour
                 len = LocalSocket.Receive(readBuff, rev_offset, BufSize - rev_offset, SocketFlags.None);
                 len += rev_offset;
                 offset = 0;
-                Debug.Log("recvsize: " + len);
+                //Debug.Log("recvsize: " + len);
                 while (len > 0)
                 {
                     //正常解析数据时才检查是否有截断，存在截断偏移时是第一次处理数据
@@ -112,9 +112,9 @@ public class NetWorkManager : MonoBehaviour
                         int curlen = len - sizeof(int) * 2;
                         if (cursize > curlen)
                         {
-                            Debug.Log("log size: " + cursize);
-                            Debug.Log("log len: " + curlen);
-                            Debug.Log("log offset: " + offset);
+                            //Debug.Log("log size: " + cursize);
+                            //Debug.Log("log len: " + curlen);
+                            //Debug.Log("log offset: " + offset);
                             //protocal和size能够正常解析，但数据被截断,
                             rev_offset = len;
                             for (int i = 0; i < rev_offset; ++i)
@@ -129,7 +129,7 @@ public class NetWorkManager : MonoBehaviour
                     int protocal = System.BitConverter.ToInt32(readBuff, offset);
                     int size = System.BitConverter.ToInt32(readBuff, offset + sizeof(int));
                     int CurUseSize = size + sizeof(int) * 2;
-                    Debug.Log("protocal: " + protocal + "  CurUseSize: " + CurUseSize);
+                    //Debug.Log("protocal: " + protocal + "  CurUseSize: " + CurUseSize);
                     switch (protocal)
                     {
                         case (int)Protocal.MESSAGE_UPDATEDATA:
@@ -166,7 +166,7 @@ public class NetWorkManager : MonoBehaviour
                             break;
                     }
                     len = len - size - sizeof(int) * 2;
-                    Debug.Log("Curlen" + len);
+                    //Debug.Log("Curlen" + len);
                     offset = offset + size + sizeof(int) * 2;
                     rev_offset = 0;
                 }

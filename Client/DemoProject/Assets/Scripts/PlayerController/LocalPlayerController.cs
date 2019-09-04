@@ -58,6 +58,8 @@ public class LocalPlayerController : MonoBehaviour
     private bool isChaos = false;
     private bool isThunder = false;
 
+    private int CountFrame = 0;
+
     #region
     private int WallLayer;
     private int PlayerLayer;
@@ -189,6 +191,7 @@ public class LocalPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         UpdateCode();
         CheckStatus();
 
@@ -265,8 +268,11 @@ public class LocalPlayerController : MonoBehaviour
                 }
                 float CurAng = Mathf.LerpAngle(StartInputRotation, EndInputRotation, InputCurScale);
                 PlayerRigidbody.MoveRotation(CurAng);
-                SendData(NetClass.LocalPlayer, PlayerRigidbody.position + DeltaPostion, CurAng,(int)Protocal.MESSAGE_UPDATEDATA);
-
+                if(CountFrame % 2 == 0)
+                {
+                    CountFrame = 0;
+                    SendData(NetClass.LocalPlayer, PlayerRigidbody.position + DeltaPostion, CurAng, (int)Protocal.MESSAGE_UPDATEDATA);
+                }
             }
         }
     }
@@ -364,6 +370,7 @@ public class LocalPlayerController : MonoBehaviour
 
     private void UpdateCode()
     {
+        CountFrame++;
         PlayerRigidbody.angularVelocity = 0f;
         PlayerRigidbody.velocity = Vector2.zero;
         if (NetClass.LocalPlayer == 1)
