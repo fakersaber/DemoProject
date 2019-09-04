@@ -85,6 +85,7 @@ public class NetWorkManager : MonoBehaviour
             try
             {
                 len = LocalSocket.Receive(readBuff, rev_offset, BufSize - rev_offset, SocketFlags.None);
+                len += rev_offset;
                 offset = 0;
                 Debug.Log("recvsize: " + len);
                 while (len > 0)
