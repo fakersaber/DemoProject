@@ -94,6 +94,7 @@ public class NetWorkManager : MonoBehaviour
                         //protocal和size 不能正常解析，将剩余字节放到下一次解析的头部
                         if (len < 8)
                         {
+                            Debug.Log("save: " + len);
                             rev_offset = len;
                             for (int i = 0; i < rev_offset; ++i)
                             {
