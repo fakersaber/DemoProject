@@ -75,25 +75,58 @@ public class NetWorkManager : MonoBehaviour
     //可优化为函数表
     private void RecvThread()
     {
-        byte[] readBuff = new byte[1024 * 8];
+        byte[] readBuff = new byte[1024 * 16];
+        int rev_offset = 0; //接收到的断流情况下的偏移
+        int offset = 0;
+        int len = 0;
         while (true)
         {
             try
             {
-                int len = LocalSocket.Receive(readBuff);
-                int offset = 0;
+                len = LocalSocket.Receive(readBuff, rev_offset, 1024 * 16,SocketFlags.None);
+                offset = 0;
+                Debug.Log("recvsize: " + len);
                 while (len > 0)
                 {
-                    if(len <= 8)
+                    //正常解析数据时才检查是否有截断，存在截断偏移时是第一次处理数据
+                    if(rev_offset == 0)
                     {
-                        len = 0;
-                        continue;
+                        //protocal和size 不能正常解析，将剩余字节放到下一次解析的头部
+                        if (len < 8)
+                        {
+                            rev_offset = len;
+                            for (int i = 0; i < rev_offset; ++i)
+                            {
+                                readBuff[i] = readBuff[offset + i];
+                            }
+                            len = 0;
+                            offset = 0;
+                            continue;
+                        }
+
+                        //检查数据是否被截断
+                        int cursize = System.BitConverter.ToInt32(readBuff, offset + sizeof(int));
+                        int curlen = len - sizeof(int) * 2;
+                        if (cursize > curlen)
+                        {
+                            Debug.Log("log size: " + cursize);
+                            Debug.Log("log len: " + curlen);
+                            Debug.Log("log offset: " + offset);
+                            //protocal和size能够正常解析，但数据被截断,
+                            rev_offset = len;
+                            for (int i = 0; i < rev_offset; ++i)
+                            {
+                                readBuff[i] = readBuff[offset + i];
+                            }
+                            len = 0;
+                            offset = 0;
+                            continue;
+                        }
                     }
                     int protocal = System.BitConverter.ToInt32(readBuff, offset);
                     int size = System.BitConverter.ToInt32(readBuff, offset + sizeof(int));
-                    Debug.Log("recvsize: " + len);
-                    Debug.Log("protocal: " + protocal);
-                    Debug.Log("size: " + size);
+                    int CurUseSize = size + sizeof(int) * 2;
+                    Debug.Log("protocal: " + protocal + "  CurUseSize: " + CurUseSize);
                     switch (protocal)
                     {
                         case (int)Protocal.MESSAGE_UPDATEDATA:
@@ -131,6 +164,7 @@ public class NetWorkManager : MonoBehaviour
                     }
                     len = len - size - sizeof(int) * 2;
                     offset = offset + size + sizeof(int) * 2;
+                    rev_offset = 0;
                 }
             }
             catch (Exception e)
@@ -452,7 +486,6 @@ public class NetWorkManager : MonoBehaviour
                 sendbuffer = stream.ToArray();
             }
             LocalSocket.Send(sendbuffer, sizeof(int) * 2 + SendClass.CalculateSize(), SocketFlags.None);
-            Debug.Log("send size: " + sizeof(int) * 2 + SendClass.CalculateSize());
         }
         catch (Exception e)
         {
