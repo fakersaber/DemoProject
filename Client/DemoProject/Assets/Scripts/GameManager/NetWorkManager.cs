@@ -164,6 +164,7 @@ public class NetWorkManager : MonoBehaviour
                             break;
                     }
                     len = len - size - sizeof(int) * 2;
+                    Debug.Log("Curlen" + len);
                     offset = offset + size + sizeof(int) * 2;
                     rev_offset = 0;
                 }
