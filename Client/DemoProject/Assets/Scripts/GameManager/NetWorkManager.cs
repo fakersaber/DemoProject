@@ -76,6 +76,7 @@ public class NetWorkManager : MonoBehaviour
     private void RecvThread()
     {
         byte[] readBuff = new byte[1024 * 16];
+        int BufSize = 1024 * 16;
         int rev_offset = 0; //接收到的断流情况下的偏移
         int offset = 0;
         int len = 0;
@@ -83,7 +84,7 @@ public class NetWorkManager : MonoBehaviour
         {
             try
             {
-                len = LocalSocket.Receive(readBuff, rev_offset, 1024 * 16,SocketFlags.None);
+                len = LocalSocket.Receive(readBuff, rev_offset, BufSize - rev_offset, SocketFlags.None);
                 offset = 0;
                 Debug.Log("recvsize: " + len);
                 while (len > 0)
@@ -259,6 +260,8 @@ public class NetWorkManager : MonoBehaviour
         HelperClass.AddDelegate(() =>
         {
             //每次同步位置时，若在反弹状态中，直接丢弃包
+            if (AllPlayerInfo[message.PlayerId] == null)
+                return;
             PlayerHealth Player = AllPlayerInfo[message.PlayerId].GetComponent<PlayerHealth>();
             if (Player == null)
             {
@@ -273,6 +276,8 @@ public class NetWorkManager : MonoBehaviour
                 AudioController.Play("Effect13");
             else
                 AudioController.Play("Effect4");
+            if (EffectsManager == null)
+                return;
             EffectsManager.PlayerSpecialEffects(message.PlayerId, message.EffectsIndex, TargetPosition);
             Player.SubHp(message.Damage);
         });
@@ -339,6 +344,8 @@ public class NetWorkManager : MonoBehaviour
     {
         HelperClass.AddDelegate(() =>
         {
+            if (AllPlayerInfo[message.PlayerId] == null)
+                return;
             var CurPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>();
             if (CurPlayer == null)
             {
@@ -370,6 +377,8 @@ public class NetWorkManager : MonoBehaviour
     {
         HelperClass.AddDelegate(() =>
         {
+            if (AllPlayerInfo[message.PlayerId] == null)
+                return;
             var CurPlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerEnergyController>();
             if (CurPlayer == null)
             {
@@ -389,6 +398,8 @@ public class NetWorkManager : MonoBehaviour
     {
         HelperClass.AddDelegate(() =>
         {
+            if (AllPlayerInfo[message.PlayerId] == null)
+                return;
             var ReleasePlayer = AllPlayerInfo[message.PlayerId].GetComponent<PlayerSkillController>();
             if(ReleasePlayer == null)
             {
