@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float ReflectTime = 0.35f; //反弹变化时间
+    public float ReflectTime = 0.3f; //反弹变化时间
     public float ReflectScale = 1.5f; //反弹系数
     public float DeltaAngle = 30f;
 
@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
             }
             if (NetPositionScale <= 1f)
             {
-                NetPositionScale += 0.5f;
+                NetPositionScale += 0.25f;
                 PlayerRigidbody.MovePosition(Vector2.Lerp(StartSynchronizepos, EndSynchronizepos, NetPositionScale));
             }
         }
